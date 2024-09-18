@@ -1,0 +1,90 @@
+#body_Admin_Page {
+    width: 95%;
+    margin: 2.5%;
+    color: aliceblue;
+}
+
+#Colluns_Admin {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin: 3%;
+
+    div {
+        min-width: 40%;
+    };
+
+}
+
+#Pilha_Box {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
+
+.Box {
+    background-color: rgba(0, 0, 0, 0.45);
+    
+
+    border-color:  #979797;
+    border-radius: 35px;
+    border-width: 10px;
+    border-style: solid;
+
+}
+
+#Alarmes_Box {
+    width: 100vh;
+    height: 375px;
+
+    div {
+        margin: 1%;
+    }
+
+}
+
+#Estacoes_Box {
+    width: 100vh;
+    height: 475px;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+    
+    div {
+        margin: 1%;
+    }
+
+}
+
+#Usuarios_Box {
+    width: 35%;
+    height: 950px;
+
+    
+    div {
+        margin: 1%;
+    }
+    
+}
+
+#Parametros_Box {
+    width: 92.5%;
+    margin: 3.5%;
+    height: 600px;
+
+    div {
+        margin: 1%;
+    }
+
+}
+
+.fundinho{
+    text-indent: -9999px;
+    margin-bottom: -100px;
+}
+
+
