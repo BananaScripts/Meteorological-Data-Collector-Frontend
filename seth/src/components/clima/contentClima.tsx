@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import './weatherMeter.css'; // Arquivo CSS para estilização do componente
+import './weatherMeter.css';
 
 interface WeatherData {
   temperature: number;
   humidity: number;
   windSpeed: number;
   weatherCondition: string;
-  rainPercent: number; // Adiciona a propriedade rainPercent
+  rainPercent: number;
 }
 
 const WeatherMeter: React.FC = () => {
-  // Estado inicial com placeholders
   const weatherIcons: { [key: string]: string } = {
     Clear: 'iconsClima/sol.png',
     Rain: 'iconsClima/chuva.png',
@@ -19,31 +18,26 @@ const WeatherMeter: React.FC = () => {
   };
 
   const [weatherData, setWeatherData] = useState<WeatherData>({
-    temperature: 25,    // Placeholder para temperatura (em graus Celsius)
-    humidity: 60,       // Placeholder para umidade (em %)
-    windSpeed: 10,      // Placeholder para velocidade do vento (em km/h)
-    weatherCondition: "Neve", // Placeholder para condição climática
-    rainPercent: 10,    // Placeholder para pressão atmosférica (em hPa)
+    temperature: 25,
+    humidity: 60,
+    windSpeed: 10,
+    weatherCondition: "Neve",
+    rainPercent: 10,
   });
 
   return (
     <div className="caixacinza">
       <div className="caixacinzaclaro">
         <div className="weather-container">
-          {/* Contêiner do ícone de condição climática */}
           <div className="weather-icon-container">
             <img 
               src={weatherIcons[weatherData.weatherCondition]} 
               alt="Condition Icon" 
               className="condition-icon"
-              id={weatherData.weatherCondition.toLowerCase()} // Define o ID com base na condição
+              id={weatherData.weatherCondition.toLowerCase()}
             />
           </div>
-
-          {/* Contêiner do medidor de clima */}
           <div className="weather-meter">
-
-            {/* Linha 1: Temperatura e Clima */}
             <div className="weather-row">
               <div className="weather-item">
                 <img src="" alt="Temperature Icon" className="temperature-icon" />
@@ -52,7 +46,6 @@ const WeatherMeter: React.FC = () => {
                   <span>Temperatura</span>
                 </p>
               </div>
-
               <div className="weather-item">
                 <p className="weather-data">
                   <span>{weatherData.weatherCondition}</span>
@@ -60,8 +53,6 @@ const WeatherMeter: React.FC = () => {
                 </p>
               </div>
             </div>
-
-            {/* Linha 2: Outras Informações */}
             <div className="weather-row">
               <div className="weather-item">
                 <img src="" alt="Humidity Icon" className="humidity-icon" />
@@ -70,7 +61,6 @@ const WeatherMeter: React.FC = () => {
                   <span>Umidade</span>
                 </p>
               </div>
-
               <div className="weather-item">
                 <img src="" alt="Wind Speed Icon" className="wind-speed-icon" />
                 <p className="weather-data">
@@ -78,7 +68,6 @@ const WeatherMeter: React.FC = () => {
                   <span>Vento</span>
                 </p>
               </div>
-
               <div className="weather-item">
                 <img src="" alt="Rain Percentage Icon" className="rain-percentage-icon" />
                 <p className="weather-data">

@@ -1,0 +1,123 @@
+.EducationCss{
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+.secoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.secao-btn {
+    flex: 1 1 200px;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.secao-btn.completed {
+    background-color: #32CD32;
+}
+
+.secao-btn.completed:hover {
+    background-color: #28a745;
+}
+
+.secao-btn:hover {
+    background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .secao-btn {
+        flex: 1 1 100%;
+    }
+}
+
+
+.barra-progresso {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.progresso {
+    background-color: #4caf50;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.percentagem {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+.reset {
+    background-color: #f44336;
+    color: white;
+    margin-top: 20px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+.confirm {
+    background-color: #4caf50;
+    color: white;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.cancel {
+    background-color: #f44336;
+    color: white;
+    margin: 10px;
+    padding: 5px 10px;
+}
+.secao-btn img {
+    max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.aulas{
+    font-size: large;
+}

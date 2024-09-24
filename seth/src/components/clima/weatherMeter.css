@@ -1,13 +1,11 @@
-/* Contêiner geral do clima */
 .weather-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px; /* Espaçamento entre o ícone e o medidor */
+  gap: 50px;
   width: 100%;
 }
 
-/* Contêiner do ícone de clima */
 .weather-icon-container {
   display: flex;
   align-items: center;
@@ -18,14 +16,12 @@
   padding-left: 5vw;
 }
 
-/* Ícone de condição climática */
 .weather-condition-icon {
   width: 15vw;
   height: 15vh;
-  object-fit: contain; 
+  object-fit: contain;
 }
 
-/* Medidor de clima */
 .weather-meter {
   background-color: transparent;
   padding: 20px;
@@ -34,7 +30,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px; /* Maior espaçamento entre as linhas */
+  gap: 40px;
 }
 
 h2 {
@@ -43,15 +39,13 @@ h2 {
   width: 100%;
 }
 
-/* Linhas de informações */
 .weather-row {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  gap: 60px; /* Aumenta o espaçamento entre os itens */
+  gap: 60px;
 }
 
-/* Estilo dos itens de informações */
 .weather-item {
   display: flex;
   flex-direction: column;
@@ -61,14 +55,13 @@ h2 {
   border-radius: 10px;
 }
 
-/* Ícones de informações */
 .weather-icon {
-  width: 50px; 
+  width: 50px;
   height: 50px;
   margin-bottom: 10px;
-  background-size: contain; /* Garante que o ícone se ajuste dentro do contêiner */
+  background-size: contain;
   background-position: center;
-  background-repeat: no-repeat; /* Remove repetições de fundo */
+  background-repeat: no-repeat;
 }
 
 .weather-data {
@@ -85,7 +78,6 @@ h2 {
   color: #555;
 }
 
-/* Ícones de temperatura, umidade, vento e chuva */
 .temperature-icon {
   background-image: url('iconsDash/temperatura.png');
   background-size: cover;
@@ -114,11 +106,10 @@ h2 {
   height: 50px;
 }
 
-/* Ajuste para os ícones dinâmicos de clima */
 #ensolarado, #chuvoso, #neve, #nublado {
-  width: 150px; /* Tamanho fixo dos ícones */
+  width: 150px;
   height: 150px;
-  background-size: contain; /* Ajusta para caber no contêiner */
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -148,6 +139,6 @@ h2 {
   background-size: cover;
   width: 50px;
   height: 50px;
-  overflow: hidden; /* Hide overflow if necessary */
-  text-indent: -9999px; /* Visually hide the text */
+  overflow: hidden;
+  text-indent: -9999px;
 }
