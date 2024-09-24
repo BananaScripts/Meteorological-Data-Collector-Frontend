@@ -1,0 +1,153 @@
+/* Contêiner geral do clima */
+.weather-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px; /* Espaçamento entre o ícone e o medidor */
+  width: 100%;
+}
+
+/* Contêiner do ícone de clima */
+.weather-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+  padding-left: 5vw;
+}
+
+/* Ícone de condição climática */
+.weather-condition-icon {
+  width: 15vw;
+  height: 15vh;
+  object-fit: contain; 
+}
+
+/* Medidor de clima */
+.weather-meter {
+  background-color: transparent;
+  padding: 20px;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Maior espaçamento entre as linhas */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Linhas de informações */
+.weather-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 60px; /* Aumenta o espaçamento entre os itens */
+}
+
+/* Estilo dos itens de informações */
+.weather-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+/* Ícones de informações */
+.weather-icon {
+  width: 50px; 
+  height: 50px;
+  margin-bottom: 10px;
+  background-size: contain; /* Garante que o ícone se ajuste dentro do contêiner */
+  background-position: center;
+  background-repeat: no-repeat; /* Remove repetições de fundo */
+}
+
+.weather-data {
+  text-align: center;
+}
+
+.weather-data span:first-child {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.weather-data span:last-child {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Ícones de temperatura, umidade, vento e chuva */
+.temperature-icon {
+  background-image: url('iconsDash/temperatura.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.humidity-icon {
+  background-image: url('iconsDash/umidade.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.wind-speed-icon {
+  background-image: url('iconsDash/ventoso.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.rain-percentage-icon {
+  background-image: url('iconsDash/umbrella.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+/* Ajuste para os ícones dinâmicos de clima */
+#ensolarado, #chuvoso, #neve, #nublado {
+  width: 150px; /* Tamanho fixo dos ícones */
+  height: 150px;
+  background-size: contain; /* Ajusta para caber no contêiner */
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+#ensolarado {
+  background-image: url('iconsClima/sol.png');
+}
+
+#chuvoso {
+  background-image: url('iconsClima/chuva.png');
+}
+
+#neve {
+  background-image: url('iconsClima/neve.png');
+}
+
+#nublado {
+  background-image: url('iconsClima/nublado.png');
+}
+
+.temperature-icon,
+.humidity-icon,
+.wind-speed-icon,
+.rain-percentage-icon {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  overflow: hidden; /* Hide overflow if necessary */
+  text-indent: -9999px; /* Visually hide the text */
+}
