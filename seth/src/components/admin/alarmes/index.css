@@ -1,20 +1,51 @@
 #Box_Alarmes {
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 
 #Title_Box {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 
+#Title_Box button {
+
+    margin: 1%;
+    padding: 1%;
+
+    border-radius: 20px;
+    background-color: black;
+    border-style: solid;
+
+    color: aliceblue;
+
+}
+
+#Title_Box button:hover {
+    background-color: aliceblue;
+    color: black;
+
+    cursor: pointer;
+}
+
+#Scroll_Table {
+    height: 325px;
+    
+    overflow: visible;
+}
+
 table {
     width: 100%;
+
     border-collapse: collapse;
     margin: 20px 0;
+
     font-size: 16px;
     text-align: left;
-    font-size: small;
+    font-size: large;
+
 }
 
 th {
@@ -31,6 +62,7 @@ tr:hover {
     background-color: #f5f5f530;
 
 }
+
 
 
 }

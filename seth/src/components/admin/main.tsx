@@ -18,8 +18,6 @@ export default function AdminComponent() {
           <div id="Colluns_Admin">
 
 
-            <div id="Pilha_Boxs">
-
 
               <div id="Alarmes_Box" className="Box">
 
@@ -27,33 +25,47 @@ export default function AdminComponent() {
 
               </div>
 
+              <div id="Image_Box" className="Box">
 
-              <div id="Estacoes_Box" className="Box">
-
-                <Interface_Controle_Estacoes />
+                
 
               </div>
 
 
+
+          </div>
+
+          <div id="Usuarios_Box" className="Box">
+
+            <Interface_Controle_Usuarios />
+
+          </div>
+          
+
+          <div id="Colluns_Admin">
+
+            <div id='Parametros_Box' className="Box">
+
+              <Interface_Controle_Parametros />
+
             </div>
 
+            <div id="Image_Box" className="Box">
 
-            <div id="Usuarios_Box" className="Box">
-
-              <Interface_Controle_Usuarios />
+                
 
             </div>
 
 
           </div>
 
-          <div id='Parametros_Box' className="Box">
+          <div id="Estacoes_Box" className="Box">
 
-            <Interface_Controle_Parametros />
+            <Interface_Controle_Estacoes />
 
-          </div>
-
-          <div className="fundinho">.</div>
+          </div><br />
+          
+          
         
       </div>
 

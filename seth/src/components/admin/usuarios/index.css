@@ -4,7 +4,33 @@
 #Title_Box {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+#Title_Box button {
+
+    margin: 1%;
+    padding: 1%;
+
+    border-radius: 20px;
+    background-color: black;
+    border-style: solid;
+
+    color: aliceblue;
+
+}
+
+#Title_Box button:hover {
+    background-color: aliceblue;
+    color: black;
+
+    cursor: pointer;
+}
+
+#Scroll_Table {
+    height: 250px;
+    
+    overflow: visible;
 }
 
 
@@ -14,7 +40,7 @@ table {
     margin: 20px 0;
     font-size: 16px;
     text-align: left;
-    font-size: x-small;
+    font-size: large;
 }
 
 th {
