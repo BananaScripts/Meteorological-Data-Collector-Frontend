@@ -7,7 +7,7 @@ html, body {
 }
 
 nav {
-  background-color: #979797;
+  background: linear-gradient(to top, rgba(151, 151, 151, 1)30%, rgba(151, 151, 151, 0.35) 100%);
   opacity: 85%;
   padding: 10px;
   border-radius: 40px;
@@ -15,6 +15,7 @@ nav {
   padding-top: 2%;
   margin-left: 2%;
   margin-right: 2%;
+  
 }
 
 nav ul {
@@ -27,10 +28,6 @@ nav ul li {
   margin-right: 20px;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
 .App {
   width: 100%;
   height: 100%;
@@ -39,6 +36,8 @@ button:hover {
   background-position: center;
   background-repeat: repeat;
   transition: background-image 0.5s ease; 
+  font-family: 'Montserrat', sans-serif;
+  color: white;
 }
 
 .App ul {
@@ -52,19 +51,20 @@ button:hover {
   align-items: center;
 }
 
-.bg2 {
-  background-image: url('assets/clima/chuva.jpg');
+.dia {
+  background-image: url('assets/clima/dia.jpg');
 }
 
-.bg1 {
-  background-image: url('assets/clima/claro.jpg');
+.tarde {
+  background-image: url('assets/clima/tarde.jpg');
 }
 
-.bg3 {
-  background-image: url('assets/clima/nublado.jpg');
+.noite {
+  background-image: url('assets/clima/noite.jpg');
 }
 
 .background-buttons {
+  
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -95,6 +95,7 @@ button:hover {
   overflow: hidden;
   text-indent: -9999px;
   transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
 }
 
 #button1:hover {
@@ -112,6 +113,7 @@ button:hover {
   overflow: hidden;
   text-indent: -9999px;
   transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
 }
 
 #button2:hover {
@@ -129,6 +131,7 @@ button:hover {
   overflow: hidden;
   text-indent: -9999px;
   transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
 }
 
 #button3:hover {
@@ -146,6 +149,7 @@ button:hover {
   overflow: hidden;
   text-indent: -9999px;
   transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
 }
 
 #button4:hover {
@@ -156,8 +160,6 @@ button:hover {
 .topinho {
   text-indent: -9999px;
 }
-
-
 
 .clockHome{
   display: flex;
@@ -200,8 +202,8 @@ button:hover {
 }
 
 .caixacinza {
-  background-color: #979797;
-  opacity: 85%;
+  background-color: #b1b1b1;
+  opacity: 80%;
   padding: 10px;
   border-radius: 40px;
   margin-top: 1%;
@@ -210,11 +212,17 @@ button:hover {
 }
 
 .caixacinzaclaro{
-    background-color: #cccccc;
+    background-color: #979797;
     padding: 10px;
     border-radius: 40px;
     margin-top: 0.8%;
     margin-left: 0.8%;
     margin-right: 0.8%;
     margin-bottom: 0.8%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
+
+  .fundinho{
+    text-indent: -9999px;
+    margin-bottom: -1000px;
+}
