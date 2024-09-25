@@ -6,7 +6,6 @@ import { Alarme } from "../../../types/alarme";
 
 
 export default function Interface_Controle_Alarmes() {
-
   
   const[alarmes, setAlarmes]= useState<Array<Alarme>>([])
 
@@ -27,8 +26,6 @@ export default function Interface_Controle_Alarmes() {
   }
 
 
-  
-
   return (
     <>
 
@@ -39,13 +36,14 @@ export default function Interface_Controle_Alarmes() {
 
                 {! inAction && (<button onClick={() => OnAction(true)}>Cadastar Alarme</button>)}
                 {  inAction && (<button onClick={() => OnAction(false)}>Cancelar</button>)}
+
             </div>
 
+            
 
             {! inAction && (
             <div id="Scroll_Table">
 
-            <hr />
             
             <table>
 
@@ -96,6 +94,7 @@ export default function Interface_Controle_Alarmes() {
               <>
 
                 Cadastro de Alarme
+
               </>
             )}
 

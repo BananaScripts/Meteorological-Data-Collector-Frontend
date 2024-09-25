@@ -6,12 +6,8 @@ import axios from "axios"
 export default function Interface_Controle_Parametros() {
 
     const[parametros, setParametros] = useState<Array<Parametro>>([])
-    const[nome, setNome] = useState('')
-    const[fator, setFator] = useState('')
-    const[offset, setOffset] = useState('')
-    const[unidadeMedida, setUnidadeMedida] = useState('')
 
-    const [editando, setEditando] = useState(false)
+    const[inAction, setInAction] = useState(false)
 
     useEffect(()=>{
       axios.get('http://localhost:3002/tipoParametro/listar')
@@ -23,6 +19,12 @@ export default function Interface_Controle_Parametros() {
       })
     }, [])
 
+    function OnAction(x: boolean) {
+        setInAction(x)
+      }
+
+      
+
     return(
         <>
             <div id="Box_Parametros">
@@ -30,13 +32,17 @@ export default function Interface_Controle_Parametros() {
                 <div id="Title_Box">
                     <h2> Controle de Parametros </h2>
 
-                    <button>Cadastar Parametro</button>
+                    {! inAction && (<button onClick={() => OnAction(true)}>Cadastar Parametro</button>)}
+                    {  inAction && (<button onClick={() => OnAction(false)}>Cancelar</button>)}
+
+                    
                 </div>
 
-                <hr />
-
+            {! inAction && (
             <div id="Scroll_Table">
-                
+
+            
+
             <table>
 
               <thead>
@@ -70,6 +76,15 @@ export default function Interface_Controle_Parametros() {
             </table>
 
             </div>
+
+            )}
+
+            { inAction && (
+              <>
+
+                Cadastro de Parametros
+              </>
+            )}
 
             </div>
         </>

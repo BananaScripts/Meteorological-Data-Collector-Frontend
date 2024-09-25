@@ -18,7 +18,7 @@ const WeatherMeter: React.FC = () => {
     Clouds: 'iconsClima/nublado.png',
   };
 
-  const [weatherData, setWeatherData] = useState<WeatherData>({
+  const [weatherData] = useState<WeatherData>({
     temperature: 25,    // Placeholder para temperatura (em graus Celsius)
     humidity: 60,       // Placeholder para umidade (em %)
     windSpeed: 10,      // Placeholder para velocidade do vento (em km/h)

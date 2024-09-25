@@ -6,13 +6,9 @@ import axios from "axios"
 export default function Interface_Controle_Usuarios() {
 
     const[usuarios, setUsuarios] = useState<Array<Usuario>>([])
-    const[nome, setNome] = useState('')
-    const[cpf, setCpf] = useState('')
-    const[email, setEmail] = useState('')
-    const[senha, setSenha] = useState('')
-    const[dataNascimento] = useState('')
 
-    const [editando, setEditando] = useState(false)
+
+    const[inAction, setInAction] = useState(false)
 
     useEffect(()=>{
       axios.get('http://localhost:3002/usuario/listar')
@@ -24,6 +20,11 @@ export default function Interface_Controle_Usuarios() {
       })
     }, [])
 
+    function OnAction(x: boolean) {
+        setInAction(x)
+      }
+    
+
     return(
         <>
             <div id="Box_Usuarios">
@@ -31,10 +32,12 @@ export default function Interface_Controle_Usuarios() {
                 <div id="Title_Box">
                     <h2> Controle dos Usuários </h2>
 
-                    <button>Cadastrar Usuário</button>
+                    {! inAction && (<button onClick={() => OnAction(true)}>Cadastar Usuários</button>)}
+                    {  inAction && (<button onClick={() => OnAction(false)}>Cancelar</button>)}
                 </div>
 
-                <hr />
+
+            {! inAction && (
 
             <div id="Scroll_Table">
                 
@@ -74,6 +77,15 @@ export default function Interface_Controle_Usuarios() {
             </table>
 
             </div>
+
+            )}
+
+            { inAction && (
+              <>
+
+                Cadastro de Usuarios
+              </>
+            )}
 
 
             </div>

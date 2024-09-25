@@ -39,6 +39,19 @@
 #Image_Box {
 
     width: 55vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    img {
+        max-width: 300px;
+
+        margin: 5%;
+
+
+    }
 }
 
 #Estacoes_Box {

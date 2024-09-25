@@ -1,11 +1,14 @@
-import { useState } from "react";
+
 import "./main.css"
+
 
 import Interface_Controle_Alarmes from "./alarmes";
 import Interface_Controle_Estacoes from "./estacoes";
 import Interface_Controle_Usuarios from "./usuarios";
 import Interface_Controle_Parametros from "./parametros";
 
+import imagemAlarme from "../../assets/imgs/climate-change.png"
+import imagemEstacao from "../../assets/imgs/climate-change(1).png"
 
 
 export default function AdminComponent() {
@@ -27,7 +30,10 @@ export default function AdminComponent() {
 
               <div id="Image_Box" className="Box">
 
+                <h5>  Alarmes que foram Acionados Recentemente <br /> (EM DESENVOLVIMENTO)</h5>
                 
+
+                <img src={imagemAlarme} alt="Alarmes Acionados" />
 
               </div>
 
@@ -52,7 +58,9 @@ export default function AdminComponent() {
 
             <div id="Image_Box" className="Box">
 
-                
+              <h5>  Ultimos Uploads de Dados nas Ultimas Horas <br /> (EM DESENVOLVIMENTO)</h5>
+
+              <img src={imagemEstacao} alt="Ultimos Uploads de Dados" />
 
             </div>
 
