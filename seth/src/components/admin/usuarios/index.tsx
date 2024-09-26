@@ -2,44 +2,71 @@ import { useEffect, useState } from "react"
 import "./index.css"
 import { Usuario } from "../../../types/usuario"
 import axios from "axios"
+import Funcionalidades from "./Funcionalidades"
 
 export default function Interface_Controle_Usuarios() {
 
     const[usuarios, setUsuarios] = useState<Array<Usuario>>([])
+    const [actionType, setActionType] = useState<number | null>(null);
 
-
-    const[inAction, setInAction] = useState(false)
-
-    useEffect(()=>{
+    const atualizarUsuarios = () => {
       axios.get('http://localhost:3002/usuario/listar')
-      .then((response)=>{
-          setUsuarios(response.data)
-      })
-      .catch((error)=>{
-          console.error(error)
-      })
-    }, [])
+          .then((response) => {
+              setUsuarios(response.data); 
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+  };
 
-    function OnAction(x: boolean) {
-        setInAction(x)
-      }
+  useEffect(() => {
+      atualizarUsuarios(); 
+  }, []);
+
+  
+  const handleAction = (type: number | null) => {
+    setActionType(type);
+
+    atualizarUsuarios()
+  };
+
     
 
     return(
         <>
-            <div id="Box_Usuarios">
 
-                <div id="Title_Box">
-                    <h2> Controle dos Usuários </h2>
-
-                    {! inAction && (<button onClick={() => OnAction(true)}>Cadastar Usuários</button>)}
-                    {  inAction && (<button onClick={() => OnAction(false)}>Cancelar</button>)}
-                </div>
+          <div id="Box_Estacoes">
 
 
-            {! inAction && (
+            <div id="Title_Box">
+
+              <h2> Controle de Usuários </h2>
+
+                {actionType === null && (
+                  <button onClick={() => handleAction(2)}>Editar</button>
+                )}                   
+
+                {actionType === null && (    
+                  <button onClick={() => handleAction(3)}>Deletar</button>
+                )}            
+
+                {actionType === null && (
+                  <button onClick={() => handleAction(1)}>Cadastrar Usuário</button>
+                )}
+
+                {actionType !== null && (
+                  <button onClick={() => handleAction(null)}>Cancelar</button>
+                )}
+
+
+            </div>
+
+
+            {actionType == null && (
 
             <div id="Scroll_Table">
+
+              <hr />
                 
             <table>
 
@@ -52,8 +79,6 @@ export default function Interface_Controle_Usuarios() {
                   <th>Cpf</th>
                   <th>Senha</th>
                   <th>Data de Nascimento</th>
-                  <th>--------</th>
-                  <th>--------</th>
                 </tr>
 
               </thead>
@@ -66,9 +91,7 @@ export default function Interface_Controle_Usuarios() {
                                     <td>{usuario.cpf}</td>
                                     <td>{usuario.senha}</td>
                                     <td>{new Date(usuario.dataNascimento).toLocaleDateString()}</td>
-
-                                    <td>Editar</td>
-                                    <td>Deletar</td>    
+  
                                 </tr>
                             ))}
                         </tbody>
@@ -80,12 +103,9 @@ export default function Interface_Controle_Usuarios() {
 
             )}
 
-            { inAction && (
-              <>
-
-                Cadastro de Usuarios
-              </>
-            )}
+                {actionType === 1 && <Funcionalidades.CreateUsuario/>}
+                {actionType === 2 && <Funcionalidades.EditUsuario/>}
+                {actionType === 3 && <Funcionalidades.DeleteUsuario />}
 
 
             </div>
