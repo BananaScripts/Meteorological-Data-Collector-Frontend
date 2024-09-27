@@ -9,6 +9,7 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
+    "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17"
     "@types/react-chartjs-2": "^2.0.2"
   }
 }

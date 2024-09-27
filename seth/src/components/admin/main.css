@@ -1,7 +1,8 @@
 #body_Admin_Page {
     width: 95%;
     margin: 2.5%;
-    color: aliceblue;
+
+    margin-bottom: -100px;
 }
 
 #Colluns_Admin {
@@ -11,24 +12,12 @@
 
     margin: 3%;
 
-    div {
-        min-width: 40%;
-    };
-
 }
-
-#Pilha_Box {
-    display: flex;
-    flex-direction: column;
-
-
-}
-
 
 
 .Box {
-    background-color: rgba(0, 0, 0, 0.45);
-    
+    background-color: #cccccc;
+    opacity: 85%;
 
     border-color:  #979797;
     border-radius: 35px;
@@ -38,8 +27,8 @@
 }
 
 #Alarmes_Box {
-    width: 100vh;
-    height: 375px;
+
+    width: 125vh;
 
     div {
         margin: 1%;
@@ -47,12 +36,30 @@
 
 }
 
-#Estacoes_Box {
-    width: 100vh;
-    height: 475px;
+#Image_Box {
 
-    margin-top: 5%;
-    margin-bottom: 5%;
+    width: 50vh;
+    margin: 1%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+    img {
+        max-width:35vh;
+
+        margin: 5%;
+
+
+    }
+}
+
+#Estacoes_Box {
+
+
+    margin: 2.5%;
     
     div {
         margin: 1%;
@@ -61,9 +68,8 @@
 }
 
 #Usuarios_Box {
-    width: 35%;
-    height: 950px;
 
+    margin: 2.5%;
     
     div {
         margin: 1%;
@@ -72,12 +78,13 @@
 }
 
 #Parametros_Box {
-    width: 92.5%;
-    margin: 3.5%;
-    height: 600px;
+
+    width: 125vh;
+
 
     div {
         margin: 1%;
     }
 
 }
+
