@@ -4,6 +4,10 @@
   align-items: center;
   gap: 50px;
   width: 100%;
+  }
+
+  .weather-container img {
+    filter: invert(100%) brightness(200%);
 }
 
 .weather-icon-container {

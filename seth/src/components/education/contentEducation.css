@@ -1,5 +1,6 @@
 .EducationCss{
     font-family: 'Montserrat', sans-serif;
+    color: white;
 }
 
 h1{
@@ -75,6 +76,11 @@ h1{
     font-size: 0.9em;
 }
 
+.reset:hover {
+    transition: background-color 0.2s ease-in-out;
+    background-color: #91221a;
+}
+
 .popup {
     position: fixed;
     top: 0;
@@ -89,11 +95,12 @@ h1{
 }
 
 .popup-content {
-    background: white;
+    background: #979797;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     width: 300px;
+    opacity: 90%;
 }
 
 .confirm {
@@ -101,6 +108,13 @@ h1{
     color: white;
     margin: 10px;
     padding: 5px 10px;
+    border-radius: 20%;
+    border: none;
+}
+
+.confirm:hover {
+    transition: background-color 0.2s ease-in-out;
+    background-color: #28742b;
 }
 
 .cancel {
@@ -108,7 +122,15 @@ h1{
     color: white;
     margin: 10px;
     padding: 5px 10px;
+    border-radius: 20%;
+    border: none;
 }
+
+.cancel:hover {
+    transition: background-color 0.2s ease-in-out;
+    background-color: #91221a;
+}
+
 .secao-btn img {
     max-width: 100px;
     max-height: 100px;

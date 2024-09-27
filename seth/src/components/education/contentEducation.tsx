@@ -62,6 +62,7 @@ const ContentEducation: React.FC = () => {
     const progressPercentage = (completedSections.length / totalSections) * 100;
 
     return (
+        <div>
         <div className='caixacinza'>
             <div className='caixacinzaclaro'>
                 <div className='EducationCss'>
@@ -108,9 +109,11 @@ const ContentEducation: React.FC = () => {
                     </div>
                     <p className='percentagem'>{Math.round(progressPercentage)}%</p>
                     
-                    <button className='secao-btn reset' onClick={() => setShowPopup(true)}>
-                        Resetar Progresso
-                    </button>
+                    {activeSection === null && (
+                        <button className='secao-btn reset' onClick={() => setShowPopup(true)}>
+                            Resetar Progresso
+                        </button>
+                    )}
 
                     {showPopup && (
                         <div className='popup'>
@@ -125,6 +128,8 @@ const ContentEducation: React.FC = () => {
                 </div>
             </div>
         </div>
+        <div className="fundinho"></div>
+    </div>
     );
 };
 
