@@ -23,7 +23,7 @@ export default function CreateParametro() {
                 setFator('')
                 setOffset(0)
                 setUnidadeMedida('')
-                alert("Estação Cadastrada com Sucesso!")
+                alert("Parametro Cadastrada com Sucesso!")
             })
             .catch((error)=>{
                 console.error(error)
@@ -52,12 +52,12 @@ export default function CreateParametro() {
 
                 <p>
                     Nome: 
-                    <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*Obrigatótrio)" />
+                    <input type="text" value={nome} onChange={(event)=>setNome(event.target.value)} placeholder="(*Obrigatório)" />
                 </p>
 
                 <p>
                     Fator:
-                    <input type="text" value={fator} onChange={(event)=>setFator(event.target.value)} placeholder="(*Obrigatótrio)"  />
+                    <input type="text" value={fator} onChange={(event)=>setFator(event.target.value)} placeholder="(*Obrigatório)"  />
                 </p>
 
                 <p>

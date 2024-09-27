@@ -38,15 +38,17 @@
 
 #Image_Box {
 
-    width: 55vh;
+    width: 50vh;
+    margin: 1%;
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 
+
     img {
-        max-width: 300px;
+        max-width:35vh;
 
         margin: 5%;
 
