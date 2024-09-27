@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
     "@types/react-chartjs-2": "^2.0.2"
   }
 }
