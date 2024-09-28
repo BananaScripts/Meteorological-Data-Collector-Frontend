@@ -90,7 +90,7 @@ export default function Interface_Controle_Parametros() {
                       <td>{parametro.cod_tipoParametro}</td>
                       <td>{parametro.nome}</td>
                       <td>{parametro.fator}</td>
-                      <td>{parametro.offset}</td>
+                      <td>- {parametro.offset}</td>
                       <td>{parametro.unidadeMedida}</td>
 
                     </tr>

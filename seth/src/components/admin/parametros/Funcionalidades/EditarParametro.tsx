@@ -12,11 +12,15 @@ export default function EditParametro() {
     const [offset, setOffset] = useState<number>(0)
     const [unidadeMedida, setUnidadeMedida] = useState('')
 
+    const[encontrado, setEncontrado] = useState(true)
+
     useEffect(() => {
         if (id) {
             axios.get(`http://localhost:3002/tipoParametro/buscar/${id}`)
                 .then(response => {
                     const parametroData = response.data[0]
+                    setEncontrado(true)
+
                     if (parametroData) {
                         const { nome, fator, offset, unidadeMedida } = parametroData
                         setParametro(parametroData)
@@ -27,11 +31,13 @@ export default function EditParametro() {
                     }
                 })
                 .catch(error => {
-                    alert("Parâmetro não encontrado.")
+                    setEncontrado(false)
                     resetForm()
                 })
         } else {
+            setEncontrado(true)    
             resetForm()
+
         }
     }, [id])
 
@@ -44,11 +50,15 @@ export default function EditParametro() {
     }
 
     function editar() {
-        if (nome !== '' && fator !== '' && unidadeMedida !== '' && offset !== 0) {
+
+        let offsetDefault = offset < 0 ? Math.abs(offset) : offset;
+
+
+        if (nome !== '' && fator !== '' && unidadeMedida !== '') {
             axios.put(`http://localhost:3002/tipoParametro/atualizar/${id}`, {
                 nome,
                 fator,
-                offset,
+                offset: offsetDefault,
                 unidadeMedida
             })
                 .then(() => {
@@ -81,6 +91,11 @@ export default function EditParametro() {
                         placeholder="Digite o ID"
                     />
                 </p>
+
+                {!encontrado && (
+                    <p>*Parâmetro não encontrado</p>
+                )}
+
                 <hr />
 
                 {parametro && (
@@ -121,7 +136,7 @@ export default function EditParametro() {
                         </p>
 
                         <p>
-                            Offset:
+                            Offset (Coloque um número Positivo):
                             <input
                                 type="number"
                                 value={offset}

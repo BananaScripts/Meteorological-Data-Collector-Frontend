@@ -12,27 +12,37 @@ export default function EditUsuario() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
+    const[encontrado, setEncontrado] = useState(true)
+
     useEffect(() => {
         if (id) {
             axios.get(`http://localhost:3002/usuario/buscar/${id}`)
                 .then(response => {
                     const usuarioData = response.data[0]
                     if (usuarioData) {
+                        setEncontrado(true)
+
                         const { nome, dataNascimento, cpf, email, senha } = usuarioData
+
+                        const dataNascimentoFormatada = new Date(dataNascimento).toISOString().split('T')[0];
+
                         setUsuario(usuarioData)
                         setNome(nome)
-                        setDataNascimento(dataNascimento)
+                        setDataNascimento(dataNascimentoFormatada)
                         setCpf(cpf)
                         setEmail(email)
                         setSenha(senha)
                     }
                 })
                 .catch(error => {
+                    setEncontrado(false)
+
                     console.error("Erro ao buscar o usuário:", error)
-                    alert("Usuário não encontrado.")
+                    
                     resetForm()
                 })
         } else {
+            setEncontrado(true)
             resetForm()
         }
     }, [id])
@@ -82,6 +92,12 @@ export default function EditUsuario() {
                     ID do Usuário:
                     <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
                 </p>
+
+                
+                {!encontrado && (
+                    <p>*Parâmetro não encontrado</p>
+                )}
+
                 <hr />
 
                 {usuario && (
@@ -98,7 +114,7 @@ export default function EditUsuario() {
 
                         <p>
                             CPF:
-                            <input type="text" value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*Obrigatório)" />
+                            <input type="text" maxLength={12} value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*Obrigatório)" />
                         </p>
 
                         <p>

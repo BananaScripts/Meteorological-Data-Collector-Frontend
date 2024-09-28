@@ -60,7 +60,7 @@ export default function CreateUsuario() {
 
                 <p>
                     CPF:
-                    <input type="text" value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*Obrigatório)" />
+                    <input type="text" maxLength={12} value={cpf} onChange={(event) => setCpf(event.target.value)} placeholder="(*Obrigatório)" />
                 </p>
 
                 <p>

@@ -15,9 +15,10 @@ export default function CreateParametro() {
     function cadastrar(){
         console.clear()
 
+        let offsetDefault = offset < 0 ? Math.abs(offset) : offset;
 
-        if(nome !== '' && fator !== '' && unidadeMedida !== '' && offset !== 0){
-            axios.post('http://localhost:3002/tipoParametro/cadastrar', {nome, fator, offset, unidadeMedida})
+        if(nome !== '' && fator !== '' && unidadeMedida !== ''){
+            axios.post('http://localhost:3002/tipoParametro/cadastrar', {nome, fator, offset:offsetDefault, unidadeMedida})
             .then(()=>{
                 setNome('')
                 setFator('')
@@ -26,6 +27,7 @@ export default function CreateParametro() {
                 alert("Parametro Cadastrada com Sucesso!")
             })
             .catch((error)=>{
+
                 console.error(error)
             })
         }
@@ -73,7 +75,7 @@ export default function CreateParametro() {
                 </p>
 
                 <p>
-                    Offset:
+                    Offset (Coloque um número Positivo):
                     <input type="number" value={offset} onChange={(event)=>setOffset(event.target.valueAsNumber)} />
                 </p>
 

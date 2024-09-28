@@ -16,10 +16,10 @@
 
 
 .Box {
-    background-color: #cccccc;
-    opacity: 85%;
+    background-color:  #979797;
+    opacity: 80%;
 
-    border-color:  #979797;
+    border-color: #b1b1b1;
     border-radius: 35px;
     border-width: 10px;
     border-style: solid;
@@ -28,7 +28,8 @@
 
 #Alarmes_Box {
 
-    width: 125vh;
+    width: 60%;
+    
 
     div {
         margin: 1%;
@@ -79,7 +80,7 @@
 
 #Parametros_Box {
 
-    width: 125vh;
+    width: 60%;
 
 
     div {

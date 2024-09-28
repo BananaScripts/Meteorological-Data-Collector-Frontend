@@ -12,6 +12,9 @@ export default function DeleteParametro() {
 
     function deletar() {
         axios.delete(`http://localhost:3002/tipoParametro/deletar/${id}`)
+
+        
+
         .then(() =>{
             setId('')
             alert("Estação deletada com sucesso!")
@@ -19,6 +22,7 @@ export default function DeleteParametro() {
             
         })
         .catch((error) =>{
+            
             console.error(error)
         })
     }

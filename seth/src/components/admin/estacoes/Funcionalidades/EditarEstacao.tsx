@@ -15,6 +15,8 @@ export default function EditEstacao() {
     const [numero, setNumero] = useState('')
     const [cep, setCep] = useState('')
 
+    const[encontrado, setEncontrado] = useState(true)
+
 
     useEffect(() => {
         if (id) {
@@ -24,6 +26,9 @@ export default function EditEstacao() {
                     
                     const estacaoData = response.data[0]
                     if (estacaoData) {
+
+                        setEncontrado(true)
+
                         const { nome, macAdress, cidade, estado, numero, cep } = estacaoData
                         setEstacao(estacaoData)
                         setNome(nome)
@@ -36,11 +41,12 @@ export default function EditEstacao() {
                 })
                 .catch(error => {
                     console.error("Erro ao buscar a estação:", error)
-                    alert("Estação não encontrada.")
+                    setEncontrado(false)
                     resetForm()
                 })
         } else {
             resetForm()
+            setEncontrado(true)
         }
     }, [id])
 
@@ -96,6 +102,12 @@ export default function EditEstacao() {
                         ID da Estação:
                         <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
                     </p>
+
+                    
+                    {!encontrado && (
+                        <p>*Parâmetro não encontrado</p>
+                    )}
+
                     <hr />
 
                     {estacao && (
@@ -131,7 +143,7 @@ export default function EditEstacao() {
 
                             <p>
                                 CEP (Apenas Números):
-                                <input type="number" value={cep} onChange={(event) => setCep(event.target.value)} placeholder="(*Obrigatório)" />
+                                <input type="number" maxLength={12} value={cep} onChange={(event) => setCep(event.target.value)} placeholder="(*Obrigatório)" />
                             </p>
                         </>
                     )}

@@ -73,7 +73,7 @@ export default function CreateAlarme() {
                 </p>
 
                 <p>
-                    Tipo de Parâmetro:
+                    Parâmetro:
                     <select
                         value={codTipoParametro}
                         onChange={(e) => setCodTipoParametro(e.target.value)}

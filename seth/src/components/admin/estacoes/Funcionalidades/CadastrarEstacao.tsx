@@ -88,7 +88,7 @@ export default function CreateEstacao() {
 
                 <p>
                     CEP (Apenas Números):
-                    <input type="number" value={cep} onChange={(event)=>setCep(event.target.value)} placeholder="(*Obrigatótrio)" />
+                    <input type="number" maxLength={12} value={cep} onChange={(event)=>setCep(event.target.value)} placeholder="(*Obrigatótrio)" />
                 </p>
 
             </div>

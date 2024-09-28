@@ -14,6 +14,8 @@ export default function EditAlarme() {
     const [valor, setValor] = useState('');
     const [condicao, setCondicao] = useState('');
 
+    const[encontrado, setEncontrado] = useState(true)
+
     // Carrega os tipos de parâmetros ao montar o componente
     useEffect(() => {
         axios.get('http://localhost:3002/tipoParametro/listar')
@@ -33,6 +35,9 @@ export default function EditAlarme() {
                     console.log("Resposta da API:", response.data);
                     const alarmeData = response.data; 
                     if (alarmeData) {
+
+                        setEncontrado(true)
+
                         const { nome, cod_tipoParametro, valor, condicao } = alarmeData; 
                         setAlarme(alarmeData);
                         setNome(nome);
@@ -46,11 +51,12 @@ export default function EditAlarme() {
                 })
                 .catch(error => {
                     console.error("Erro na requisição:", error);
-                    alert("Erro ao buscar o alarme. Verifique o ID fornecido.");
+                    setEncontrado(false);
                     resetForm();
                 });
         } else {
             resetForm();
+            setEncontrado(true);
         }
     }, [id]);
 
@@ -95,6 +101,12 @@ export default function EditAlarme() {
                     ID do Alarme:
                     <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
                 </p>
+
+                
+                {!encontrado && (
+                    <p>*Parâmetro não encontrado</p>
+                )}
+
                 <hr />
                 {alarme && (
                     <>
@@ -109,7 +121,7 @@ export default function EditAlarme() {
                         </p>
 
                         <p>
-                            Tipo de Parâmetro:
+                            Parâmetro:
                             <select
                                 value={codTipoParametro}
                                 onChange={(e) => setCodTipoParametro(e.target.value)}
