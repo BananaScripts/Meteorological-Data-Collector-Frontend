@@ -9,6 +9,7 @@ import Interface_Controle_Parametros from "./parametros";
 
 import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
+import Interface_Dados_Estacoes from "./dados"; 
 
 
 export default function AdminComponent() {
@@ -70,6 +71,12 @@ export default function AdminComponent() {
           <div id="Estacoes_Box" className="Box">
 
             <Interface_Controle_Estacoes />
+
+          </div><br />
+
+          <div id="Estacoes_Box" className="Box">
+
+            <Interface_Dados_Estacoes />
 
           </div><br />
           

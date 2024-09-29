@@ -1,5 +1,4 @@
 export type Estacao = {
-
     cod_estacao: number
     nome: string
     macAdress: string
