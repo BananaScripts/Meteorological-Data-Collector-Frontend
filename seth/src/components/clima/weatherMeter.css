@@ -1,0 +1,148 @@
+.weather-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  }
+
+  .weather-container img {
+    filter: invert(100%) brightness(200%);
+}
+
+.weather-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+  padding-left: 5vw;
+}
+
+.weather-condition-icon {
+  width: 15vw;
+  height: 15vh;
+  object-fit: contain;
+}
+
+.weather-meter {
+  background-color: transparent;
+  padding: 20px;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.weather-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 60px;
+}
+
+.weather-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.weather-data {
+  text-align: center;
+}
+
+.weather-data span:first-child {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.weather-data span:last-child {
+  font-size: 14px;
+  color: #555;
+}
+
+.temperature-icon {
+  background-image: url('iconsDash/temperatura.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.humidity-icon {
+  background-image: url('iconsDash/umidade.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.wind-speed-icon {
+  background-image: url('iconsDash/ventoso.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.rain-percentage-icon {
+  background-image: url('iconsDash/umbrella.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+#ensolarado, #chuvoso, #neve, #nublado {
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+#ensolarado {
+  background-image: url('iconsClima/sol.png');
+}
+
+#chuvoso {
+  background-image: url('iconsClima/chuva.png');
+}
+
+#neve {
+  background-image: url('iconsClima/neve.png');
+}
+
+#nublado {
+  background-image: url('iconsClima/nublado.png');
+}
+
+.temperature-icon,
+.humidity-icon,
+.wind-speed-icon,
+.rain-percentage-icon {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  text-indent: -9999px;
+}

@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  background: linear-gradient(to top, rgba(151, 151, 151, 1)30%, rgba(151, 151, 151, 0.35) 100%);
+  opacity: 85%;
+  padding: 10px;
+  border-radius: 40px;
+  margin-top: 1%;
+  padding-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+  
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh; 
+  background-size: 150%;
+  background-position: top;
+  background-repeat: repeat;
+  transition: background-image 0.5s ease; 
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.App ul {
+  padding: 5%;
+  padding-bottom: 0%;
+  padding-top: 0%;
+
+  width: 80%;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.dia {
+  background-image: url('assets/clima/dia.jpg');
+}
+
+.tarde {
+  background-image: url('assets/clima/tarde.jpg');
+}
+
+.noite {
+  background-image: url('assets/clima/noite.jpg');
+}
+
+.background-buttons {
+  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.background-buttons button {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.background-buttons button:hover {
+  background-color: #555;
+}
+
+#button1 {
+  background: url('assets/icons/weather.png') no-repeat center center;
+  background-size: contain;
+  width: 50px; 
+  height: 50px; 
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-indent: -9999px;
+  transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
+}
+
+#button1:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+}
+
+#button2 {
+  background: url('assets/icons/chart.png') no-repeat center center;
+  background-size: contain;
+  width: 40px; 
+  height: 50px; 
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-indent: -9999px;
+  transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
+}
+
+#button2:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+}
+
+#button3 {
+  background: url('assets/icons/education.png') no-repeat center center;
+  background-size: contain;
+  width: 50px; 
+  height: 50px; 
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-indent: -9999px;
+  transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
+}
+
+#button3:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+}
+
+#button4 {
+  background: url('assets/icons/admin.png') no-repeat center center;
+  background-size: contain;
+  width: 50px; 
+  height: 50px; 
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-indent: -9999px;
+  transition: transform 0.2s ease-in-out;
+  filter: invert(100%) brightness(200%);
+}
+
+#button4:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+}
+
+.topinho {
+  text-indent: -9999px;
+}
+
+.clockHome{
+  display: flex;
+  align-items: center; 
+}
+
+.clockTimeCSS {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex;
+  margin-left: 5%;
+}
+
+.clockDateCSS {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  margin-left: 2%;
+}
+
+.clockDay,
+.clockMonth,
+.clockYear,
+.clockWeekday {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  font-size: 240%;
+}
+
+.clockHour,
+.clockMinute {
+  margin-left: 2%;
+  font-family: "Krona One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  font-size: 500%;
+}
+
+.caixacinza {
+  background-color: #b1b1b1;
+  opacity: 80%;
+  padding: 10px;
+  border-radius: 40px;
+  margin-top: 1%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.caixacinzaclaro{
+    background-color: #979797;
+    padding: 10px;
+    border-radius: 40px;
+    margin-top: 0.8%;
+    margin-left: 0.8%;
+    margin-right: 0.8%;
+    margin-bottom: 0.8%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .fundinho{
+    text-indent: -9999px;
+    margin-bottom: -1000px;
+}

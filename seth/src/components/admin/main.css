@@ -1,0 +1,102 @@
+#body_Admin_Page {
+    width: 95%;
+    margin: 2.5%;
+
+    margin-bottom: -100px;
+}
+
+#Colluns_Admin {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin: 3%;
+
+}
+
+
+.Box {
+    background-color:  #979797;
+    opacity: 80%;
+
+    border-color: #b1b1b1;
+    border-radius: 35px;
+    border-width: 10px;
+    border-style: solid;
+
+}
+
+#Alarmes_Box {
+
+    width: 60%;
+    
+
+    div {
+        margin: 1%;
+    }
+
+}
+
+#Image_Box {
+
+    width: 50vh;
+    margin: 1%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+    img {
+        max-width:35vh;
+
+        margin: 5%;
+
+
+    }
+}
+
+#Estacoes_Box {
+
+
+    margin: 2.5%;
+    
+    div {
+        margin: 1%;
+    }
+
+}
+
+#Usuarios_Box {
+
+    margin: 2.5%;
+    
+    div {
+        margin: 1%;
+    }
+    
+}
+
+#Parametros_Box {
+
+    width: 60%;
+
+
+    div {
+        margin: 1%;
+    }
+
+}
+
+#Dados_Box {
+
+    margin: 2.5%;
+
+
+    div {
+        margin: 1%;
+    }
+
+}
+
