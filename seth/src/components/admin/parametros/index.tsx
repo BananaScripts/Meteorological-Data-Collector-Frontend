@@ -42,7 +42,7 @@ export default function Interface_Controle_Parametros() {
 
           <div id="Title_Box">
 
-            <h2> Controle de Parametros </h2>
+            <h2> Controle de Parâmetros </h2>
 
               {actionType === null && (
                 <button onClick={() => handleAction(2)}>Editar</button>

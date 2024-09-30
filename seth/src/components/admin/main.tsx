@@ -74,7 +74,7 @@ export default function AdminComponent() {
 
           </div><br />
 
-          <div id="Estacoes_Box" className="Box">
+          <div id="Dados_Box" className="Box">
 
             <Interface_Dados_Estacoes />
 

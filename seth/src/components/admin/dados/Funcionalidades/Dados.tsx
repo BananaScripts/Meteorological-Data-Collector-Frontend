@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Dados } from "../../../../types/dados";
 import { Parametro } from "../../../../types/parametro";
 import { Estacao } from "../../../../types/estacao";
+import './index.css'
 
 export default function EnviarDados() {
     const [dados, setDados] = useState<Array<Dados>>([]);
@@ -102,7 +103,7 @@ export default function EnviarDados() {
                     Valor:
                     <input type="number" value={valor} onChange={(e) => setValor(Number(e.target.value))} placeholder="Valor" />
                 </p>
-                <button onClick={enviarDados}>Enviar Dados</button>
+                <button className="botaoEnvio" onClick={enviarDados}>Enviar Dados</button>
             </div>
 
             <h3>Dados Registrados</h3>

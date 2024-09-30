@@ -14,14 +14,14 @@ ChartJS.register(
 );
 
 const ContentRelatorios: React.FC = () => {
-        const shuffleArray = (array: number[]) => {
-                for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
+        const generateRandomTemperatures = (num: number) => {
+                const temperatures = [];
+                for (let i = 0; i < num; i++) {
+                        temperatures.push(Math.floor(Math.random() * 41));
                 }
+                return temperatures;
         };
-        const temperatures = [5, 12, 18, 25, 30, 35];
-        shuffleArray(temperatures);
+        const temperatures = generateRandomTemperatures(6);
         const labels = ['Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun'];
 
 
