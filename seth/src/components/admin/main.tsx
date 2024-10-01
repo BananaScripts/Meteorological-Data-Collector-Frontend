@@ -10,6 +10,7 @@ import Interface_Controle_Parametros from "./parametros";
 import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
 import Interface_Dados_Estacoes from "./dados"; 
+import Interface_Historico_Alarmes from "./historico";
 
 
 export default function AdminComponent() {
@@ -31,10 +32,7 @@ export default function AdminComponent() {
 
               <div id="Image_Box" className="Box">
 
-                <h5>  Alarmes que foram Acionados Recentemente <br /> (EM DESENVOLVIMENTO)</h5>
-                
-
-                <img src={imagemAlarme} alt="Alarmes Acionados" />
+                <Interface_Historico_Alarmes />
 
               </div>
 
