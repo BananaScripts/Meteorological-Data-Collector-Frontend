@@ -1,5 +1,6 @@
 import React from 'react';
 import Clock from './relogio'; 
+import ContentLogin from '../login/contentLogin';
 
 interface NavbarProps {
   sections: { id: number; }[];
@@ -10,6 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ sections, toggleSection }) => {
   return (
     <nav>
       <Clock />
+      <ContentLogin />
       <ul>
         {sections.map((section, index) => (
           <li key={section.id}>
