@@ -21,17 +21,20 @@ jobs:
       with:
         node-version: '20'  
 
-    - name: Entrar na pasta do projeto
-      run: cd seth
-      
     - name: Instalar Dependências
-      run: npm install
+      run: |
+        cd seth
+        npm install
 
     - name: Rodar Testes
-      run: npm test
+      run: |
+        cd seth
+        npm test
 
     - name: Buildar Projeto
-      run: npm run build
+      run: |
+        cd seth
+        npm run build
 
 
       
