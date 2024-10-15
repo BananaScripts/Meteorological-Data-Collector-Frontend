@@ -21,6 +21,9 @@ jobs:
       with:
         node-version: '20'  
 
+    - name: Entrar na pasta do projeto
+      run: cd seth
+      
     - name: Instalar Dependências
       run: npm install
 
@@ -29,5 +32,6 @@ jobs:
 
     - name: Buildar Projeto
       run: npm run build
+
 
       
