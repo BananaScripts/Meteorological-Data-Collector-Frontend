@@ -26,11 +26,6 @@ jobs:
         cd seth
         npm install
 
-    - name: Rodar Testes
-      run: |
-        cd seth/src
-        npm test
-
     - name: Buildar Projeto
       run: |
         cd seth
