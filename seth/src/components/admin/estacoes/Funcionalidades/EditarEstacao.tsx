@@ -21,7 +21,7 @@ export default function EditEstacao() {
     useEffect(() => {
         if (id) {
             
-            axios.get(`http://localhost:3002/estacao/buscar/${id}`)
+            axios.get(`http://localhost:3002/api/estacao/${id}`)
                 .then(response => {
                     
                     const estacaoData = response.data[0]
@@ -68,7 +68,7 @@ export default function EditEstacao() {
         let numeroDefault = numero !== '' ? numero : 'Não informado'
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
-            axios.put(`http://localhost:3002/estacao/atualizar/${id}`, {
+            axios.put(`http://localhost:3002/api/estacao/atualizar/${id}`, {
                 nome,
                 macAdress,
                 cidade: cidadeDefault,

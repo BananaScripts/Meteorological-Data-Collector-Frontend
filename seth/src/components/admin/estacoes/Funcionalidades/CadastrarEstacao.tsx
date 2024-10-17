@@ -2,11 +2,8 @@ import { useState } from "react"
 import axios from "axios"
 import "./index.css"
 
-import { Estacao } from "../../../../types/estacao"
-
 export default function CreateEstacao() {
 
-    const[estacoes, setEstacoes] = useState<Array<Estacao>>([])
     const[nome, setNome] = useState('')
     const[macAdress, setMacAdress] = useState('')
     const[cidade, setCidade] = useState('')
@@ -23,7 +20,7 @@ export default function CreateEstacao() {
 
 
         if(nome !== '' && macAdress !== '' && cep !== ''){
-            axios.post('http://localhost:3002/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep})
+            axios.post('http://localhost:3002/api/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep})
             .then(()=>{
                 setNome('')
                 setMacAdress('')

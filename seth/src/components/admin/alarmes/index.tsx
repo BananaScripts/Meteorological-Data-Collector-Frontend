@@ -5,12 +5,12 @@ import "./index.css"
 import Funcionalidades from "./Funcionalidades";
 import { Alarme } from "../../../types/alarme";
 
-export default function Interface_Controle_Alarmes() {
+export default function INTERFACE_CONTROLE_ALARMES() {
     const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarAlarmes = () => {
-        axios.get('http://localhost:3002/alarme/listar')
+        axios.get('http://localhost:3002/api/alarmes')
             .then((response) => {
                 setAlarmes(response.data); 
             })

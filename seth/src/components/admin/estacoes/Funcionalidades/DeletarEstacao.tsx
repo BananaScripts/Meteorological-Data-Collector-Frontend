@@ -1,15 +1,13 @@
 import { useState } from "react"
-import { Estacao } from "../../../../types/estacao"
 import axios from "axios"
 
 
 export default function DeleteEstacao() {
 
-    const[estacoes, setEstacoes] = useState<Array<Estacao>>([])
     const[id, setId] = useState('')
 
     function deletar() {
-        axios.delete(`http://localhost:3002/estacao/deletar/${id}`)
+        axios.delete(`http://localhost:3002/api/estacao/deletar/${id}`)
         .then(() =>{
             alert("Estação deletada com sucesso!")
             

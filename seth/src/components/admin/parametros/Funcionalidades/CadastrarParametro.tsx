@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import "./index.css"
-import { Parametro, UnidadeMedida } from "../../../../types/parametro"
+import { UnidadeMedida } from "../../../../types/parametro"
 import { Estacao } from "../../../../types/estacao"
 
 export default function CreateParametro() {
 
-    const[estacoes, setEstacoes] = useState<Array<Parametro>>([]) //quem foi o cara que colocou isso????????????
     const[cod_estacao, setCodEstacao] = useState<number | string>('');
     const[nome, setNome] = useState('')
     const[fator, setFator] = useState('')
@@ -15,7 +14,7 @@ export default function CreateParametro() {
     const[unidadeMedida, setUnidadeMedida] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:3002/estacao/listar')
+        axios.get('http://localhost:3002/api/estacoes')
             .then(response => {
                 setEstacao(response.data);
             })
@@ -28,7 +27,7 @@ export default function CreateParametro() {
         console.clear();
     
         if (nome !== '' && fator !== '' && unidadeMedida !== '' && offset !== 0 ) {
-            axios.post('http://localhost:3002/parametro/cadastrar', { cod_estacao, nome, fator, unidadeMedida, offset })
+            axios.post('http://localhost:3002/api/parametro/cadastrar', { cod_estacao, nome, fator, unidadeMedida, offset })
 
                 .then(() => {
                     setNome('');

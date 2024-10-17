@@ -4,13 +4,13 @@ import { Usuario } from "../../../types/usuario"
 import axios from "axios"
 import Funcionalidades from "./Funcionalidades"
 
-export default function Interface_Controle_Usuarios() {
+export default function INTERFACE_CONTROLE_USUARIOS() {
 
     const[usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarUsuarios = () => {
-      axios.get('http://localhost:3002/usuario/listar')
+      axios.get('http://localhost:3002/api/usuarios')
           .then((response) => {
               setUsuarios(response.data); 
           })

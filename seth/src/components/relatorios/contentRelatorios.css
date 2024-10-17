@@ -1,6 +1,12 @@
+
 .grafico-container {
-    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    height: 30vh;
+    flex-direction: column; /* Para que os gráficos fiquem um em cima do outro */
+    gap: 20px; /* Espaçamento entre os gráficos */
+    width: 100%; /* Garantir que os gráficos ocupem toda a largura */
+    padding: 10px;
+}
+.grafico {
+    width: 80%; /* Definir uma largura confortável para os gráficos */
+    height: 300px; /* Definir uma altura padrão para cada gráfico */
 }

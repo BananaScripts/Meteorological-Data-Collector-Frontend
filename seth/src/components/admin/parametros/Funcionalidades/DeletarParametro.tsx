@@ -2,16 +2,12 @@ import { useState } from "react"
 import axios from "axios"
 
 
-import { Parametro } from "../../../../types/parametro"
-
-
 export default function DeleteParametro() {
 
-    const[parametros, setParametros] = useState<Array<Parametro>>([])
     const[id, setId] = useState('')
 
     function deletar() {
-        axios.delete(`http://localhost:3002/tipoParametro/deletar/${id}`)
+        axios.delete(`http://localhost:3002/api/estacao/deletar/${id}`)
 
         
 

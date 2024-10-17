@@ -13,27 +13,23 @@ export default function EnviarDados() {
     const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
     const [estacao, setEstacao] = useState<Array<Estacao>>([]);
 
-    const currentDate = new Date();
-    const data = currentDate.toISOString().split('T')[0];
-    const hora = currentDate.toTimeString().split(' ')[0];
-
 
     useEffect(() => {
-        axios.get('http://localhost:3002/tipoParametro/listar')
+        axios.get('http://localhost:3002/api/tiposParametros')
             .then(response => {
                 setTiposParametro(response.data);
             })
             .catch(error => {
                 console.error("Erro ao buscar tipos de parâmetro:", error);
             });
-        axios.get('http://localhost:3002/estacao/listar')
+        axios.get('http://localhost:3002/api/estacoes')
             .then(response => {
                 setEstacao(response.data);
             })
             .catch(error => {
                 console.error("Erro ao buscar tipos de parâmetro:", error);
             });
-        axios.get('http://localhost:3002/estacao/listarDados')
+        axios.get('http://localhost:3002/api/dados')
             .then(response => {
                 setDados(response.data);
             })
