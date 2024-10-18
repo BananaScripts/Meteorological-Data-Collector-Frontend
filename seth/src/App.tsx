@@ -8,7 +8,7 @@ import ContentRelatorios from './components/relatorios/contentRelatorios';
 import ContentLogin from './components/login/contentLogin';
 import { AdminComponent } from './components/admin';
 
-type Section = { id: number ; content: string | JSX.Element; };
+type Section = { id: number; content: string | JSX.Element; };
 
 const sectionsData: Section[] = [
   { id: 1, content: <ContentClima /> },
@@ -20,6 +20,7 @@ const sectionsData: Section[] = [
 const App: React.FC = () => {
   const [activeSections, setActiveSections] = useState<number[]>([]);
   const [backgroundClass, setBackgroundClass] = useState<string>('bg1');
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
     const currentHour = new Date().getHours();
@@ -31,7 +32,7 @@ const App: React.FC = () => {
     } else {
       setBackgroundClass('noite');
     }
-    }, []);
+  }, []);
 
   const toggleSection = (id: number) => {
     setActiveSections((prevSections) =>
@@ -39,11 +40,17 @@ const App: React.FC = () => {
     );
   };
 
+  const closeOtherComponents = () => {
+    setActiveSections([]); // Fecha todas as seções
+    setIsLoginOpen(true); // Marca que o login está aberto
+  };
+
   return (
     <div className={`App ${backgroundClass}`}>
       <div className='topinho'>.</div>
       <Navbar sections={sectionsData} toggleSection={toggleSection}></Navbar>
       <Content className="content" sections={sectionsData} activeSections={activeSections} />
+      <ContentLogin onCloseOtherComponents={closeOtherComponents} />
     </div>
   );
 };

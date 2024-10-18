@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './contentLogin.css';
 
-const ContentLogin: React.FC = () => {
+interface ContentLoginProps {
+    onCloseOtherComponents: () => void;  // Função para fechar outros componentes
+}
+
+const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false); // Initially set to false
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [registerUsername, setRegisterUsername] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerCpf, setRegisterCpf] = useState('');
     const [isLogin, setIsLogin] = useState(true);
 
+    useEffect(() => {
+        if (isModalOpen) {
+            onCloseOtherComponents();  // Fecha os outros componentes quando o modal abre
+        }
+    }, [isModalOpen, onCloseOtherComponents]);
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        //
         console.log('Username:', username);
         console.log('Password:', password);
     };
 
     const handleRegister = (e: React.FormEvent) => {
         e.preventDefault();
-        //
         console.log('Register Username:', registerUsername);
         console.log('Register Password:', registerPassword);
         console.log('Register Email:', registerEmail);

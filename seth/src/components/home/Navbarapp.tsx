@@ -11,7 +11,9 @@ const Navbar: React.FC<NavbarProps> = ({ sections, toggleSection }) => {
   return (
     <nav>
       <Clock />
-      <ContentLogin />
+      <ContentLogin onCloseOtherComponents={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
       <ul>
         {sections.map((section, index) => (
           <li key={section.id}>
