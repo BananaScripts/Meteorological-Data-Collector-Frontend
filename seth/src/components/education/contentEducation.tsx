@@ -171,8 +171,8 @@ const ContentEducation: React.FC = () => {
     
                             {/* Popup de confirmação de reset */}
                             {showPopup && (
-                                <div className='popup'>
-                                    <div className='popup-content'>
+                                <div className='popup-edu'>
+                                    <div className='popup-content-edu'>
                                         <h2>Confirmar Reset</h2>
                                         <p>Tem certeza que deseja resetar o progresso?</p>
                                         <button className='confirm' onClick={handleResetProgress}>Sim</button>

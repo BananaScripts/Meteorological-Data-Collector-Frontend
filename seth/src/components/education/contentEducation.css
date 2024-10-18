@@ -91,7 +91,7 @@ h1{
     background-color: #91221a;
 }
 
-.popup {
+.popup-edu {
     position: fixed;
     top: 0;
     left: 0;
@@ -104,7 +104,7 @@ h1{
     z-index: 1000;
 }
 
-.popup-content {
+.popup-content-edu {
     background: #979797;
     padding: 20px;
     border-radius: 8px;
