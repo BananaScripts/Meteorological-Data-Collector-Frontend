@@ -1,126 +1,121 @@
 import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { listarEstacoes, buscarEstacaoPorCodigo, Estacao, EstacaoData } from './apiSimulada'; // Supondo que você tenha essas funções
-import './contentRelatorios.css';
+import axios from 'axios';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+interface DadosItem {
+  cod_dados: number;
+  cod_parametro: number;
+  Valor: number;
+  unixtime: number;
+}
 
-const ContentRelatorios: React.FC = () => {
-    const [estacoes, setEstacoes] = useState<Estacao[]>([]);
-    const [dados, setDados] = useState<EstacaoData[]>([]);
-    const [selectedEstacao, setSelectedEstacao] = useState<string>('');
+interface TipoParametro {
+  cod_tipoParametro: number;
+  nome: string;
+  fator: string;
+  offset: string;
+  unidadeMedida: string;
+  json: string;
+}
 
-    useEffect(() => {
-        listarEstacoes().then(response => setEstacoes(response));
-    }, []);
+const DataByParameter = () => {
+  const [dados, setDados] = useState<DadosItem[]>([]);
+  const [tiposParametros, setTiposParametros] = useState<TipoParametro[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (selectedEstacao) {
-            buscarEstacaoPorCodigo(selectedEstacao).then(response => setDados(response));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [dadosResponse, tiposResponse] = await Promise.all([
+          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
+          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
+        ]);
+
+        setDados(dadosResponse.data);
+        setTiposParametros(tiposResponse.data);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          setError(`Erro ao buscar os dados: ${err.message}`);
         } else {
-            setDados([]);
+          setError('Erro inesperado ao buscar os dados');
         }
-    }, [selectedEstacao]);
-
-    // Funções para gerar gradientes de cores
-    const getTemperatureColor = (temperatura: number) => {
-        const red = Math.min(255, Math.max(0, Math.floor((temperatura - 15) * 12.75)));
-        const blue = Math.min(255, Math.max(0, Math.floor((30 - temperatura) * 12.75)));
-        return `rgba(${red}, 0, ${blue}, 1)`;
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const getHumidityColor = (humidity: number) => {
-        const lightBlue = 100 + Math.min(155, Math.floor(humidity * 1.55));
-        return `rgba(0, ${lightBlue}, 255, 1)`; // Gradiente azul claro a azul escuro
-    };
+    fetchData();
+  }, []);
 
-    const getWindSpeedColor = (speed: number) => {
-        const green = Math.min(255, Math.max(0, Math.floor(speed * 12.75)));
-        return `rgba(0, ${green}, 0, 1)`; // Gradiente de verde para indicar velocidade do vento
-    };
+  if (loading) {
+    return <div>Carregando dados, por favor aguarde...</div>;
+  }
 
-    // Definir os dados do gráfico com base no tipo de parâmetro
-    const getChartData = (label: string, data: number[], colorFunction: (value: number) => string) => ({
-        labels: dados.map(item => item.dataMedicao),
-        datasets: [
-            {
-                label,
-                data,
-                borderColor: data.map(item => colorFunction(item)),
-                backgroundColor: data.map(item => colorFunction(item)),
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 5,
-            },
-        ],
-    });
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-    // Configuração genérica dos gráficos
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: false,
-                title: { display: true },
-            },
-            x: {
-                title: { display: true, text: 'Data' },
-            },
-        },
-    };
+  // Agrupando dados por parâmetro
+  const groupedData = dados.reduce((acc, item) => {
+    const parametro = tiposParametros.find(param => param.cod_tipoParametro === item.cod_parametro);
+    const parametroNome = parametro ? parametro.nome : 'Desconhecido';
 
-    return (
-        <div>
-            <div className='caixacinza'>
-                <div className='caixacinzaclaro'>
-                    <h1>Página de Relatórios</h1>
-                    <p>Página placeholder para o sistema de relatórios.</p>
+    if (!acc[parametroNome]) {
+      acc[parametroNome] = [];
+    }
 
-                    {/* Dropdown para seleção de estação */}
-                    <select onChange={(e) => setSelectedEstacao(e.target.value)} value={selectedEstacao}>
-                        <option value="">Selecione uma estação</option>
-                        {estacoes.map(estacao => (
-                            <option key={estacao.cod_estacao} value={estacao.cod_estacao}>
-                                {estacao.nome}
-                            </option>
-                        ))}
-                    </select>
+    acc[parametroNome].push({ unixtime: item.unixtime, Valor: item.Valor });
+    return acc;
+  }, {} as Record<string, { unixtime: number; Valor: number }[]>);
 
-                    {/* Renderização dos gráficos */}
-                    {dados.length > 0 && (
-                        <div className='grafico-container'>
-                            <div className='grafico'>
-                                <Line
-                                    data={getChartData('Temperatura (°C)', dados.map(item => item.temperatura), getTemperatureColor)}
-                                    options={{ ...chartOptions, scales: { ...chartOptions.scales, y: { ...chartOptions.scales.y, title: { text: 'Temperatura (°C)' } } } }}
-                                />
-                            </div>
+  return (
+    <div>
+      <h1>Dados por Parâmetro</h1>
+      {Object.entries(groupedData).map(([parametroNome, values]) => {
+        // Ordenando os dados pelo unixtime
+        const sortedValues = values.sort((a, b) => a.unixtime - b.unixtime);
+        
+        // Convertendo unixtime para data legível
+        const formattedValues = sortedValues.map(item => ({
+          ...item,
+          unixtime: new Date(item.unixtime * 1000).toLocaleString(), // Convertendo Unix time para formato legível
+        }));
 
-                            {/* Exemplo para outro parâmetro, como umidade */}
-                            <div className='grafico'>
-                                <Line
-                                    data={getChartData('Umidade (%)', dados.map(item => item.umidade), getHumidityColor)}
-                                    options={{ ...chartOptions, scales: { ...chartOptions.scales, y: { ...chartOptions.scales.y, title: { text: 'Umidade (%)' } } } }}
-                                />
-                            </div>
-
-                            {/* Exemplo para velocidade do vento */}
-                            <div className='grafico'>
-                                <Line
-                                    data={getChartData('Velocidade do Vento (km/h)', dados.map(item => item.velocidadeVento), getWindSpeedColor)}
-                                    options={{ ...chartOptions, scales: { ...chartOptions.scales, y: { ...chartOptions.scales.y, title: { text: 'Velocidade do Vento (km/h)' } } } }}
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className='fundinho'>.</div>
+        return (
+            <div>
+    <div className='caixacinza'>
+        <div className='caixacinzaclaro'>
+          <div key={parametroNome}>
+            <h2>{parametroNome}</h2>
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart data={formattedValues}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="unixtime" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="Valor" stroke="#8E1600" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-    );
+    </div>
+
+    </div>
+        );
+      })}
+    </div>
+  );
 };
 
-export default ContentRelatorios;
+export default DataByParameter;

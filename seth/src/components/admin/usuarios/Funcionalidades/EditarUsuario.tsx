@@ -16,7 +16,7 @@ export default function EditUsuario() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:3002/api/usuario/${id}`)
+            axios.get(`http://localhost:30105/api/usuario/${id}`)
                 .then(response => {
                     const usuarioData = response.data[0]
                     if (usuarioData) {
@@ -58,7 +58,7 @@ export default function EditUsuario() {
 
     function editar() {
         if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '') {
-            axios.put(`http://localhost:3002/api/usuario/atualizar/${id}`, {
+            axios.put(`http://localhost:30105/api/usuario/atualizar/${id}`, {
                 nome,
                 dataNascimento,
                 cpf,
@@ -95,7 +95,7 @@ export default function EditUsuario() {
 
                 
                 {!encontrado && (
-                    <p>*Parâmetro não encontrado</p>
+                    <p>*Usuário não encontrado</p>
                 )}
 
                 <hr />

@@ -6,10 +6,10 @@ import INTERFACE_CONTROLE_ALARMES from "./alarmes";
 import INTERFACE_CONTROLE_ESTACOES from "./estacoes";
 import INTERFACE_CONTROLE_USUARIOS from "./usuarios";
 import INTERFACE_CONTROLE_PARAMETROS from "./parametros";
+import INTERFACE_DADOS_ESTACOES from "./dados";
 
 import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
-import INTERFACE_DADOS_ESTACOES from "./dados"; 
 
 
 export default function AdminComponent() {
@@ -74,13 +74,13 @@ export default function AdminComponent() {
 
           </div><br />
 
-          {/*
+          
         <div id="Dados_Box" className="Box">
 
             <INTERFACE_DADOS_ESTACOES />
 
           </div><br />
-          */}
+          
           
         
       </div>

@@ -68,7 +68,7 @@ export default function EditEstacao() {
         let numeroDefault = numero !== '' ? numero : 'Não informado'
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
-            axios.put(`http://localhost:3002/api/estacao/atualizar/${id}`, {
+            axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
                 nome,
                 macAdress,
                 cidade: cidadeDefault,

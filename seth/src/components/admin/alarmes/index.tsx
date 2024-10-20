@@ -10,7 +10,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarAlarmes = () => {
-        axios.get('http://localhost:3002/api/alarmes')
+        axios.get('http://localhost:30105/api/alarmes')
             .then((response) => {
                 setAlarmes(response.data); 
             })
@@ -65,7 +65,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {alarmes.map((alarme) => (
+                                {Array.isArray(alarmes) && alarmes.map((alarme) => (
                                     <tr key={alarme.cod_alarme}>
                                         <td>{alarme.cod_alarme}</td>
                                         <td>{alarme.nome}</td>

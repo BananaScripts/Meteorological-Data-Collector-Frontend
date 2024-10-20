@@ -18,7 +18,7 @@ export default function EditAlarme() {
 
     // Carrega os tipos de parâmetros ao montar o componente
     useEffect(() => {
-        axios.get('http://localhost:3002/api/tiposParametros')
+        axios.get('http://localhost:30105/api/tiposParametros')
             .then(response => {
                 setTiposParametro(response.data);
             })
@@ -30,7 +30,7 @@ export default function EditAlarme() {
     // Efeito para buscar um alarme específico
     useEffect(() => {
         if (id.trim()) {
-            axios.get(`http://localhost:3002/api/alarme/${id}`)
+            axios.get(`http://localhost:30105/api/alarme/${id}`)
                 .then(response => {
                     console.log("Resposta da API:", response.data);
                     const alarmeData = response.data; 
@@ -70,7 +70,7 @@ export default function EditAlarme() {
 
     function editar() {
         if (nome && codTipoParametro && valor && condicao) { 
-            axios.put(`http://localhost:3002/api/alarme/atualizar/${id}`, {
+            axios.put(`http://localhost:30105/api/alarme/atualizar/${id}`, {
                 nome,
                 valor,
                 condicao,

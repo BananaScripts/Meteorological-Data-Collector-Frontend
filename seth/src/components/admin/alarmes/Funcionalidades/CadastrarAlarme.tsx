@@ -11,7 +11,7 @@ export default function CreateAlarme() {
     const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3002/api/parametros')
+        axios.get('http://localhost:30105/api/tiposparametros')
             .then(response => {
                 setTiposParametro(response.data);
             })
@@ -34,7 +34,7 @@ export default function CreateAlarme() {
             return;
         }
 
-        axios.post('http://localhost:3002/api/alarme/cadastrar', {
+        axios.post('http://localhost:30105/api/alarme/cadastrar', {
             nome,
             cod_tipoParametro: codTipoParametroNum,  
             valor: valorNum, 

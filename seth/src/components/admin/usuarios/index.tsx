@@ -10,7 +10,7 @@ export default function INTERFACE_CONTROLE_USUARIOS() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarUsuarios = () => {
-      axios.get('http://localhost:3002/api/usuarios')
+      axios.get('http://localhost:30105/api/usuarios')
           .then((response) => {
               setUsuarios(response.data); 
           })

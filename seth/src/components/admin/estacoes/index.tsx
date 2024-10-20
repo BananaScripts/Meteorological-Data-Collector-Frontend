@@ -13,7 +13,7 @@ export default function INTERFACE_CONTROLE_ESTACOES() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarEstacoes = () => {
-        axios.get('http://localhost:3002/api/estacoes')
+        axios.get('http://localhost:30105/api/estacoes')
             .then((response) => {
                 setEstacoes(response.data); 
             })
