@@ -97,17 +97,6 @@ const ContentEducation: React.FC = () => {
         return null;
     };
 
-    const renderProgress = (group: number[]) => {
-        const completedInGroup = group.filter(id => completedSections.includes(id)).length;
-        const groupProgress = Math.round((completedInGroup / group.length) * 100);
-        return (
-            <div className='barra-progresso'>
-                <div className='progresso' style={{ width: `${groupProgress}%` }}>
-                    <p className='porcentagem'>{groupProgress}%</p>
-                </div>
-            </div>
-        );
-    };
 
     const renderGroup = (start: number, end: number) => {
         const groupMaterias = materias.filter(materia => materia.id >= start && materia.id <= end);
@@ -137,11 +126,6 @@ const ContentEducation: React.FC = () => {
         );
     };
     
-    const groups = [
-        [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
-    ];
 
     return (
         <div>

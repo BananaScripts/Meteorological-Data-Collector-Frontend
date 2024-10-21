@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/home/Navbarapp';
 import Content from './components/home/contentHome';
-import ContentClima from './components/clima/contentClima';
+/*import ContentClima from './components/clima/contentClima';*/
 import ContentEducation from './components/education/contentEducation';
 import ContentRelatorios from './components/relatorios/contentRelatorios';
 import ContentLogin from './components/login/contentLogin';
@@ -20,7 +20,7 @@ const sectionsData: Section[] = [
 const App: React.FC = () => {
   const [activeSections, setActiveSections] = useState<number[]>([]);
   const [backgroundClass, setBackgroundClass] = useState<string>('bg1');
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
     const currentHour = new Date().getHours();
