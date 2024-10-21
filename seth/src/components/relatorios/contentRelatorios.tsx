@@ -65,7 +65,6 @@ const DataByParameter = () => {
     return <div>{error}</div>;
   }
 
-  // Agrupando dados por parâmetro
   const groupedData = dados.reduce((acc, item) => {
     const parametro = tiposParametros.find(param => param.cod_tipoParametro === item.cod_parametro);
     const parametroNome = parametro ? parametro.nome : 'Desconhecido';
@@ -80,15 +79,13 @@ const DataByParameter = () => {
 
   return (
     <div>
-      <h1>Dados por Parâmetro</h1>
+       <h1>Dados por Parâmetro</h1>
       {Object.entries(groupedData).map(([parametroNome, values]) => {
-        // Ordenando os dados pelo unixtime
         const sortedValues = values.sort((a, b) => a.unixtime - b.unixtime);
         
-        // Convertendo unixtime para data legível
         const formattedValues = sortedValues.map(item => ({
           ...item,
-          unixtime: new Date(item.unixtime * 1000).toLocaleString(), // Convertendo Unix time para formato legível
+          unixtime: new Date(item.unixtime * 1000).toLocaleString(),
         }));
 
         return (
@@ -110,10 +107,10 @@ const DataByParameter = () => {
           </div>
         </div>
     </div>
-
     </div>
         );
       })}
+      <div className='fundinho'>.</div>
     </div>
   );
 };

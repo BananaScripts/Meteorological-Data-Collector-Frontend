@@ -22,7 +22,7 @@ export default function AdminComponent() {
           <div id="Colluns_Admin">
 
 
-
+{/*
               <div id="Alarmes_Box" className="Box">
 
                 <INTERFACE_CONTROLE_ALARMES />
@@ -37,7 +37,7 @@ export default function AdminComponent() {
                 <img src={imagemAlarme} alt="Alarmes Acionados" />
 
               </div>
-
+*/}
 
 
           </div>
@@ -74,13 +74,13 @@ export default function AdminComponent() {
 
           </div><br />
 
-          
+        {/*
         <div id="Dados_Box" className="Box">
 
             <INTERFACE_DADOS_ESTACOES />
 
           </div><br />
-          
+          */}
           
         
       </div>

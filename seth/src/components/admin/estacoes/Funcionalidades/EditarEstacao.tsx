@@ -21,7 +21,7 @@ export default function EditEstacao() {
     useEffect(() => {
         if (id) {
             
-            axios.get(`http://localhost:3002/api/estacao/${id}`)
+            axios.get(`http://localhost:30105/api/estacao/${id}`)
                 .then(response => {
                     
                     const estacaoData = response.data[0]
@@ -105,7 +105,7 @@ export default function EditEstacao() {
 
                     
                     {!encontrado && (
-                        <p>*Parâmetro não encontrado</p>
+                        <p>*Estação não encontrada</p>
                     )}
 
                     <hr />
