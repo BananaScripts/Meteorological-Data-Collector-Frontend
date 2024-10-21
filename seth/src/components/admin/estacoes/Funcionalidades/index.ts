@@ -1,12 +1,15 @@
-import createEstacao from "./CadastrarEstacao";
-import deleteEstacao from "./DeletarEstacao";
-import editEstacao from "./EditarEstacao";
+import CreateEstacao from "./CadastrarEstacao";
+import DeleteEstacao from "./DeletarEstacao";
+import EditEstacao from "./EditarEstacao";
 import EnviarDados from "../../dados/Funcionalidades/Dados";
 
 
-export default {
-    createEstacao,
-    editEstacao,
-    deleteEstacao,
+const EstacaoModule = {
+    CreateEstacao,
+    EditEstacao,
+    DeleteEstacao,
     EnviarDados
 }
+
+
+export default EstacaoModule;

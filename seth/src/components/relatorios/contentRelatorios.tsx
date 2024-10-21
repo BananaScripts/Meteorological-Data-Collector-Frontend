@@ -1,83 +1,118 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import './contentRelatorios.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+interface DadosItem {
+  cod_dados: number;
+  cod_parametro: number;
+  Valor: number;
+  unixtime: number;
+}
 
-const ContentRelatorios: React.FC = () => {
-        const generateRandomTemperatures = (num: number) => {
-                const temperatures = [];
-                for (let i = 0; i < num; i++) {
-                        temperatures.push(Math.floor(Math.random() * 41));
-                }
-                return temperatures;
-        };
-        const temperatures = generateRandomTemperatures(6);
-        const labels = ['Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun'];
+interface TipoParametro {
+  cod_tipoParametro: number;
+  nome: string;
+  fator: string;
+  offset: string;
+  unidadeMedida: string;
+  json: string;
+}
 
+const DataByParameter = () => {
+  const [dados, setDados] = useState<DadosItem[]>([]);
+  const [tiposParametros, setTiposParametros] = useState<TipoParametro[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-        const createGradient = (ctx: CanvasRenderingContext2D, area: {left: number, right: number}) => {
-                const gradient = ctx.createLinearGradient(area.left, 0, area.right, 0);
-                gradient.addColorStop(0, 'blue');
-                gradient.addColorStop(0.33, 'green');
-                gradient.addColorStop(0.66, 'orange');
-                gradient.addColorStop(1, 'red');
-                return gradient;
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [dadosResponse, tiposResponse] = await Promise.all([
+          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
+          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
+        ]);
 
-        const data = {
-                labels: labels,
-                datasets: [
-                        {
-                                label: 'Temperatura (°C)',
-                                data: temperatures,
-                                borderColor: (context: any) => {
-                                        const chart = context.chart;
-                                        const { ctx, chartArea } = chart;
-                                        if (!chartArea) {
-                                                return 'rgba(0,0,0,0)';}
-                                        return createGradient(ctx, chartArea);},
-                                borderWidth: 3,
-                                fill: false,
-                                tension: 0.4,
-                                pointBackgroundColor: temperatures.map(temp => {
-                                        if (temp <= 0) return 'blue';
-                                        if (temp <= 15) return 'green';
-                                        if (temp <= 30) return 'orange';
-                                        return 'red';}),
-                                pointRadius: 5}]};
-        const options = {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                        y: {
-                                beginAtZero: true
-                        }
-                }
-        };
+        setDados(dadosResponse.data);
+        setTiposParametros(tiposResponse.data);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          setError(`Erro ao buscar os dados: ${err.message}`);
+        } else {
+          setError('Erro inesperado ao buscar os dados');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Carregando dados, por favor aguarde...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  const groupedData = dados.reduce((acc, item) => {
+    const parametro = tiposParametros.find(param => param.cod_tipoParametro === item.cod_parametro);
+    const parametroNome = parametro ? parametro.nome : 'Desconhecido';
+
+    if (!acc[parametroNome]) {
+      acc[parametroNome] = [];
+    }
+
+    acc[parametroNome].push({ unixtime: item.unixtime, Valor: item.Valor });
+    return acc;
+  }, {} as Record<string, { unixtime: number; Valor: number }[]>);
+
+  return (
+    <div>
+       <h1>Dados por Parâmetro</h1>
+      {Object.entries(groupedData).map(([parametroNome, values]) => {
+        const sortedValues = values.sort((a, b) => a.unixtime - b.unixtime);
+        
+        const formattedValues = sortedValues.map(item => ({
+          ...item,
+          unixtime: new Date(item.unixtime * 1000).toLocaleString(),
+        }));
+
         return (
-                <div>
-                        <div className='caixacinza'>
-                                <div className='caixacinzaclaro'>
-                                        <h1>Página de Relatórios</h1>
-                                        <p>Página placeholder para o sistema de relatórios.</p>
-                                        <div className='grafico-container'>
-                                                <Line data={data} options={options} />
-                                        </div>
-                                </div>
-                        </div>
-                        <div className="fundinho">.</div>
-                </div>
+            <div>
+    <div className='caixacinza'>
+        <div className='caixacinzaclaro'>
+          <div key={parametroNome}>
+            <h2>{parametroNome}</h2>
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart data={formattedValues}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="unixtime" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="Valor" stroke="#8E1600" />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+    </div>
+    </div>
         );
+      })}
+      <div className='fundinho'>.</div>
+    </div>
+  );
 };
 
-export default ContentRelatorios;
+export default DataByParameter;

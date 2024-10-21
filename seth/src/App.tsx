@@ -10,7 +10,7 @@ import { AdminComponent } from './components/admin';
 type Section = { id: number ; content: string | JSX.Element; };
 
 const sectionsData: Section[] = [
-  { id: 1, content: <ContentClima /> },
+  /*{ id: 1, content: <ContentClima /> },*/
   { id: 2, content: <ContentRelatorios /> },
   { id: 3, content: <ContentEducation /> },
   { id: 4, content: <AdminComponent /> }
