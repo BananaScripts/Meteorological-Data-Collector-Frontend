@@ -16,7 +16,7 @@ const WeatherMeter: React.FC = () => {
     Snow: 'iconsClima/neve.png',
     Clouds: 'iconsClima/nublado.png',
   };
-  const [weatherData, setWeatherData] = useState<WeatherData>({
+  const [weatherData] = useState<WeatherData>({
     temperature: 25,
     humidity: 60,
     windSpeed: 10,

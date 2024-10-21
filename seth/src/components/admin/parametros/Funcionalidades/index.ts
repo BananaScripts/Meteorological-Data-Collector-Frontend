@@ -4,9 +4,10 @@ import EditParametro from "./EditarParametro";
 
 
 
-export default {
+const ParametroModule = {
     CreateParametro,
     EditParametro,
     DeleteParametro
-
 }
+
+export default ParametroModule;

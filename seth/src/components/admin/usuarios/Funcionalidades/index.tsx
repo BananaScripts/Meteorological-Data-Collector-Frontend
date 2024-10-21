@@ -4,8 +4,10 @@ import EditUsuario from "./EditarUsuario";
 import DeleteUsuario from "./DeletarUsuario";
 
 
-export default {
+const funcionalidades = {
     CreateUsuario,
     DeleteUsuario,
     EditUsuario
-}
+};
+
+export default funcionalidades;

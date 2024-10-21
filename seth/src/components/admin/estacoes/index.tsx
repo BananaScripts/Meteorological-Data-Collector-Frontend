@@ -7,13 +7,13 @@ import Funcionalidades from "./Funcionalidades";
 
 
 
-export default function Interface_Controle_Estacoes() {
+export default function INTERFACE_CONTROLE_ESTACOES() {
 
     const[estacoes, setEstacoes] = useState<Array<Estacao>>([])
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarEstacoes = () => {
-        axios.get('http://localhost:3002/estacao/listar')
+        axios.get('http://localhost:30105/api/estacoes')
             .then((response) => {
                 setEstacoes(response.data); 
             })
@@ -109,9 +109,9 @@ export default function Interface_Controle_Estacoes() {
 
                 )}
 
-                {actionType === 1 && <Funcionalidades.createEstacao />}
-                {actionType === 2 && <Funcionalidades.editEstacao />}
-                {actionType === 3 && <Funcionalidades.deleteEstacao />}
+                {actionType === 1 && <Funcionalidades.CreateEstacao />}
+                {actionType === 2 && <Funcionalidades.EditEstacao />}
+                {actionType === 3 && <Funcionalidades.DeleteEstacao />}
             </div>
         </>
     );

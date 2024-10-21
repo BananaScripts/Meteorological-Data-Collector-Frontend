@@ -2,14 +2,14 @@
 import "./main.css"
 
 
-import Interface_Controle_Alarmes from "./alarmes";
-import Interface_Controle_Estacoes from "./estacoes";
-import Interface_Controle_Usuarios from "./usuarios";
-import Interface_Controle_Parametros from "./parametros";
+import INTERFACE_CONTROLE_ALARMES from "./alarmes";
+import INTERFACE_CONTROLE_ESTACOES from "./estacoes";
+import INTERFACE_CONTROLE_USUARIOS from "./usuarios";
+import INTERFACE_CONTROLE_PARAMETROS from "./parametros";
+import INTERFACE_DADOS_ESTACOES from "./dados";
 
 import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
-import Interface_Dados_Estacoes from "./dados"; 
 
 
 export default function AdminComponent() {
@@ -22,10 +22,10 @@ export default function AdminComponent() {
           <div id="Colluns_Admin">
 
 
-
+{/*
               <div id="Alarmes_Box" className="Box">
 
-                <Interface_Controle_Alarmes />
+                <INTERFACE_CONTROLE_ALARMES />
 
               </div>
 
@@ -37,23 +37,23 @@ export default function AdminComponent() {
                 <img src={imagemAlarme} alt="Alarmes Acionados" />
 
               </div>
-
+*/}
 
 
           </div>
 
           <div id="Usuarios_Box" className="Box">
 
-            <Interface_Controle_Usuarios />
+            <INTERFACE_CONTROLE_USUARIOS />
 
           </div>
           
 
           <div id="Colluns_Admin">
 
-            <div id='Parametros_Box' className="Box">
+            <div id="Parametros_Box" className="Box">
 
-              <Interface_Controle_Parametros />
+              <INTERFACE_CONTROLE_PARAMETROS />
 
             </div>
 
@@ -70,16 +70,17 @@ export default function AdminComponent() {
 
           <div id="Estacoes_Box" className="Box">
 
-            <Interface_Controle_Estacoes />
+            <INTERFACE_CONTROLE_ESTACOES />
 
           </div><br />
 
-          <div id="Dados_Box" className="Box">
+        {/*
+        <div id="Dados_Box" className="Box">
 
-            <Interface_Dados_Estacoes />
+            <INTERFACE_DADOS_ESTACOES />
 
           </div><br />
-          
+          */}
           
         
       </div>

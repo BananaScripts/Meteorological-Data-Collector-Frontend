@@ -1,15 +1,14 @@
 import AdminComponent from "./main";
 
-import Interface_Controle_Alarmes from "./alarmes";
-import Interface_Controle_Estacoes from "./estacoes";
-import Interface_Controle_Usuarios from "./usuarios";
-import Interface_Controle_Parametros from "./parametros";
-
+import INTERFACE_CONTROLE_ALARMES from "./alarmes";
+import INTERFACE_CONTROLE_ESTACOES from "./estacoes";
+import INTERFACE_CONTROLE_USUARIOS from "./usuarios";
+import INTERFACE_CONTROLE_PARAMETROS from "./parametros";
 
 export {
     AdminComponent,
-    Interface_Controle_Alarmes,
-    Interface_Controle_Estacoes,
-    Interface_Controle_Parametros,
-    Interface_Controle_Usuarios
+    INTERFACE_CONTROLE_ALARMES,
+    INTERFACE_CONTROLE_ESTACOES,
+    INTERFACE_CONTROLE_PARAMETROS,
+    INTERFACE_CONTROLE_USUARIOS
 }

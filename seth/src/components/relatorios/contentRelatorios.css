@@ -1,6 +1,12 @@
+
 .grafico-container {
-    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    height: 30vh;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 10px;
+}
+.grafico {
+    width: 80%;
+    height: 300px;
 }

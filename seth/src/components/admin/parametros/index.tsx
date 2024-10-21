@@ -5,14 +5,14 @@ import axios from "axios"
 import Funcionalidades from "./Funcionalidades"
 import { Parametro } from "../../../types/parametro"
 
-export default function Interface_Controle_Parametros() {
+export default function INTERFACE_CONTROLE_PARAMETROS() {
 
     const[parametros, setParametros] = useState<Array<Parametro>>([])
     const [actionType, setActionType] = useState<number | null>(null);
 
 
     const atualizarParametros = () => {
-      axios.get('http://localhost:3002/tipoParametro/listar')
+      axios.get('http://localhost:30105/api/tiposParametros')
           .then((response) => {
               setParametros(response.data); 
           })
