@@ -16,7 +16,7 @@ export default function EditParametro() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:3002/tipoParametro/buscar/${id}`)
+            axios.get(`http://localhost:30105/api/tipoParametro/${id}`)
                 .then(response => {
                     const parametroData = response.data[0]
                     setEncontrado(true)
@@ -55,7 +55,7 @@ export default function EditParametro() {
 
 
         if (nome !== '' && fator !== '' && unidadeMedida !== '') {
-            axios.put(`http://localhost:3002/tipoParametro/atualizar/${id}`, {
+            axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
                 nome,
                 fator,
                 offset: offsetDefault,

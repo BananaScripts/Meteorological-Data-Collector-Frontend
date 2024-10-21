@@ -1,5 +1,5 @@
 import React from 'react';
-import '../contentEducation.css';
+import '../../contentEducation.css';
 
 const Materia3: React.FC = () => {
     return (

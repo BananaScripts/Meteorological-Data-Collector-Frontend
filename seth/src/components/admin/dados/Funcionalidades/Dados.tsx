@@ -1,141 +1,95 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Dados } from "../../../../types/dados";
-import { Parametro } from "../../../../types/parametro";
-import { Estacao } from "../../../../types/estacao";
-import './index.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export default function EnviarDados() {
-    const [dados, setDados] = useState<Array<Dados>>([]);
-    const [cod_estacao, setCodEstacao] = useState<number | string>('');
-    const [cod_tipoParametro, setCodTipoParametro] = useState<number | string>('');
-    const [valor, setValor] = useState(0);
-    const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
-    const [estacao, setEstacao] = useState<Array<Estacao>>([]);
+const DataDisplay = () => {
+  interface DadosItem {
+    cod_dados: number;
+    cod_parametro: number;
+    Valor: number;
+    unixtime: number;
+  }
 
-    const currentDate = new Date();
-    const data = currentDate.toISOString().split('T')[0];
-    const hora = currentDate.toTimeString().split(' ')[0];
+  interface TipoParametro {
+    cod_tipoParametro: number;
+    nome: string;
+    fator: string;
+    offset: string;
+    unidadeMedida: string;
+    json: string;
+  }
 
+  const [dados, setDados] = useState<DadosItem[]>([]);
+  const [tiposParametros, setTiposParametros] = useState<TipoParametro[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        axios.get('http://localhost:3002/tipoParametro/listar')
-            .then(response => {
-                setTiposParametro(response.data);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar tipos de parâmetro:", error);
-            });
-        axios.get('http://localhost:3002/estacao/listar')
-            .then(response => {
-                setEstacao(response.data);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar tipos de parâmetro:", error);
-            });
-        axios.get('http://localhost:3002/estacao/listarDados')
-            .then(response => {
-                setDados(response.data);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar dados:", error);
-            });
-        
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [dadosResponse, tiposResponse] = await Promise.all([
+          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
+          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
+        ]);
 
-    function enviarDados() {
-        const currentDate = new Date();
-        const data = currentDate.toISOString().split('T')[0];
-        const hora = currentDate.toTimeString().split(' ')[0];
-
-        if (cod_estacao && cod_tipoParametro && valor) {
-            axios.post('http://localhost:3002/estacao/dados', {cod_estacao,cod_tipoParametro,data,hora,valor
-            })
-            .then(() => {
-                alert("Dados enviados com sucesso!");
-            })
-            .catch((error) => {
-                console.error(error);
-                alert("Erro ao enviar os dados.");
-            });
+        setDados(dadosResponse.data);
+        setTiposParametros(tiposResponse.data);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          setError(`Erro ao buscar os dados: ${err.message}`);
         } else {
-            alert("Preencha todos os campos obrigatórios!");
+          setError('Erro inesperado ao buscar os dados');
         }
-    }
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
 
-    return (
-        <div id="Box_Estacoes">
-            <div id="Title_Section">
-                <h3>Enviar Dados</h3>
-            </div>
-            <div id="Inputs_Camp">
-                <p>
-                    Estação:
-                    <select
-                        value={cod_estacao}
-                        onChange={(e) => setCodEstacao(e.target.value)}
-                    >
-                        <option value="">Selecione uma Estação</option>
-                        {estacao.map((estacao) => (
-                            <option key={estacao.cod_estacao} value={estacao.cod_estacao}>
-                                {estacao.nome}
-                            </option>
-                        ))}
+  if (loading) {
+    return <div>Carregando dados, por favor aguarde...</div>;
+  }
 
-                    </select>
-                </p>
-                <p>
-                    Tipo de Parâmetro:
-                    <select
-                        value={cod_tipoParametro}
-                        onChange={(e) => setCodTipoParametro(e.target.value)}
-                    >
-                        <option value="">Selecione um tipo</option>
-                        {tiposParametro.map((tipoParametro) => (
-                            <option key={tipoParametro.cod_tipoParametro} value={tipoParametro.cod_tipoParametro}>
-                                {tipoParametro.nome}
-                            </option>
-                        ))}
-                    </select>
-                </p>
-                <p>
-                    Valor:
-                    <input type="number" value={valor} onChange={(e) => setValor(Number(e.target.value))} placeholder="Valor" />
-                </p>
-                <button className="botaoEnvio" onClick={enviarDados}>Enviar Dados</button>
-            </div>
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-            <h3>Dados Registrados</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Hora</th>
-                        <th>Valor</th>
-                        <th>Estação</th>
-                        <th>Tipo de Parâmetro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {dados.map((dado) => {
-                        const estacaoNome = estacao.find(est => est.cod_estacao === dado.cod_estacao)?.nome || 'Desconhecida';
-                        const parametroNome = tiposParametro.find(tipo => tipo.cod_tipoParametro === dado.cod_tipoParametro)?.nome || 'Desconhecido';
-                        return (
-                            <tr key={dado.cod_dados}>
-                                <td>{dado.data}</td>
-                                <td>{dado.hora}</td>
-                                <td>{dado.valor}</td>
-                                <td>{estacaoNome}</td>
-                                <td>{parametroNome}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+  return (
+    <div>
+      <h1>Dados Coletados</h1>
+      {dados.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Código dos Dados</th>
+              <th>Nome do Parâmetro</th>
+              <th>Valor</th>
+              <th>Unix Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dados.map((item) => {
+              // Encontre o nome do parâmetro correspondente
+              const parametro = tiposParametros.find(param => param.cod_tipoParametro === item.cod_parametro);
+              const parametroNome = parametro ? parametro.nome : 'Desconhecido';
 
+              return (
+                <tr key={item.cod_dados}>
+                  <td>{item.cod_dados}</td>
+                  <td>{parametroNome}</td>
+                  <td>{item.Valor}</td>
+                  <td>{item.unixtime}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <div>Nenhum dado disponível.</div>
+      )}
+    </div>
+  );
+};
 
-
-        </div>
-    );
-}
+export default DataDisplay;

@@ -50,7 +50,7 @@ h1{
 
 .barra-progresso {
     background-color: #e0e0e0;
-    border-radius: 5px;
+    border-radius: 10px;
     height: 20px;
     margin-top: 20px;
     position: relative;
@@ -59,13 +59,23 @@ h1{
 .progresso {
     background-color: #4caf50;
     height: 100%;
-    border-radius: 5px;
-    transition: width 0.3s ease;
+    border-radius: 10px;
+    transition: width 1s ease-in-out; 
+    width: 0;
 }
 
-.percentagem {
+.progresso-total {
+    background-color: #f44336;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease-in-out; 
+    width: 0;
+}
+
+.porcentagem {
     text-align: center;
     margin-top: 5px;
+    margin-left: 5px;
     font-weight: bold;
 }
 .reset {
@@ -81,7 +91,7 @@ h1{
     background-color: #91221a;
 }
 
-.popup {
+.popup-edu {
     position: fixed;
     top: 0;
     left: 0;
@@ -94,7 +104,7 @@ h1{
     z-index: 1000;
 }
 
-.popup-content {
+.popup-content-edu {
     background: #979797;
     padding: 20px;
     border-radius: 8px;

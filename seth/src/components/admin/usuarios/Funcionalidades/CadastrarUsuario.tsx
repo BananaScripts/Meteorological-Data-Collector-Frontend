@@ -14,7 +14,7 @@ export default function CreateUsuario() {
         console.clear()
 
         if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '') {
-            axios.post('http://localhost:3002/usuario/cadastrar', { nome, dataNascimento, cpf, email, senha })
+            axios.post('http://localhost:30105/api/usuario/cadastrar', { nome, dataNascimento, cpf, email, senha })
             .then(() => {
                 setNome('')
                 setDataNascimento('')

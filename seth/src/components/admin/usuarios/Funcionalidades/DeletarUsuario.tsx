@@ -7,7 +7,7 @@ export default function DeleteUsuario() {
 
     function deletar() {
         if (id !== '') {
-            axios.delete(`http://localhost:3002/usuario/deletar/${id}`)
+            axios.delete(`http://localhost:30105/api/usuario/deletar/${id}`)
             .then(() => {
                 alert("Usuário deletado com sucesso!")
                 setId('') 
