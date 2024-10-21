@@ -15,7 +15,6 @@ nav {
   padding-top: 2%;
   margin-left: 2%;
   margin-right: 2%;
-  
 }
 
 nav ul {
@@ -33,11 +32,11 @@ nav ul li {
   height: 100%;
   min-height: 100vh; 
   background-size: 150%;
-  background-position: top;
   background-repeat: repeat;
   transition: background-image 0.5s ease; 
   font-family: 'Montserrat', sans-serif;
   color: white;
+  z-index: 10;
 }
 
 .App ul {
@@ -202,5 +201,5 @@ nav ul li {
 
   .fundinho{
     text-indent: -9999px;
-    margin-bottom: -10000px;
+    margin-bottom: -1000px;
 }
