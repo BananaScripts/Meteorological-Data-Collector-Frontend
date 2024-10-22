@@ -2,14 +2,15 @@
 import "./main.css"
 
 
-/* import INTERFACE_CONTROLE_ALARMES from "./alarmes"; */
+import INTERFACE_CONTROLE_ALARMES from "./alarmes"; 
 import INTERFACE_CONTROLE_ESTACOES from "./estacoes";
 import INTERFACE_CONTROLE_USUARIOS from "./usuarios";
 import INTERFACE_CONTROLE_PARAMETROS from "./parametros";
 /* import INTERFACE_DADOS_ESTACOES from "./dados"; */
 
-/* import imagemAlarme from "../../assets/imgs/climate-change.png" */
+import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
+
 
 
 export default function AdminComponent() {
@@ -22,7 +23,7 @@ export default function AdminComponent() {
           <div id="Colluns_Admin">
 
 
-{/*
+
               <div id="Alarmes_Box" className="Box">
 
                 <INTERFACE_CONTROLE_ALARMES />
@@ -37,7 +38,6 @@ export default function AdminComponent() {
                 <img src={imagemAlarme} alt="Alarmes Acionados" />
 
               </div>
-*/}
 
 
           </div>
