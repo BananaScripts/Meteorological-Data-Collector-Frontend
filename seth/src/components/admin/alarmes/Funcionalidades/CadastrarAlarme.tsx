@@ -22,7 +22,7 @@ export default function CreateAlarme() {
             });
     }, []);
 
-    const cadastrar = () => {
+    const monitorar = () => {
         if (!nome || !codTipoParametro || !valorAlvo) {
             alert("Por favor, preencha os campos obrigatórios!");
             return;
@@ -61,8 +61,8 @@ export default function CreateAlarme() {
             <hr />
 
             <div id="Title_Section">
-                <h3>Cadastrar Novo Alarme</h3>
-                <p>*Preencha os campos obrigatórios para poder finalizar o cadastro</p>
+                <h3>Configurar criação de Alarme</h3>
+                <p>*Preencha os campos obrigatórios</p>
             </div>
 
             <div id="Inputs_Camp">
@@ -124,8 +124,8 @@ export default function CreateAlarme() {
             </div>
 
             <div id="Action">
-                <button onClick={cadastrar}>
-                    Cadastrar
+                <button onClick={monitorar}>
+                    Monitorar
                 </button>
             </div>
         </div>
