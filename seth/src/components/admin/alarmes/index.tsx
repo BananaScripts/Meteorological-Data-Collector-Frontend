@@ -75,7 +75,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                     </div>
                 )}
 
-                {actionType === 1 && <Funcionalidades.CreateAlarme />}
+                {actionType === 1 && <Funcionalidades.ConfigAlarme />}
                 {actionType === 3 && <Funcionalidades.DeleteAlarme />}
             </div>
         </>

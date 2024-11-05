@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Parametro } from "../../../../types/parametro";
 
-export default function CreateAlarme() {
+export default function ConfigAlarme() {
     const [nome, setNome] = useState('');
     const [codTipoParametro, setCodTipoParametro] = useState<number | string>('');
     const [valorAlvo, setValorAlvo] = useState<number | string>('');
@@ -36,7 +36,7 @@ export default function CreateAlarme() {
             return;
         }
 
-        axios.post('http://localhost:30105/api/alarme/cadastrar', {
+        axios.post('http://localhost:30105/api/alarme/monitorar', {
             nome,
             valorAlvo: valorNum, 
             condicao,
