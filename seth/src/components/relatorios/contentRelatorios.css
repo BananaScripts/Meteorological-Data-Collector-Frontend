@@ -1,4 +1,30 @@
+/* Define keyframe animations */
+@keyframes spin-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
 
+@keyframes spin-counterclockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+}
+
+/* Define classes for the animations */
+.spin-clockwise {
+  animation: spin-clockwise 0.5s forwards;
+}
+
+.spin-counterclockwise {
+  animation: spin-counterclockwise 0.5s forwards;
+}
 .grafico-container {
     display: flex;
     flex-direction: column;
@@ -9,4 +35,14 @@
 .grafico {
     width: 80%;
     height: 300px;
+}
+
+.caixacinza2{
+    background-color: #323949;
+    padding: 25px;
+    border-radius: 40px;
+    margin-left: 2%;
+    margin-right: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgb(50, 75, 40);
 }

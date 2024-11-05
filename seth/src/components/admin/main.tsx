@@ -19,9 +19,8 @@ export default function AdminComponent() {
     <>
       <div id="body_Admin_Page">
         
-
+      <h1>Página do Administrador</h1>
           <div id="Colluns_Admin">
-
 
 
               <div id="Alarmes_Box" className="Box">
