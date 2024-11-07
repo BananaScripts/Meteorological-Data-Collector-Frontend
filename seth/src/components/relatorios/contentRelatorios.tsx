@@ -30,22 +30,19 @@ interface TipoParametro {
 
 const DataByCodParametro = () => {
   const [dados, setDados] = useState<DadosItem[]>([]);
-  const [tiposParametros, setTiposParametros] = useState<TipoParametro[]>([]);
-  const [estacoes, setEstacoes] = useState<Estacao[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [dadosResponse, tiposResponse] = await Promise.all([
+        const [dadosResponse] = await Promise.all([
           axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
           axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
           axios.get<Estacao[]>('http://localhost:30105/api/estacoes'),
         ]);
 
         setDados(dadosResponse.data);
-        setTiposParametros(tiposResponse.data);
       } catch (err) {
         if (axios.isAxiosError(err)) {
           setError(`Erro ao buscar os dados: ${err.message}`);

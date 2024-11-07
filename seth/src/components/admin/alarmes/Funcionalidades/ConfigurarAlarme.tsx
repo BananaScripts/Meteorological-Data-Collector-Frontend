@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Parametro } from "../../../../types/parametro";
 
-export default function CreateAlarme() {
+export default function ConfigAlarme() {
     const [nome, setNome] = useState('');
     const [codTipoParametro, setCodTipoParametro] = useState<number | string>('');
-    const [valor, setValor] = useState<number | string>('');
-    const [condicao, setCondicao] = useState('igual a');
+    const [valorAlvo, setValorAlvo] = useState<number | string>('');
+    const [condicao, setCondicao] = useState<string>('igual a');
+    const [tempo, setTempo] = useState(1);
+    const [tipoTempo, setTipoTempo] = useState<string>('Minuto')
 
     const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
 
@@ -20,30 +22,32 @@ export default function CreateAlarme() {
             });
     }, []);
 
-    const cadastrar = () => {
-        if (!nome || !codTipoParametro || !valor) {
+    const monitorar = () => {
+        if (!nome || !codTipoParametro || !valorAlvo) {
             alert("Por favor, preencha os campos obrigatórios!");
             return;
         }
 
         const codTipoParametroNum = Number(codTipoParametro);
-        const valorNum = Number(valor);
+        const valorNum = Number(valorAlvo);
 
         if (isNaN(codTipoParametroNum) || isNaN(valorNum)) {
             alert("Código do Tipo de Parâmetro ou Valor inválido!");
             return;
         }
 
-        axios.post('http://localhost:30105/api/alarme/cadastrar', {
+        axios.post('http://localhost:30105/api/alarme/monitorar', {
             nome,
-            cod_tipoParametro: codTipoParametroNum,  
-            valor: valorNum, 
-            condicao
+            valorAlvo: valorNum, 
+            condicao,
+            cod_tipoParametro: codTipoParametroNum,
+            tempo,
+            tipoTempo  
         })
         .then(() => {
             setNome('');
             setCodTipoParametro('');
-            setValor('');
+            setValorAlvo('');
             setCondicao('igual a');
             alert("Alarme cadastrado com sucesso!");
         })
@@ -57,8 +61,8 @@ export default function CreateAlarme() {
             <hr />
 
             <div id="Title_Section">
-                <h3>Cadastrar Novo Alarme</h3>
-                <p>*Preencha os campos obrigatórios para poder finalizar o cadastro</p>
+                <h3>Configurar criação de Alarme</h3>
+                <p>*Preencha os campos obrigatórios</p>
             </div>
 
             <div id="Inputs_Camp">
@@ -73,7 +77,7 @@ export default function CreateAlarme() {
                 </p>
 
                 <p>
-                    Parâmetro:
+                    Tipo de Parâmetro:
                     <select
                         value={codTipoParametro}
                         onChange={(e) => setCodTipoParametro(e.target.value)}
@@ -91,8 +95,8 @@ export default function CreateAlarme() {
                     Valor:
                     <input
                         type="number"
-                        value={valor}
-                        onChange={(e) => setValor(e.target.value)}
+                        value={valorAlvo}
+                        onChange={(e) => setValorAlvo(e.target.value)}
                         placeholder="(*Obrigatório)"
                     />
                 </p>
@@ -101,16 +105,27 @@ export default function CreateAlarme() {
                     Condição:
                     <select value={condicao} onChange={(e) => setCondicao(e.target.value)}>
                         <option value="igual a">Igual a</option>
-                        <option value="menor que">Menor que</option>
-                        <option value="maior que">Maior que</option>
-                        <option value="diferente">Diferente</option>
+                        <option value="menor">Menor que</option>
+                        <option value="maior">Maior que</option>
                     </select>
+                </p>
+
+                <p>
+                    Tipo de intervalo de tempo:
+                    <select value={tipoTempo} onChange={(e)=> setTipoTempo(e.target.value)}>
+                        <option value="Minuto">Minuto</option>
+                        <option value="Hora">Hora</option>
+                    </select>
+                </p>
+                <p>
+                    Intervalo de tempo (horas/minutos):
+                    <input type="number" value={tempo} onChange={(e)=>setTempo(Number(e.target.value))}></input>
                 </p>
             </div>
 
             <div id="Action">
-                <button onClick={cadastrar}>
-                    Cadastrar
+                <button onClick={monitorar}>
+                    Monitorar
                 </button>
             </div>
         </div>
