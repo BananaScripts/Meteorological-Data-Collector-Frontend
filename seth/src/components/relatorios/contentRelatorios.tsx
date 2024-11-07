@@ -30,8 +30,6 @@ interface TipoParametro {
 
 const DataByCodParametro = () => {
   const [dados, setDados] = useState<DadosItem[]>([]);
-  const [tiposParametros, setTiposParametros] = useState<TipoParametro[]>([]);
-  const [estacoes, setEstacoes] = useState<Estacao[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +43,6 @@ const DataByCodParametro = () => {
         ]);
 
         setDados(dadosResponse.data);
-        setTiposParametros(tiposResponse.data);
       } catch (err) {
         if (axios.isAxiosError(err)) {
           setError(`Erro ao buscar os dados: ${err.message}`);
