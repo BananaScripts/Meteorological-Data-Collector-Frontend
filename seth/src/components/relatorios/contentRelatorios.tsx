@@ -36,7 +36,7 @@ const DataByCodParametro = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [dadosResponse, tiposResponse] = await Promise.all([
+        const [dadosResponse] = await Promise.all([
           axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
           axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
           axios.get<Estacao[]>('http://localhost:30105/api/estacoes'),
