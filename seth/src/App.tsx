@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import Navbar from './components/home/Navbarapp';
+import  Navbar  from './components/home/Navbarapp';
 import Content from './components/home/contentHome';
 /*import ContentClima from './components/clima/contentClima';*/
 import ContentEducation from './components/education/contentEducation';
@@ -30,7 +30,6 @@ const App: React.FC = () => {
   };
 
   const closeOtherComponents = () => {
-    setActiveSections([]); // Fecha todas as seções
     setIsLoginOpen(true); // Marca que o login está aberto
   };
 

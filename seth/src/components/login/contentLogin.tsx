@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import imgLogin from './icons/login.png'
+import imgLogout from './icons/logout.png'
 
 interface ContentLoginProps {
     onCloseOtherComponents: () => void;
@@ -156,31 +158,35 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
         },
         loginButtonImage: {
             position: 'absolute' as const,
-            top: '10px',
-            right: '10px',
+            top: '15px',
+            right: '30px',
             cursor: 'pointer',
             margin: '2.5%',
+            width: '40px',
+            height: '40px',
         },
         logoutButtonImage: {
             position: 'absolute' as const,
-            top: '10px',
-            right: '10px',
+            top: '15px',
+            right: '30px',
             cursor: 'pointer',
             marginRight: '2.5%',
             marginTop: '7%',
+            width: '40px',
+            height: '40px',
         },
     };
 
     return (
         <>
             <img 
-                src="./icons/login.png"
+                src={imgLogin}
                 alt="Login" 
                 style={styles.loginButtonImage} 
                 onClick={openModal} 
             />
             <img 
-                src="./icons/logout.png" 
+                src={imgLogout}
                 alt="Logout" 
                 style={styles.logoutButtonImage} 
                 onClick={logout} 

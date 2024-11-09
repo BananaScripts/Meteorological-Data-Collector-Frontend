@@ -64,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ sections, toggleSection }) => {
 
   const activeButtonStyle: React.CSSProperties = {
     ...buttonBaseStyle,
-    backgroundColor: '#323949',
+    backgroundColor: '#1E1E1E',
     color: 'white',
   };
 
@@ -102,15 +102,15 @@ const Navbar: React.FC<NavbarProps> = ({ sections, toggleSection }) => {
               style={activeSection === section.id ? activeButtonStyle : inactiveButtonStyle}
             >
               <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                <img src={section.icon} alt={`Icon for ${section.name}`} style={{ width: '50px', height: '50px', verticalAlign: 'middle', marginRight: '10px' }} />
-                <span style={{
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                  transition: 'max-width 0.3s ease',
-                  maxWidth: activeSection === section.id ? '100px' : '0',
-                }}>
-                  {section.name}
-                </span>
+              <img src={section.icon} alt={`Icon for ${section.name}`} style={{ width: '50px', height: '50px', verticalAlign: 'middle', marginRight: '10px' }} />
+              <span style={{
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                transition: 'max-width 0.3s ease',
+                maxWidth: activeSection === section.id ? '100px' : '0',
+              }}>
+                {section.name}
+              </span>
               </span>
             </button>
           </li>
