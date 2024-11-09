@@ -1,4 +1,30 @@
+/* Define keyframe animations */
+@keyframes spin-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
 
+@keyframes spin-counterclockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+}
+
+/* Define classes for the animations */
+.spin-clockwise {
+  animation: spin-clockwise 0.5s forwards;
+}
+
+.spin-counterclockwise {
+  animation: spin-counterclockwise 0.5s forwards;
+}
 .grafico-container {
     display: flex;
     flex-direction: column;
@@ -9,4 +35,75 @@
 .grafico {
     width: 80%;
     height: 300px;
+}
+
+.caixacinza2{
+    background-color: #323949;
+    padding: 25px;
+    border-radius: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border: 2px solid gray
+}
+
+#endUnixTime {
+
+    color: '#ffffff';
+    border: '1px solid #7289da';
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #startUnixTime {
+
+    color: '#ffffff';
+    border: '1px solid #7289da';
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Style for the filter section */
+.filter-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Style for the date selection and filter section container */
+.date-selection-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Style for the date selection section */
+.date-selection {
+  flex: 1;
+}
+
+/* Style for the input fields */
+.date-selection input,
+.filter-section select {
+  background-color: #23272a;
+  color: #ffffff;
+  border: 1px solid #7289da;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Style for the labels */
+.date-selection label,
+.filter-section label {
+  color: #ffffff;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
 }

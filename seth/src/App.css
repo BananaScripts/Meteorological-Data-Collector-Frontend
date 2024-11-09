@@ -4,27 +4,25 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  height: 100%;
+  background-color: #19191f;
 }
 
 nav {
-  background: linear-gradient(to top, rgba(151, 151, 151, 1)30%, rgba(151, 151, 151, 0.35) 100%);
-  opacity: 85%;
+  background: #323949;
   padding: 10px;
-  border-radius: 40px;
+  border-radius: 10px;
   margin-top: 1%;
   padding-top: 2%;
   margin-left: 2%;
   margin-right: 2%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 10px;
-}
-
-nav ul li {
-  margin-right: 20px;
+  gap: 37.5vw;
 }
 
 .App {
@@ -37,30 +35,9 @@ nav ul li {
   font-family: 'Montserrat', sans-serif;
   color: white;
   z-index: 10;
+  background-color: #19191f;
 }
 
-.App ul {
-  padding: 5%;
-  padding-bottom: 0%;
-  padding-top: 0%;
-
-  width: 80%;
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-}
-
-.dia {
-  background-image: url('assets/clima/dia.jpg');
-}
-
-.tarde {
-  background-image: url('assets/clima/tarde.jpg');
-}
-
-.noite {
-  background-image: url('assets/clima/noite.jpg');
-}
 
 /*#button1 {
   background: url('assets/icons/weather.png') no-repeat center center;
@@ -72,67 +49,8 @@ nav ul li {
   overflow: hidden;
   text-indent: -9999px;
   transition: transform 0.2s ease-in-out;
-  filter: invert(100%) brightness(200%);
 }*/
 
-#button1:hover {
-  cursor: pointer;
-  transform: scale(1.08);
-}
-
-#button1 {
-  background: url('assets/icons/chart.png') no-repeat center center;
-  background-size: contain;
-  width: 40px; 
-  height: 50px; 
-  border: none;
-  padding: 0;
-  overflow: hidden;
-  text-indent: -9999px;
-  transition: transform 0.2s ease-in-out;
-  filter: invert(100%) brightness(200%);
-}
-
-#button1:hover {
-  cursor: pointer;
-  transform: scale(1.08);
-}
-
-#button2 {
-  background: url('assets/icons/education.png') no-repeat center center;
-  background-size: contain;
-  width: 50px; 
-  height: 50px; 
-  border: none;
-  padding: 0;
-  overflow: hidden;
-  text-indent: -9999px;
-  transition: transform 0.2s ease-in-out;
-  filter: invert(100%) brightness(200%);
-}
-
-#button2:hover {
-  cursor: pointer;
-  transform: scale(1.08);
-}
-
-#button3 {
-  background: url('assets/icons/admin.png') no-repeat center center;
-  background-size: contain;
-  width: 50px; 
-  height: 50px; 
-  border: none;
-  padding: 0;
-  overflow: hidden;
-  text-indent: -9999px;
-  transition: transform 0.2s ease-in-out;
-  filter: invert(100%) brightness(200%);
-}
-
-#button3:hover {
-  cursor: pointer;
-  transform: scale(1.08);
-}
 
 .topinho {
   text-indent: -9999px;
@@ -179,27 +97,29 @@ nav ul li {
 }
 
 .caixacinza {
-  background-color: #b1b1b1;
-  opacity: 80%;
+  background-color: #323949;
   padding: 10px;
-  border-radius: 40px;
-  margin-top: 1%;
+  border-radius: 10px;
   margin-left: 2%;
   margin-right: 2%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 .caixacinzaclaro{
-    background-color: #979797;
+    background-color: #323949;
     padding: 10px;
-    border-radius: 40px;
+    border-radius: 10px;
     margin-top: 0.8%;
     margin-left: 0.8%;
     margin-right: 0.8%;
     margin-bottom: 0.8%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   }
 
   .fundinho{
-    text-indent: -9999px;
-    margin-bottom: -1000px;
+    text-indent: -999px;
+}
+
+.textoDashboards{
+  text-align: center;
 }
