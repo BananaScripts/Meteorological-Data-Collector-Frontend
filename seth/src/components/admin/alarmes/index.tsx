@@ -32,18 +32,14 @@ export default function INTERFACE_CONTROLE_ALARMES() {
         <>
             <div id="Box_Alarmes">
                 <div id="Title_Box">
-                    <h2> Controle de Alarmes </h2>
-
-                    {actionType === null && (
-                        <button onClick={() => handleAction(2)}>Editar</button>
-                    )}                   
+                    <h2> Controle de Alarmes </h2>                   
 
                     {actionType === null && (    
                         <button onClick={() => handleAction(3)}>Deletar</button>
                     )}            
 
                     {actionType === null && (
-                        <button onClick={() => handleAction(1)}>Cadastrar Alarme</button>
+                        <button onClick={() => handleAction(1)}>Configurar Alarme</button>
                     )}
 
                     {actionType !== null && (
@@ -79,8 +75,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                     </div>
                 )}
 
-                {actionType === 1 && <Funcionalidades.CreateAlarme />}
-                {actionType === 2 && <Funcionalidades.EditAlarme />}
+                {actionType === 1 && <Funcionalidades.ConfigAlarme />}
                 {actionType === 3 && <Funcionalidades.DeleteAlarme />}
             </div>
         </>
