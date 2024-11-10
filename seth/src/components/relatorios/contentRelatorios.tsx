@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { jsPDF } from 'jspdf';
 import {
   LineChart,
   Line,
@@ -98,6 +99,78 @@ const DataByCodParametro: React.FC = () => {
     return estacao ? estacao.nome : 'Desconhecido';
   };
 
+  const filterData = () => {
+    return dados.filter(item => {
+      const parametro = parametros.find(param => param.cod_parametro === item.cod_parametro);
+      if (!parametro) return false;
+
+      const { cod_estacao, cod_tipoParametro } = parametro;
+
+      const isStationMatch = selectedStation === null || cod_estacao === selectedStation;
+      const isParameterMatch = selectedParameter === null || cod_tipoParametro === selectedParameter;
+      const isDateMatch =
+        (startUnixTime === null || item.unixtime >= startUnixTime) &&
+        (endUnixTime === null || item.unixtime <= endUnixTime);
+
+      return isStationMatch && isParameterMatch && isDateMatch;
+    }).map(item => {
+      const parametro = parametros.find(param => param.cod_parametro === item.cod_parametro);
+      const estacaoNome = parametro ? getEstacaoNome(parametro.cod_estacao) : 'Desconhecido';
+      const parametroNome = parametro ? getParametroNome(parametro.cod_tipoParametro) : 'Desconhecido';
+      const date = new Date(item.unixtime * 1000).toLocaleString('pt-BR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      });
+
+      return {
+        ...item,
+        estacao: estacaoNome,
+        parametro: parametroNome,
+        data: date,
+      };
+    });
+  };
+
+  const downloadDataAsJson = () => {
+    const filteredData = filterData();
+    const json = JSON.stringify(filteredData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'filtered_data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportDataAsPdf = () => {
+    const filteredData = filterData();
+    const doc = new jsPDF();
+  
+    doc.setFontSize(9);
+    doc.text('Dados Filtrados', 10, 10);
+  
+    let y = 20;
+    filteredData.forEach((item, index) => {
+      if (y > 280) { // Check if the y position is beyond the page height
+        doc.addPage();
+        y = 20; // Reset y position for the new page
+      }
+      doc.text(`Estação: ${item.estacao}`, 10, y);
+      doc.text(`Parâmetro: ${item.parametro}`, 60, y);
+      doc.text(`Data: ${item.data}`, 110, y);
+      doc.text(`Valor: ${item.Valor}`, 160, y);
+      y += 10; // Increment y position for the next line
+    });
+  
+    doc.save('filtered_data.pdf');
+  };
+
   if (loading) {
     return <div className='textoDashboards'>Carregando dados, por favor aguarde...</div>;
   }
@@ -164,34 +237,37 @@ const DataByCodParametro: React.FC = () => {
                   }}
                 />
                 <div className='filter-section'>
-              <label htmlFor="stationFilter">Filtrar por Estação:</label>
-              <select
-                id="stationFilter"
-                value={selectedStation ?? ''}
-                onChange={e => setSelectedStation(e.target.value ? Number(e.target.value) : null)}
-              >
-                <option value="">Todas</option>
-                {estacoes.map(estacao => (
-                  <option key={estacao.cod_estacao} value={estacao.cod_estacao}>
-                    {estacao.nome}
-                  </option>
-                ))}
-              </select>
+                  <label htmlFor="stationFilter">Filtrar por Estação:</label>
+                  <select
+                    id="stationFilter"
+                    value={selectedStation ?? ''}
+                    onChange={e => setSelectedStation(e.target.value ? Number(e.target.value) : null)}
+                  >
+                    <option value="">Todas</option>
+                    {estacoes.map(estacao => (
+                      <option key={estacao.cod_estacao} value={estacao.cod_estacao}>
+                        {estacao.nome}
+                      </option>
+                    ))}
+                  </select>
 
-              <label htmlFor="parameterFilter">Filtrar por Parâmetro:</label>
-              <select
-                id="parameterFilter"
-                value={selectedParameter ?? ''}
-                onChange={e => setSelectedParameter(e.target.value ? Number(e.target.value) : null)}
-              >
-                <option value="">Todos</option>
-                {tiposParametros.map(parametro => (
-                  <option key={parametro.cod_tipoParametro} value={parametro.cod_tipoParametro}>
-                    {parametro.nome}
-                  </option>
-                ))}
-              </select>
-            </div>
+                  <label htmlFor="parameterFilter">Filtrar por Parâmetro:</label>
+                  <select
+                    id="parameterFilter"
+                    value={selectedParameter ?? ''}
+                    onChange={e => setSelectedParameter(e.target.value ? Number(e.target.value) : null)}
+                  >
+                    <option value="">Todos</option>
+                    {tiposParametros.map(parametro => (
+                      <option key={parametro.cod_tipoParametro} value={parametro.cod_tipoParametro}>
+                        {parametro.nome}
+                      </option>
+                    ))}
+                  </select>
+                  <label>Download Dados Filtrados:</label>
+                  <button onClick={downloadDataAsJson} className="download-button">Download JSON</button>
+                  <button onClick={exportDataAsPdf} className="download-button">Download PDF</button>
+                </div>
               </div>
             </div>
           </div>
