@@ -16,10 +16,10 @@
 
 
 .Box {
-    background-color:  #979797;
+    background-color:  #4c5265;
     opacity: 80%;
 
-    border-color: #b1b1b1;
+    border-color: #323949;
     border-radius: 35px;
     border-width: 10px;
     border-style: solid;
@@ -100,3 +100,6 @@
 
 }
 
+.bodyAdmin{
+   width: 80%;
+}
