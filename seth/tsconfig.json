@@ -19,9 +19,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["react", "react-dom"],
+    "types": ["react", "react-dom", "jest"]  // Adicionando jest aqui
   },
   "include": [
     "src"
-  ]
+, "babel.config.ts", "jest.config.ts"  ]
 }
