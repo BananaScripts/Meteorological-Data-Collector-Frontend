@@ -62,6 +62,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
 
   return (
     <div id="SeeMoreContent">
+      
       <canvas id="alarmeChart" width="400" height="200"></canvas>
       <div id="tables">
         <div>
@@ -70,6 +71,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
             <thead>
               <tr>
                 <th>Nome</th>
+                <th>Condição</th>
                 <th>Valor</th>
               </tr>
             </thead>
@@ -77,6 +79,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
               {alarmes.map((alarme, index) => (
                 <tr key={index}>
                   <td>{alarme.nome}</td>
+                  <td>{alarme.condicao}</td>
                   <td>{alarme.valor}</td>
                 </tr>
               ))}
