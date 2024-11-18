@@ -7,6 +7,8 @@ import ContentEducation from './components/education/contentEducation';
 import ContentRelatorios from './components/relatorios/contentRelatorios';
 import ContentLogin from './components/login/contentLogin';
 import { AdminComponent } from './components/admin';
+import NotificationsBar from './components/notifications/app';
+import NotificationAlert from './components/notifications/functions/alarmActive';
 
 type Section = { id: number; content: string | JSX.Element; };
 
@@ -47,10 +49,14 @@ const App: React.FC = () => {
 
   return (
     <div className={`App ${backgroundClass}`}>
+
+      <NotificationAlert/>
+      <NotificationsBar/>
       <div className='topinho'>.</div>
       <Navbar sections={sectionsData} toggleSection={toggleSection}></Navbar>
       <Content className="content" sections={sectionsData} activeSections={activeSections} />
       <ContentLogin onCloseOtherComponents={closeOtherComponents} />
+
     </div>
   );
 };

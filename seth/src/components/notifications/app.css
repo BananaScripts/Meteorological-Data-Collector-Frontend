@@ -1,0 +1,183 @@
+#Notifications {
+    display: flex;
+    flex-direction:column;
+
+    width: 92.5%;
+    height: 15px;
+
+    border: 5px solid black;
+    border-radius: 20px;
+
+    padding: 15px;
+    padding-left: 20px;
+    margin-left: 2%;
+
+    background-color: #323949;
+    color: aliceblue;
+
+    position: fixed;
+    margin-top: 90vh;
+
+    z-index: 500;
+}
+
+/* Estado expandido */
+#Notifications.expanded {
+    height: 600px; /* Altura expandida */
+    margin-top: 2vh; /* Recuo ajustado para crescer para cima */
+}
+
+
+#NotificationBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    margin-top: -1.5%
+
+}
+
+#SeeMoreContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+#SeeMoreContent canvas {
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+#tables {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#tables > div {
+    flex: 1;
+    margin: 0 10px;
+    background-color: #272b38;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tables h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+#tables table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tables table th,
+#tables table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #555;
+    color: #fff;
+}
+
+#tables table th {
+    background-color: #3e4655;
+    font-weight: bold;
+}
+
+#tables table tbody tr:hover {
+    background-color: #4b5364;
+}
+
+
+#ConfigAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusConfig {
+        margin-top: 20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: green;
+        border-color: black;
+    }
+
+}
+
+#MonitorAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusMonitor {
+        margin-top: 20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: yellow;
+        border-color: black;
+    }
+
+}
+
+#ExpiredAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusExpired {
+        margin-top:20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: brown;
+        border-color: black;
+    }
+
+}
+
+#SeeMore {
+
+    button {
+        border-color: black;
+        border-style: solid;
+        border-radius: 20px;
+        color: aliceblue;
+        
+        
+        padding: 10px;
+        margin-bottom: 3%;
+
+        width: 150px;
+
+        background-color: #323949;
+    }
+
+    button:hover {
+        cursor: pointer;
+
+        color: #323949;
+
+        background-color: aliceblue;
+    }
+}

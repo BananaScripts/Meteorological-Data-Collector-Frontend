@@ -1,0 +1,145 @@
+@keyframes slideIn {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .popup {
+    width: 650px;
+    height: 50px;
+    border: 5px solid black;
+    border-radius: 20px;
+    background: #323949;
+    
+    position: fixed;
+    bottom: 75px;
+    right: 40px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+    text-align: center;
+    color: red;
+    font-style: oblique;
+    font-size: 16px;
+    font-weight: bold;
+    
+    z-index: 9999;
+    opacity: 1;
+    animation: slideIn 0.5s ease-out forwards; 
+}
+  
+  .popup h4 {
+    color: rgb(255, 255, 255);
+  }
+
+  .popup hr {
+    margin: 20px;
+  }
+  
+
+
+
+
+
+  #NotificationHist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 50px;
+  }
+  
+  #NotificationHist h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  #NotificationHist button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #NotificationHist button:hover {
+    background-color: #0056b3;
+  }
+  
+  #ChartContainer {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #ChartContainer h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  #TableContainer {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #TableContainer h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  #TableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #TableContainer th,
+  #TableContainer td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  #TableContainer th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  #TableContainer tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  #TableContainer tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+
+#SeeMoreContent {
+  max-height: 200px;
+}
