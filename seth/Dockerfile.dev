@@ -1,0 +1,18 @@
+# Use uma imagem base do Node.js
+FROM node:14
+
+# Defina o diretório de trabalho no contêiner
+WORKDIR /app
+
+# Instale as dependências do projeto
+COPY package*.json ./
+RUN npm install
+
+# Copie todo o código-fonte do projeto para o diretório de trabalho
+COPY . .
+
+# Exponha a porta 3000 para o servidor de desenvolvimento do React
+EXPOSE 8080
+
+# Comando para iniciar o servidor de desenvolvimento do React
+CMD ["npm", "start"]
