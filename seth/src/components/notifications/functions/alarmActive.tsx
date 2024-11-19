@@ -58,7 +58,7 @@ const NotificationAlert: React.FC = () => {
             {showPopup && newAlarme && (
                 <div className="popup">
                     
-                    <h2>ALARME DISPARADO!</h2>
+                    ALARME DISPARADO!
 
                     <hr />
 

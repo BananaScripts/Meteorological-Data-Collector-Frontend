@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { LineChart } from 'recharts/';
+import { Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer } from 'recharts';
 import { Estacao } from '../../types/estacao';
 
 interface DadosItem {
@@ -76,62 +69,54 @@ const DataByCodParametro = () => {
   }, {} as Record<number, { unixtime: number; Valor: number }[]>);
 
   // Função auxiliar para encontrar o nome do parâmetro baseado no cod_parametro
-    const getParametroNome = (index: number) => {
-      return index % 2 === 0 ? 'Temperatura': 'Umidade';
-    };
-    
-      // Função auxiliar para encontrar o nome do parâmetro baseado no cod_parametro
-      const getEstacaoNome = (index: number) => {
-        const cycle = Math.floor(index / 2) % 3;
-        if (cycle === 0) {
-          return 'Estação ABC';
-        } else if (cycle === 1) {
-          return 'Estação DEF';
-        } else {
-          return 'Estação GHI';
-        }
-      };
-      
+  const getParametroNome = (index: number) => {
+    return index % 2 === 0 ? 'Temperatura' : 'Umidade';
+  };
+
+  const getEstacaoNome = (index: number) => {
+    const cycle = Math.floor(index / 2) % 3;
+    if (cycle === 0) {
+      return 'Estação ABC';
+    } else if (cycle === 1) {
+      return 'Estação DEF';
+    } else {
+      return 'Estação GHI';
+    }
+  };
 
   return (
     <div>
       <h1>Dados por Parâmetro</h1>
       {Object.entries(groupedData)
-        .filter(([cod_parametro]) => Number(cod_parametro) > 10) // Filtro para exibir apenas cod_parametro > 10
+        .filter(([cod_parametro]) => Number(cod_parametro) > 10)
         .map(([cod_parametro, values]) => {
           const sortedValues = values.sort((a, b) => a.unixtime - b.unixtime);
-          
           const formattedValues = sortedValues.map(item => ({
             ...item,
             unixtime: new Date(item.unixtime * 1000).toLocaleString(),
           }));
 
-
           return (
-            <div className='caixacinza'>
-            <div key={cod_parametro} className='caixacinzaclaro'>
-              <h2>Estação: {getEstacaoNome(Number(cod_parametro)-1)}</h2> {/* Exibe o nome da estação */}
-              <h3>Parâmetro: {getParametroNome(Number(cod_parametro))}</h3> {/* Exibe o nome do parâmetro */}
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={formattedValues}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="unixtime" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="Valor" stroke="#8E1600" />
-                </LineChart>
-              </ResponsiveContainer>
-
+            <div className="caixacinza" key={cod_parametro}>
+              <div className="caixacinzaclaro">
+                <h2>Estação: {getEstacaoNome(Number(cod_parametro) - 1)}</h2>
+                <h3>Parâmetro: {getParametroNome(Number(cod_parametro))}</h3>
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={formattedValues}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="unixtime" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="Valor" stroke="#8E1600" />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
-
-              
             </div>
           );
         })}
-        <div className='fundinho'>.</div>
+      <div className="fundinho">.</div>
     </div>
-          
   );
 };
 

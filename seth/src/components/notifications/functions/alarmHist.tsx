@@ -9,13 +9,14 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+import { Alarme } from '../../../types/alarme'; // Importe o tipo Alarme
 
 // Registra os componentes necessários do Chart.js
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Legend, Title, Tooltip);
 
 interface NotificationHistProps {
-  alarmes: Array<any>; // Substitua `any` por seu tipo específico de alarmes, se aplicável
-  acionados: Array<any>; // Substitua `any` por seu tipo específico de alarmes ativados, se aplicável
+  alarmes: Alarme[]; // Substituído o tipo any por Alarme[]
+  acionados: Alarme[]; // Substituído o tipo any por Alarme[]
 }
 
 const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados }) => {
@@ -62,7 +63,6 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
 
   return (
     <div id="SeeMoreContent">
-      
       <canvas id="alarmeChart" width="400" height="200"></canvas>
       <div id="tables">
         <div>
@@ -111,3 +111,4 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
 };
 
 export default NotificationHist;
+

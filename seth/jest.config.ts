@@ -1,11 +1,12 @@
-
+export default {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom', // Ambiente jsdom para simular o navegador
+  setupFilesAfterEnv: ['./jest.setup.ts'], // Configuração adicional
+  moduleNameMapper: {
+      '\\.(css|less|sass|scss)$': '<rootDir>/styleMock.js', // Mock para arquivos de estilo
+    },
   
-  import type {Config} from '@jest/types';
-// Sync object
-const config: Config.InitialOptions = {
-  verbose: true,
-  transform: {
-  "^.+\\.tsx?$": "ts-jest",
-  },
+
 };
-export default config;
+
+console.log('jest.config.ts loaded');

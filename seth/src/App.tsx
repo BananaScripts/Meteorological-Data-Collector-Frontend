@@ -34,6 +34,8 @@ const App: React.FC = () => {
     } else {
       setBackgroundClass('noite');
     }
+
+
   }, []);
 
   const toggleSection = (id: number) => {
