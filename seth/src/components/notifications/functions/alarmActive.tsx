@@ -25,18 +25,17 @@ const NotificationAlert: React.FC = () => {
         fetchData();
     }, []);
 
-    // useEffect para monitorar mudanças em histAlarmes
     useEffect(() => {
         if (histAlarmes.length > prevLength) {
-            const novoAlarme = alarmes.find(
-                (alarme) => alarme.cod_alarme === histAlarmes[histAlarmes.length - 1]?.cod_alarme
-            );
-            setNewAlarme(novoAlarme || null);
-            setShowPopup(true);
-            setTimeout(() => setShowPopup(false), 10000);
+          const novoAlarme = alarmes.find(
+            (alarme) => alarme.cod_alarme === histAlarmes[histAlarmes.length - 1]?.cod_alarme
+          );
+          setNewAlarme(novoAlarme || null);
+          setShowPopup(true);
+          setTimeout(() => setShowPopup(false), 10000);
         }
         setPrevLength(histAlarmes.length);
-    }, );
+      }, [histAlarmes, prevLength, alarmes]);
 
     return (
         <div>
