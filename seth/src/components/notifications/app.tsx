@@ -26,6 +26,8 @@ const NotificationsBar: React.FC = () => {
         .catch((error) => {
           console.error("Erro ao buscar dados dos alarmes:", error);
         });
+
+
     };
   
     // Função para buscar quantidade de ativos monitorados
@@ -47,6 +49,7 @@ const NotificationsBar: React.FC = () => {
   
     
   console.log (alarmes)
+  console.log(ativosMonitorados)
 
   return (
     <>

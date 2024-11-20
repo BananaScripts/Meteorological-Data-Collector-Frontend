@@ -2,7 +2,7 @@
     display: flex;
     flex-direction:column;
 
-    width: 92.5%;
+    width: 95%;
     height: 15px;
     right: 20px;
 
@@ -17,7 +17,7 @@
     color: aliceblue;
 
     position: fixed;
-    margin-top: 90vh;
+    margin-top: 92.5vh;
 
     z-index: 500;
 
@@ -26,7 +26,7 @@
 
 /* Estado expandido */
 #Notifications.expanded {
-    height: 600px; /* Altura expandida */
+    height: 800px; /* Altura expandida */
     margin-top: 2vh; /* Recuo ajustado para crescer para cima */
 
     transition: height 0.3s ease-in-out, margin-top 0.3s ease-in-out;
@@ -39,7 +39,7 @@
     justify-content: space-between;
     flex-direction: row;
 
-    margin-top: -3vh;
+    margin-top: -2vh;
 
 }
 

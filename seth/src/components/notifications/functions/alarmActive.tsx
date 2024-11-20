@@ -36,7 +36,7 @@ const NotificationAlert: React.FC = () => {
             setTimeout(() => setShowPopup(false), 10000);
         }
         setPrevLength(histAlarmes.length);
-    }, [histAlarmes, alarmes]);
+    }, );
 
     return (
         <div>
