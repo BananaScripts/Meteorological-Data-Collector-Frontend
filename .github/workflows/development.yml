@@ -43,11 +43,13 @@ jobs:
         # Rodando testes de integração para PRs entre 'development' e 'main'
         if [[ "$GITHUB_BASE_REF" == "main" && "$GITHUB_HEAD_REF" == "development" ]]; then
           echo "Rodando testes de integração da branch development para main"
+          cd seth
           npm test -- seth/src/__tests__/integration
 
         # Rodando testes para a branch 'development' (mas não deve rodar em PR)
         elif [[ "$BRANCH_NAME" == "development" ]]; then
           echo "Rodando testes para branch development"
+          cd seth
           npm test -- seth/src/__tests__/unit
   
         # Rodando testes para branches 'Fix/*' ou 'Feat/*'
@@ -58,6 +60,7 @@ jobs:
           # Verifica se o diretório de testes da feature existe
           if [ -d "$FEATURE_TEST_DIR" ]; then
             echo "Rodando testes para a branch $BRANCH_NAME em $FEATURE_TEST_DIR"
+            cd seth
             npm test -- $FEATURE_TEST_DIR
           else
             echo "Nenhum teste foi encontrado para $BRANCH_NAME. Pulando."
