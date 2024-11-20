@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import NotificationHist from '../../../components/notifications/functions/alarmHist';
+import NotificationHist from '../../../../components/notifications/functions/alarmHist';
 
 describe('NotificationHist Component', () => {
   test('renderiza tabelas corretamente', async () => {
