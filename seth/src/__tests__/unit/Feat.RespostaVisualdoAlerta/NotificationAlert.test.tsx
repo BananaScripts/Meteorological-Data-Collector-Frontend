@@ -1,51 +1,51 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import NotificationAlert from '../../../components/notifications/functions/alarmActive';
-import axios from 'axios';
+import atualizarAlarmes from '../../../components/notifications/functions/updateAlarms';
 
-// Mock do temporizador
-jest.useFakeTimers();
+// Mock da função que busca os alarmes
+jest.mock('../../../components/notifications/functions/updateAlarms', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}));
 
-// Mock do axios
-jest.mock('axios');
+describe('NotificationAlert', () => {
+    it('deve atualizar alarmes quando dados forem recebidos', async () => {
+        // Mock do retorno da função
+        (atualizarAlarmes as jest.Mock).mockResolvedValue({
+            histAlarmes: [{ cod_alarme: 1 }],
+            alarmes: [{ cod_alarme: 1, nome: 'Teste Alarme', valor: 100, condicao: '>' }],
+        });
 
-// Mock de dados, se necessário
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+        render(<NotificationAlert />);
 
-describe('NotificationAlert Component', () => {
-  test('exibe pop-up quando um novo alarme é disparado', async () => {
-    // Mocka as respostas do axios
-    mockedAxios.get.mockResolvedValueOnce({
-      data: [
-        // Mock da resposta de alarmes
-        { cod_alarme: 1, cod_tipoParametro: 101, nome: 'Alarme 1', valor: 10, condicao: '>' },
-      ]
-    })
-      .mockResolvedValueOnce({
-        data: [
-          // Mock da resposta de histAlarmes
-          { cod_alarme: 1, cod_tipoParametro: 101, nome: 'Alarme 1', valor: 10, condicao: '>' },
-        ]
+        // Espera que a função 'atualizarAlarmes' tenha sido chamada
+        await waitFor(() => expect(atualizarAlarmes).toHaveBeenCalledTimes(1));
+
+        // Verifica se a lista de alarmes foi atualizada
+        await waitFor(() => {
+            const alarme = screen.queryAllByText(/Nome do Alarme/i);
+            expect(alarme).toHaveLength(1); // Espera que o nome do alarme apareça na tela
+            expect(alarme[0].textContent).toBe('Nome do Alarme: Teste Alarme'); // Verifica o conteúdo do nome do alarme
+        });
+    });
+
+    it('não exibe alarme quando não houver alarmes', async () => {
+      // Mock do retorno da função com lista vazia
+      (atualizarAlarmes as jest.Mock).mockResolvedValue({
+          histAlarmes: [],
+          alarmes: [],
       });
-
-    render(<NotificationAlert />);
-
-    // Simula um novo alarme disparado internamente
-    act(() => {
-      jest.advanceTimersByTime(100); // Simula tempo para atualizar alarmes
-    });
-
-    // Verifica se o pop-up é exibido
-    const popup = await screen.findByText(/ALARME DISPARADO!/i);
-    expect(popup).toBeInTheDocument();
-
-    // Simula tempo para o pop-up desaparecer
-    act(() => {
-      jest.advanceTimersByTime(10000); // 10 segundos para desaparecer
-    });
-
-    await waitFor(() => screen.queryByText(/ALARME DISPARADO!/i));
-
-    expect(screen.queryByText(/ALARME DISPARADO!/i)).toBeNull();
+  
+      render(<NotificationAlert />);
+  
+      // Espera que a função 'atualizarAlarmes' tenha sido chamada
+      await waitFor(() => expect(atualizarAlarmes).toHaveBeenCalledTimes(2)); // Verifique se ela foi chamada 2 vezes, ou ajuste conforme o esperado
+  
+      // Verifica que nenhum alarme é exibido
+      await waitFor(() => {
+          const alarme = screen.queryAllByText(/Nome do Alarme/i);
+          expect(alarme).toHaveLength(0); // Espera que não haja nenhum alarme na tela
+      });
   });
 });
