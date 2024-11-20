@@ -1,0 +1,261 @@
+#Notifications {
+    display: flex;
+    flex-direction:column;
+
+    width: 95%;
+    height: 15px;
+    right: 20px;
+
+    border: 5px solid black;
+    border-radius: 20px;
+
+    padding: 15px;
+    padding-left: 20px;
+    margin-left: 2%;
+
+    background-color: #323949;
+    color: aliceblue;
+
+    position: fixed;
+    margin-top: 92.5vh;
+
+    z-index: 500;
+
+    transition: height 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+/* Estado expandido */
+#Notifications.expanded {
+    height: 800px; /* Altura expandida */
+    margin-top: 2vh; /* Recuo ajustado para crescer para cima */
+
+    transition: height 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+
+#NotificationBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    margin-top: -2vh;
+
+}
+
+#SeeMoreContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    max-height: 85vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+
+#SeeMoreContent canvas {
+    margin: 20px 0;
+    max-width: 100%;
+    max-height: 200px;
+}
+
+#tables {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#tables > div {
+    flex: 1;
+    margin: 0 10px;
+    background-color: #272b38;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tables h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+#tables table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tables table th,
+#tables table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #555;
+    color: #fff;
+}
+
+#tables table th {
+    background-color: #3e4655;
+    font-weight: bold;
+}
+
+#tables table tbody tr:hover {
+    background-color: #4b5364;
+}
+
+
+#ConfigAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusConfig {
+        margin-top: 20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: green;
+        border-color: black;
+    }
+
+}
+
+#MonitorAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusMonitor {
+        margin-top: 20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: yellow;
+        border-color: black;
+    }
+
+}
+
+#ExpiredAlarms {
+    display: flex;
+    flex-direction: row;
+
+    #StatusExpired {
+        margin-top:20px;
+    
+        width: 20px;
+        height: 20px;
+    
+        border-style: solid;
+        border-radius: 50%;
+        border-width: 2.5px;
+    
+        background-color: brown;
+        border-color: black;
+    }
+
+}
+
+#SeeMore {
+
+    button {
+        border-color: black;
+        border-style: solid;
+        border-radius: 20px;
+        color: aliceblue;
+        
+        
+        padding: 10px;
+        margin-bottom: 3%;
+
+        width: 150px;
+
+        background-color: #323949;
+    }
+
+    button:hover {
+        cursor: pointer;
+
+        color: #323949;
+
+        background-color: aliceblue;
+    }
+}
+
+@media (max-width: 725px) {
+
+
+    #Notifications {
+        width: 85%;
+
+        font-size: x-small;
+
+        h3 {
+            margin-top: 3.5vh;
+        }
+
+        button {
+            margin-top: 0.5vh;
+            padding: 5px;
+
+            width: 100px;
+        }
+    }
+
+
+
+}
+
+@media (max-width: 525px) {
+
+
+    #Notifications {
+
+        margin-top: 87.5vh;
+
+        width: 85%;
+        right: 10px;
+
+        font-size: 6px;
+
+        #StatusConfig, #StatusMonitor, #StatusExpired {
+            margin-top: 3.5vh;
+
+            width: 10px;
+            height: 10px;
+        }
+
+        h3 {
+            margin-top: 4vh;
+        }
+
+        #SeeMore {
+
+        button {
+            margin-top: 2vh;
+            padding: 1px;
+
+            width: 90px;
+
+            b {
+                font-size: 8px;
+            }
+        }
+
+        }
+
+    }
+
+
+
+}

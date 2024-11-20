@@ -15,6 +15,7 @@ import {
 import settingsIcon from './settings.png';
 import './contentRelatorios.css';
 
+
 interface DadosItem {
   cod_dados: number;
   cod_parametro: number;
