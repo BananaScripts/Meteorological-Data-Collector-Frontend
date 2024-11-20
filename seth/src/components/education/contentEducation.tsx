@@ -129,10 +129,11 @@ const ContentEducation: React.FC = () => {
 
     return (
         <div>
+            <h1>Curso de Matemática Aplicada à Meteorologia</h1>
         <div className='caixacinza'>
             <div className='caixacinzaclaro'>
                 <div className='EducationCss'>
-                    <h1>Curso de Matemática Aplicada à Meteorologia</h1>
+                    
     
                     {activeSection === null ? (
                         <div>

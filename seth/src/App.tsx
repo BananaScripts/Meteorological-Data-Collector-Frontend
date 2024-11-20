@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Navbar from './components/home/Navbarapp';
+import  Navbar  from './components/home/Navbarapp';
 import Content from './components/home/contentHome';
 /*import ContentClima from './components/clima/contentClima';*/
 import ContentEducation from './components/education/contentEducation';
@@ -10,47 +10,32 @@ import { AdminComponent } from './components/admin';
 import NotificationsBar from './components/notifications/app';
 import NotificationAlert from './components/notifications/functions/alarmActive';
 
-type Section = { id: number; content: string | JSX.Element; };
+type Section = { id: number; name: string; icon: string; content: string | JSX.Element; };
 
 const sectionsData: Section[] = [
-  /*{ id: 1, content: <ContentClima /> },*/
-  { id: 2, content: <ContentRelatorios /> },
-  { id: 3, content: <ContentEducation /> },
-  { id: 4, content: <AdminComponent /> },
+  /*{ id: 1, name: 'Clima', icon: 'clima-icon', content: <ContentClima /> },*/
+  { id: 2, name: 'Relatórios', icon: './components/home/icons/relatorios.png', content: <ContentRelatorios /> },
+  { id: 3, name: 'Educação', icon: './components/home/icons/educacao.png', content: <ContentEducation /> },
+  { id: 4, name: 'Administrador', icon: './components/home/icons/admin.png', content: <AdminComponent /> },
 ];
 
 const App: React.FC = () => {
   const [activeSections, setActiveSections] = useState<number[]>([]);
-  const [backgroundClass, setBackgroundClass] = useState<string>('bg1');
   const [, setIsLoginOpen] = useState(false);
 
-  useEffect(() => {
-    const currentHour = new Date().getHours();
-    
-    if (currentHour >= 6 && currentHour < 12) {
-      setBackgroundClass('dia');
-    } else if (currentHour >= 12 && currentHour < 18) {
-      setBackgroundClass('tarde');
-    } else {
-      setBackgroundClass('noite');
-    }
-
-
-  }, []);
-
-  const toggleSection = (id: number) => {
-    setActiveSections((prevSections) =>
-      prevSections.includes(id) ? [] : [id]
-    );
+  const toggleSection = (id: number | null) => {
+        if (id === null) return;
+        setActiveSections((prevSections) =>
+          prevSections.includes(id) ? [] : [id]
+        );
   };
 
   const closeOtherComponents = () => {
-    setActiveSections([]); // Fecha todas as seções
     setIsLoginOpen(true); // Marca que o login está aberto
   };
 
   return (
-    <div className={`App ${backgroundClass}`}>
+    <div className={`App`}>
 
       <NotificationAlert/>
       <NotificationsBar/>

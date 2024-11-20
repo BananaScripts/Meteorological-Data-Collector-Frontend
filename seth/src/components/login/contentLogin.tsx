@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
+import imgLogin from './icons/login.png'
+import imgLogout from './icons/logout.png'
 
 interface ContentLoginProps {
     onCloseOtherComponents: () => void;
@@ -25,7 +26,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:3002/api/login', { cpf, senha: password });
+            const response = await axios.post('http://localhost:30105/api/login', { cpf, senha: password });
             if (response.status === 202) {
                 localStorage.setItem("token", response.data.token);
                 alert('Login bem-sucedido');
@@ -40,7 +41,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
     const handleRegister = async () => {
         try {
             if (registerUsername && registerBirthDate && registerCpf && registerEmail && registerPassword) {
-                axios.post('localhost:30105/api/usuario/cadastrar', { registerUsername, registerBirthDate, registerCpf, registerEmail, registerPassword })
+                axios.post('http://localhost:30105/api/usuario/cadastrar', { registerUsername, registerBirthDate, registerCpf, registerEmail, registerPassword })
                     .then(() => {
                         setRegisterUsername('');
                         setRegisterEmail('');
@@ -90,7 +91,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fundo escuro
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -103,7 +104,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
             width: '100%',
             height: '100%',
             display: 'flex',
-            flexDirection: 'column'  as 'column',
+            flexDirection: 'column' as 'column',
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -111,7 +112,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column'  as 'column',
+            flexDirection: 'column' as 'column',
         },
         titleSectionParagraph: {
             marginTop: '-10px',
@@ -119,7 +120,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
         },
         inputsCamp: {
             marginLeft: '5%',
-            width: '80%', // Ajuste para caber melhor na tela
+            width: '80%',
         },
         inputsCampParagraph: {
             marginLeft: '1.5%',
@@ -143,11 +144,6 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
                 color: 'aliceblue',
                 cursor: 'pointer',
             },
-            buttonHover: {
-                backgroundColor: 'aliceblue',
-                color: 'black',
-                cursor: 'pointer',
-            },
         },
         closeButton: {
             position: 'absolute' as const,
@@ -160,35 +156,41 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
             borderRadius: '50%',
             cursor: 'pointer',
         },
-        loginButtonTopRight: {
+        loginButtonImage: {
             position: 'absolute' as const,
-            top: '10px',
-            right: '10px',
-            backgroundColor: 'black',
-            color: 'white',
-            padding: '10px 20px',
-            borderRadius: '10px',
+            top: '15px',
+            right: '30px',
             cursor: 'pointer',
             margin: '2.5%',
+            width: '40px',
+            height: '40px',
         },
-        logoutButtonTopRight: {
+        logoutButtonImage: {
             position: 'absolute' as const,
-            top: '10px',
-            right: '10px',
-            backgroundColor: 'black',
-            color: 'white',
-            padding: '10px 20px',
-            borderRadius: '10px',
+            top: '15px',
+            right: '30px',
             cursor: 'pointer',
             marginRight: '2.5%',
             marginTop: '7%',
+            width: '40px',
+            height: '40px',
         },
     };
 
     return (
         <>
-            <button onClick={openModal} style={styles.loginButtonTopRight}>Login</button>
-            <button onClick={logout} style={styles.logoutButtonTopRight}>Logout</button>
+            <img 
+                src={imgLogin}
+                alt="Login" 
+                style={styles.loginButtonImage} 
+                onClick={openModal} 
+            />
+            <img 
+                src={imgLogout}
+                alt="Logout" 
+                style={styles.logoutButtonImage} 
+                onClick={logout} 
+            />
             {isModalOpen && (
                 <div style={styles.overlay}>
                     <div id="Box_Login" style={styles.boxLogin}>
