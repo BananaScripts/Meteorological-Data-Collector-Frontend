@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - development
+      - Fix/*
+      - Feat/*
   pull_request:
     branches:
-      - development
+      - main
 
 jobs:
    build-e-teste:
