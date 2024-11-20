@@ -1,0 +1,4 @@
+div:hover span {
+    visibility: visible;
+    opacity: 1;
+}
