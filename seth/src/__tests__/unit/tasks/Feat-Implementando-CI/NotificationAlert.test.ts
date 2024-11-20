@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import NotificationAlert from '../../../components/notifications/functions/alarmActive';
-import atualizarAlarmes from '../../../components/notifications/functions/updateAlarms';
+import NotificationAlert from '../../../../components/notifications/functions/alarmActive';
+import atualizarAlarmes from '../../../../components/notifications/functions/updateAlarms';
 
 // Mock da função que busca os alarmes
 jest.mock('../../../components/notifications/functions/updateAlarms', () => ({
