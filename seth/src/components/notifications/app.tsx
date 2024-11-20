@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import "./app.css"
 import { Alarme } from '../../types/alarme';
 import axios from 'axios';
-import NotificationAlert from './functions/alarmActive';
 import NotificationHist from './functions/alarmHist';
 
 
 const NotificationsBar: React.FC = () => {
     const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
-    const [cadastrados, setCadastrados] = useState(0);
-    const [monitorados, setMonitorados] = useState(0);
-    const [acionados, setAcionados] = useState<Alarme[]>([]);
+    const [acionados] = useState<Alarme[]>([]);
     const [ativosMonitorados, setAtivosMonitorados] = useState(0);
     const [seeMore, setSeeMore] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
