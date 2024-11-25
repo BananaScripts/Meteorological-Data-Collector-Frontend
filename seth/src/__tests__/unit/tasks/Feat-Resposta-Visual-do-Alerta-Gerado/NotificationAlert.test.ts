@@ -4,7 +4,7 @@ import NotificationAlert from '../../../../components/notifications/functions/al
 import atualizarAlarmes from '../../../../components/notifications/functions/updateAlarms';
 
 // Mock da função que busca os alarmes
-jest.mock('../../../components/notifications/functions/updateAlarms', () => ({
+jest.mock('../../../../components/notifications/functions/updateAlarms', () => ({
     __esModule: true,
     default: jest.fn(),
 }));
@@ -17,7 +17,7 @@ describe('NotificationAlert', () => {
             alarmes: [{ cod_alarme: 1, nome: 'Teste Alarme', valor: 100, condicao: '>' }],
         });
 
-        render(<NotificationAlert />);
+        render(React.createElement(NotificationAlert));
 
         // Espera que a função 'atualizarAlarmes' tenha sido chamada
         await waitFor(() => expect(atualizarAlarmes).toHaveBeenCalledTimes(1));
@@ -37,7 +37,7 @@ describe('NotificationAlert', () => {
           alarmes: [],
       });
   
-      render(<NotificationAlert />);
+      render(React.createElement(NotificationAlert));
   
       // Espera que a função 'atualizarAlarmes' tenha sido chamada
       await waitFor(() => expect(atualizarAlarmes).toHaveBeenCalledTimes(2)); // Verifique se ela foi chamada 2 vezes, ou ajuste conforme o esperado

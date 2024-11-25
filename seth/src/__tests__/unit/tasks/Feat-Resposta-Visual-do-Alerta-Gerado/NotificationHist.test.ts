@@ -13,7 +13,7 @@ describe('NotificationHist Component', () => {
       { cod_alarme: 3, cod_tipoParametro: 103, nome: 'Alarme 3', condicao: '>', valor: 20 },
     ];
 
-    render(<NotificationHist alarmes={alarmes} acionados={acionados} />);
+    render(React.createElement(NotificationHist, { alarmes, acionados }));
 
     // Verifica se as tabelas foram renderizadas
     expect(await screen.findByText('Alarmes Criados')).toBeInTheDocument();
