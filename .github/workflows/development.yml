@@ -79,7 +79,6 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
     
-
     - name: Fazer login no Google Container Registry
       run: gcloud auth configure-docker --quiet
 
