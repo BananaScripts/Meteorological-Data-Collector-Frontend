@@ -11,7 +11,7 @@ on:
       - main
 
 jobs:
-   build-e-teste:
+  build-e-teste:
     runs-on: ubuntu-latest
 
     steps:
@@ -66,3 +66,27 @@ jobs:
             echo "Nenhum teste foi encontrado para $BRANCH_NAME. Pulando."
           fi
         fi
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configurar Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+    
+
+    - name: Fazer login no Google Container Registry
+      run: gcloud auth configure-docker --quiet
+
+    - name: Deploy no Cloud Run
+      run: |
+        gcloud run deploy meteorological-data-collector-backend \
+          --image gcr.io/meteorological-data-collector/meteorological-data-collector-backend \
+          --platform managed \
+          --region southamerica-east1 \
+          --allow-unauthenticated
