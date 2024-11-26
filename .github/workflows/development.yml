@@ -86,6 +86,11 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Verificar a autenticação
+      run: |
+        gcloud auth list
+        gcloud config list
+
     - name: Fazer login no Google Container Registry
       run: gcloud auth configure-docker --quiet
 
