@@ -1,31 +1,31 @@
 # Stage 1: Build the React application
-FROM node:14 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copiar o package.json e package-lock.json
+COPY package*.json ./ 
 
-# Install dependencies
+# Instalar dependências
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+# Copiar o restante do código do projeto
+COPY . ./ 
 
-# Build the React application
+# Construir o aplicativo React
 RUN npm run build
 
-# Stage 2: Serve the React application with Nginx
+# Stage 2: Servir o aplicativo com Nginx
 FROM nginx:alpine
 
-# Copy the build output to Nginx's HTML directory
+# Copiar o build para o diretório de HTML do Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy the Nginx configuration file
+# Copiar a configuração do Nginx
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Expose ports 30105 and 30015
+# Expor a porta 8080
 EXPOSE 8080
 
-# Start Nginx
+# Iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
