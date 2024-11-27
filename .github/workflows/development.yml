@@ -111,4 +111,6 @@ jobs:
           --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector:latest \
           --platform managed \
           --region southamerica-east1 \
-          --allow-unauthenticated
+          --allow-unauthenticated \
+          --timeout 6000 \
+          --set-env-vars PORT=8080
