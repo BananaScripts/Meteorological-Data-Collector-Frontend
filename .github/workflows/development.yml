@@ -98,6 +98,11 @@ jobs:
       run: |
         docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth .
         docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth
+    
+    - name: Verificar a Imagem Docker
+      run: |
+         echo "Verificando se a imagem Docker foi empurrada corretamente para o GCR"
+         gcloud container images list-tags gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth --limit=5
 
     - name: Deploy no Cloud Run
       run: |
@@ -106,3 +111,4 @@ jobs:
           --platform managed \
           --region southamerica-east1 \
           --allow-unauthenticated
+          --timeout 600
