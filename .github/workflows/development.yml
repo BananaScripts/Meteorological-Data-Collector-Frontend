@@ -112,4 +112,4 @@ jobs:
           --platform managed \
           --region southamerica-east1 \
           --allow-unauthenticated \
-          --timeout 3600
+          --timeout 3000
