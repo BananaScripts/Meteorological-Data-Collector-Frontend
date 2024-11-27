@@ -38,7 +38,7 @@ jobs:
     
     - name: Rodar Testes
       run: |
-        # Extração  do nome da branch
+        # Extração do nome da branch
         BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
         echo "Nome da branch: $BRANCH_NAME"
@@ -93,24 +93,42 @@ jobs:
         gcloud auth list
         gcloud config list
 
-    - name: Fazer login no Google Container Registry
-      run: gcloud auth configure-docker --quiet
-    
-    - name: Build e Push da Imagem Docker
+    - name: Build e Push da Imagem Docker para o Artifact Registry
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector
-    
-    - name: Verificar a Imagem Docker
+        # Definir variáveis do caminho completo da imagem
+        REGION=southamerica-east1
+        PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
+        REPOSITORY=meteorological-data-collector
+        IMAGE_NAME=meteorological-data-collector
+        FULL_IMAGE_PATH=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME
+
+        # Configurar o Docker para autenticar com o Artifact Registry
+        gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
+
+        # Buildar a imagem Docker
+        docker build -t $FULL_IMAGE_PATH:latest .
+
+        # Push da imagem para o Artifact Registry
+        docker push $FULL_IMAGE_PATH:latest
+
+
+    - name: Verificar a Imagem Docker no Artifact Registry
       run: |
-         echo "Verificando se a imagem Docker foi empurrada corretamente para o GCR"
-         gcloud container images list-tags gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector --limit=5
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/meteorological-data-collector/meteorological-data-collector/meteorological-data-collector
+
+        echo "Verificando se a imagem Docker foi empurrada corretamente para o Artifact Registry"
+        gcloud artifacts docker images list $IMAGE_PATH --filter="tags:latest" --limit=5
+
 
     - name: Deploy no Cloud Run
       run: |
-        gcloud run deploy metereological-data-colector \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector:latest \
+        REGION=southamerica-east1
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector
+
+        gcloud run deploy metereological-data-collector \
+          --image $IMAGE_PATH:latest \
           --platform managed \
-          --region southamerica-east1 \
-          --allow-unauthenticated
+          --region $REGION \
+          --allow-unauthenticated \
           --timeout 600
+
