@@ -25,8 +25,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Expose ports 30105 and 30015
-EXPOSE 30105
-EXPOSE 30015
 EXPOSE 8080
 
 # Start Nginx
