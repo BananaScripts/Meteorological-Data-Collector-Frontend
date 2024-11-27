@@ -38,7 +38,7 @@ jobs:
     
     - name: Rodar Testes
       run: |
-        # Extração  do nome da branch
+        # Extração do nome da branch
         BRANCH_NAME=${GITHUB_REF#refs/heads/}
 
         echo "Nome da branch: $BRANCH_NAME"
@@ -47,17 +47,17 @@ jobs:
         if [[ "$GITHUB_BASE_REF" == "main" && "$GITHUB_HEAD_REF" == "development" ]]; then
           echo "Rodando testes de integração da branch development para main"
           cd seth
-          npm test -- seth/src/_tests_/integration
+          npm test -- seth/src/__tests__/integration
 
         # Rodando testes para a branch 'development' (mas não deve rodar em PR)
         elif [[ "$BRANCH_NAME" == "development" ]]; then
           echo "Rodando testes para branch development"
           cd seth
-          npm test -- seth/src/_tests_/unit
+          npm test -- seth/src/__tests__/unit
 
-        # Rodando testes para branches 'Fix/' ou 'Feat/'
+        # Rodando testes para branches 'Fix/*' ou 'Feat/*'
         elif [[ "$BRANCH_NAME" == Feat/* ]] || [[ "$BRANCH_NAME" == Fix/* ]] || [[ "$BRANCH_NAME" == feat/* ]] || [[ "$BRANCH_NAME" == fix/* ]]; then
-          FEATURE_TEST_DIR="seth/src/_tests_/unit/tasks/${BRANCH_NAME//\//-}"
+          FEATURE_TEST_DIR="seth/src/__tests__/unit/tasks/${BRANCH_NAME//\//-}"
           echo "Verificando se os testes existem em: $FEATURE_TEST_DIR"
             
           # Verifica se o diretório de testes da feature existe
@@ -92,24 +92,39 @@ jobs:
         gcloud auth list
         gcloud config list
 
-    - name: Fazer login no Google Container Registry
-      run: gcloud auth configure-docker --quiet
-    
-    - name: Build e Push da Imagem Docker
+    - name: Build e Push da Imagem Docker para o Artifact Registry
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector
-    
-    - name: Verificar a Imagem Docker
+        REGION=southamerica-east1
+        REPOSITORY=metereological-data-colector
+        IMAGE_NAME=$REPOSITORY
+
+        # Configurar o Docker para autenticar com o Artifact Registry
+        gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
+
+        # Buildar a imagem Docker
+        docker build -t $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest .
+
+        # Push da imagem para o Artifact Registry
+        docker push $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest
+
+    - name: Verificar a Imagem Docker no Artifact Registry
       run: |
-         echo "Verificando se a imagem Docker foi empurrada corretamente para o GCR"
-         gcloud container images list-tags gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector --limit=5
+        REGION=southamerica-east1
+        REPOSITORY=metereological-data-colector
+        IMAGE_NAME=$REPOSITORY
+
+        echo "Verificando se a imagem Docker foi empurrada corretamente para o Artifact Registry"
+        gcloud artifacts docker images list $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY --filter="tags:latest" --limit=5
 
     - name: Deploy no Cloud Run
       run: |
+        REGION=southamerica-east1
+        REPOSITORY=metereological-data-colector
+        IMAGE_NAME=$REPOSITORY
+
         gcloud run deploy metereological-data-colector \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector:latest \
+          --image $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest \
           --platform managed \
-          --region southamerica-east1 \
+          --region $REGION \
           --allow-unauthenticated \
-          --timeout 3000
+          --timeout 600
