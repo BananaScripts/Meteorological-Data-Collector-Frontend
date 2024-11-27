@@ -25,8 +25,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copiar a configuração do Nginx
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Expor a porta 8080
-EXPOSE 8080
-
 # Iniciar o Nginx
 CMD ["nginx", "-g", "daemon off;"]
