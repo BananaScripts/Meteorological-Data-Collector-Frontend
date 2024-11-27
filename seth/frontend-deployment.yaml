@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seth-frontend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: seth-frontend
+  template:
+    metadata:
+      labels:
+        app: seth-frontend
+    spec:
+      containers:
+      - name: seth-frontend
+        image: gcr.io/meteorological-data-collector/seth-frontend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://34.95.158.231" # Atualize com o IP do backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seth-frontend-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: seth-frontend
