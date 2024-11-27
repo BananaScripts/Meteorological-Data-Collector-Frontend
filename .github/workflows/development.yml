@@ -1,4 +1,4 @@
-name: CI development
+name: CI Development
 
 on:
   push:
@@ -14,103 +14,80 @@ on:
       - main
 
 jobs:
-  build-e-teste:
+  build-e-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Configurar Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '20'  
 
-    - name: Instalar Dependências
+    - name: Install Dependencies
       run: |
         cd seth
         npm install
 
-    - name: Buildar Projeto
+    - name: Build Project
       run: |
         cd seth
         npm run build
     
-    - name: Rodar Testes
+    - name: Run Tests
       run: |
-        # Extração  do nome da branch
         BRANCH_NAME=${GITHUB_REF#refs/heads/}
-
-        echo "Nome da branch: $BRANCH_NAME"
+        echo "Branch name: $BRANCH_NAME"
   
-        # Rodando testes de integração para PRs entre 'development' e 'main'
         if [[ "$GITHUB_BASE_REF" == "main" && "$GITHUB_HEAD_REF" == "development" ]]; then
-          echo "Rodando testes de integração da branch development para main"
+          echo "Running integration tests for development to main"
           cd seth
           npm test -- seth/src/__tests__/integration
-
-        # Rodando testes para a branch 'development' (mas não deve rodar em PR)
         elif [[ "$BRANCH_NAME" == "development" ]]; then
-          echo "Rodando testes para branch development"
+          echo "Running tests for development branch"
           cd seth
           npm test -- seth/src/__tests__/unit
-
-        # Rodando testes para branches 'Fix/*' ou 'Feat/*'
         elif [[ "$BRANCH_NAME" == Feat/* ]] || [[ "$BRANCH_NAME" == Fix/* ]] || [[ "$BRANCH_NAME" == feat/* ]] || [[ "$BRANCH_NAME" == fix/* ]]; then
           FEATURE_TEST_DIR="seth/src/__tests__/unit/tasks/${BRANCH_NAME//\//-}"
-          echo "Verificando se os testes existem em: $FEATURE_TEST_DIR"
-            
-          # Verifica se o diretório de testes da feature existe
+          echo "Checking for tests in: $FEATURE_TEST_DIR"
           if [ -d "$FEATURE_TEST_DIR" ]; then
-            echo "Rodando testes para a branch $BRANCH_NAME em $FEATURE_TEST_DIR"
+            echo "Running tests for branch $BRANCH_NAME in $FEATURE_TEST_DIR"
             cd seth
             npm test -- $FEATURE_TEST_DIR
           else
-            echo "Nenhum teste foi encontrado para $BRANCH_NAME. Finalizando."
+            echo "No tests found for $BRANCH_NAME."
           fi
         fi
 
   deploy:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Autenticar com o Google Cloud
+    - name: Authenticate with Google Cloud
       uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: Configurar Google Cloud CLI
+    - name: Configure Google Cloud
       uses: google-github-actions/setup-gcloud@v2
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Verificar a autenticação
+    - name: Build and Push Docker Image to Artifact Registry
       run: |
-        gcloud auth list
-        gcloud config list
+        docker build -t southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector .
+        docker push southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector
 
-    - name: Fazer login no Google Container Registry
-      run: gcloud auth configure-docker --quiet
-    
-    - name: Build e Push da Imagem Docker
+    - name: Deploy to Cloud Run
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector
-    
-    - name: Verificar a Imagem Docker
-      run: |
-         echo "Verificando se a imagem Docker foi empurrada corretamente para o GCR"
-         gcloud container images list-tags gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector --limit=5
-
-    - name: Deploy no Cloud Run
-      run: |
-        gcloud run deploy metereological-data-colector \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector:latest \
+        gcloud run deploy meteorological-data-collector \
+          --image southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector:latest \
           --platform managed \
           --region southamerica-east1 \
-          --allow-unauthenticated
+          --allow-unauthenticated \
           --timeout 600
