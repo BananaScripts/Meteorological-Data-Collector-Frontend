@@ -6,12 +6,15 @@ on:
       - development
       - Fix/*
       - Feat/*
+      - feat/*
+      - fix/*
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-   build-e-teste:
+  build-e-teste:
     runs-on: ubuntu-latest
 
     steps:
@@ -51,9 +54,9 @@ jobs:
           echo "Rodando testes para branch development"
           cd seth
           npm test -- seth/src/__tests__/unit
-  
+
         # Rodando testes para branches 'Fix/*' ou 'Feat/*'
-        elif [[ "$BRANCH_NAME" == Feat/* ]] || [[ "$BRANCH_NAME" == Fix/* ]]; then
+        elif [[ "$BRANCH_NAME" == Feat/* ]] || [[ "$BRANCH_NAME" == Fix/* ]] || [[ "$BRANCH_NAME" == feat/* ]] || [[ "$BRANCH_NAME" == fix/* ]]; then
           FEATURE_TEST_DIR="seth/src/__tests__/unit/tasks/${BRANCH_NAME//\//-}"
           echo "Verificando se os testes existem em: $FEATURE_TEST_DIR"
             
@@ -63,6 +66,51 @@ jobs:
             cd seth
             npm test -- $FEATURE_TEST_DIR
           else
-            echo "Nenhum teste foi encontrado para $BRANCH_NAME. Pulando."
+            echo "Nenhum teste foi encontrado para $BRANCH_NAME. Finalizando."
           fi
         fi
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Autenticar com o Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Configurar Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Verificar a autenticação
+      run: |
+        gcloud auth list
+        gcloud config list
+
+    - name: Fazer login no Google Container Registry
+      run: gcloud auth configure-docker --quiet
+    
+    - name: Build e Push da Imagem Docker
+      run: |
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector .
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector
+    
+    - name: Verificar a Imagem Docker
+      run: |
+         echo "Verificando se a imagem Docker foi empurrada corretamente para o GCR"
+         gcloud container images list-tags gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector --limit=5
+
+    - name: Deploy no Cloud Run
+      run: |
+        gcloud run deploy metereological-data-colector \
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/metereological-data-colector:latest \
+          --platform managed \
+          --region southamerica-east1 \
+          --allow-unauthenticated
+          --timeout 600
