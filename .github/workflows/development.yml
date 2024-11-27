@@ -95,36 +95,34 @@ jobs:
     - name: Build e Push da Imagem Docker para o Artifact Registry
       run: |
         REGION=southamerica-east1
-        REPOSITORY=metereological-data-collector
-        IMAGE_NAME=$REPOSITORY
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
 
         # Configurar o Docker para autenticar com o Artifact Registry
         gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
 
         # Buildar a imagem Docker
-        docker build -t $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest .
+        docker build -t $IMAGE_PATH:latest .
 
         # Push da imagem para o Artifact Registry
-        docker push $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest
+        docker push $IMAGE_PATH:latest
 
     - name: Verificar a Imagem Docker no Artifact Registry
       run: |
-        REGION=southamerica-east1
-        REPOSITORY=metereological-data-collector
-        IMAGE_NAME=$REPOSITORY
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
 
         echo "Verificando se a imagem Docker foi empurrada corretamente para o Artifact Registry"
-        gcloud artifacts docker images list $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY --filter="tags:latest" --limit=5
+        gcloud artifacts docker images list $IMAGE_PATH --filter="tags:latest" --limit=5
+
 
     - name: Deploy no Cloud Run
       run: |
         REGION=southamerica-east1
-        REPOSITORY=metereological-data-collector
-        IMAGE_NAME=$REPOSITORY
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
 
         gcloud run deploy metereological-data-collector \
-          --image $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest \
+          --image $IMAGE_PATH:latest \
           --platform managed \
           --region $REGION \
           --allow-unauthenticated \
           --timeout 600
+
