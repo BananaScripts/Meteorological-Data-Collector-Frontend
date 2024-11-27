@@ -1,16 +1,17 @@
 # Stage 1: Build the React application
-FROM node:20 AS build
+FROM node:14 AS build
 
 WORKDIR /app
 
 # Copiar o package.json e package-lock.json
-COPY package*.json ./ 
+COPY package*.json ./
 
-# Instalar dependências
+# Limpar o cache do npm e instalar dependências
+RUN npm cache clean --force
 RUN npm install
 
 # Copiar o restante do código do projeto
-COPY . ./ 
+COPY . ./
 
 # Construir o aplicativo React
 RUN npm run build
