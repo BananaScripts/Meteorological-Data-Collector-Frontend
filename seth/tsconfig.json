@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "recharts/*": ["./node_modules/recharts/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -19,9 +22,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["react", "react-dom"],
+    "types": ["react", "react-dom", "jest"]  // Adicionando jest aqui
   },
   "include": [
-    "src"
-  ]
+    "src",
+   "jest.config.ts", "styleMock.js", "__mocks__"  ]
+
+
 }

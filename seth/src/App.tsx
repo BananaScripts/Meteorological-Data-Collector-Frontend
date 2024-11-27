@@ -7,6 +7,8 @@ import ContentEducation from './components/education/contentEducation';
 import ContentRelatorios from './components/relatorios/contentRelatorios';
 import ContentLogin from './components/login/contentLogin';
 import { AdminComponent } from './components/admin';
+import NotificationsBar from './components/notifications/app';
+import NotificationAlert from './components/notifications/functions/alarmActive';
 
 type Section = { id: number; name: string; icon: string; content: string | JSX.Element; };
 
@@ -21,7 +23,6 @@ const App: React.FC = () => {
   const [activeSections, setActiveSections] = useState<number[]>([]);
   const [, setIsLoginOpen] = useState(false);
 
-
   const toggleSection = (id: number | null) => {
         if (id === null) return;
         setActiveSections((prevSections) =>
@@ -35,10 +36,14 @@ const App: React.FC = () => {
 
   return (
     <div className={`App`}>
+
+      <NotificationAlert/>
+      <NotificationsBar/>
       <div className='topinho'>.</div>
       <Navbar sections={sectionsData} toggleSection={toggleSection}></Navbar>
       <Content className="content" sections={sectionsData} activeSections={activeSections} />
       <ContentLogin onCloseOtherComponents={closeOtherComponents} />
+
     </div>
   );
 };

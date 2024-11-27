@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jsPDF } from 'jspdf';
+import { CirclePicker } from 'react-color';
 import {
   LineChart,
   Line,
@@ -13,6 +14,7 @@ import {
 } from 'recharts';
 import settingsIcon from './settings.png';
 import './contentRelatorios.css';
+
 
 interface DadosItem {
   cod_dados: number;
@@ -51,6 +53,7 @@ const DataByCodParametro: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedStation, setSelectedStation] = useState<number | null>(null);
   const [selectedParameter, setSelectedParameter] = useState<number | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string>('#8E1600');
 
   const handleClick = () => {
     setIsSpinning(true);
@@ -151,10 +154,10 @@ const DataByCodParametro: React.FC = () => {
   const exportDataAsPdf = () => {
     const filteredData = filterData();
     const doc = new jsPDF();
-  
-    doc.setFontSize(9);
+
+    doc.setFontSize(12);
     doc.text('Dados Filtrados', 10, 10);
-  
+
     let y = 20;
     filteredData.forEach((item, index) => {
       if (y > 280) { // Check if the y position is beyond the page height
@@ -167,7 +170,7 @@ const DataByCodParametro: React.FC = () => {
       doc.text(`Valor: ${item.Valor}`, 160, y);
       y += 10; // Increment y position for the next line
     });
-  
+
     doc.save('filtered_data.pdf');
   };
 
@@ -264,6 +267,13 @@ const DataByCodParametro: React.FC = () => {
                       </option>
                     ))}
                   </select>
+                  <div className='color-picker-container'>
+                    <label htmlFor="colorPicker">Escolha a cor do gráfico:</label>
+                    <CirclePicker
+                      color={selectedColor}
+                      onChangeComplete={(color: { hex: string }) => setSelectedColor(color.hex)}
+                    />
+                  </div>
                   <label>Download Dados Filtrados:</label>
                   <button onClick={downloadDataAsJson} className="download-button">Download JSON</button>
                   <button onClick={exportDataAsPdf} className="download-button">Download PDF</button>
@@ -318,7 +328,11 @@ const DataByCodParametro: React.FC = () => {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="Valor" stroke="#8E1600" />
+                        <Line
+                          type="monotone"
+                          dataKey="Valor"
+                          stroke={selectedColor}
+                        />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
