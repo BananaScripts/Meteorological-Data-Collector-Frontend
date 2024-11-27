@@ -112,5 +112,5 @@ jobs:
           --platform managed \
           --region southamerica-east1 \
           --allow-unauthenticated \
-          --timeout 6000 \
+          --timeout 3600 \
           --set-env-vars PORT=8080
