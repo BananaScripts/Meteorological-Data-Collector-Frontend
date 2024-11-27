@@ -95,7 +95,7 @@ jobs:
     - name: Build e Push da Imagem Docker para o Artifact Registry
       run: |
         REGION=southamerica-east1
-        REPOSITORY=metereological-data-colector
+        REPOSITORY=metereological-data-collector
         IMAGE_NAME=$REPOSITORY
 
         # Configurar o Docker para autenticar com o Artifact Registry
@@ -110,7 +110,7 @@ jobs:
     - name: Verificar a Imagem Docker no Artifact Registry
       run: |
         REGION=southamerica-east1
-        REPOSITORY=metereological-data-colector
+        REPOSITORY=metereological-data-collector
         IMAGE_NAME=$REPOSITORY
 
         echo "Verificando se a imagem Docker foi empurrada corretamente para o Artifact Registry"
@@ -119,10 +119,10 @@ jobs:
     - name: Deploy no Cloud Run
       run: |
         REGION=southamerica-east1
-        REPOSITORY=metereological-data-colector
+        REPOSITORY=metereological-data-collector
         IMAGE_NAME=$REPOSITORY
 
-        gcloud run deploy metereological-data-colector \
+        gcloud run deploy metereological-data-collector \
           --image $REGION-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/$REPOSITORY/$IMAGE_NAME:latest \
           --platform managed \
           --region $REGION \
