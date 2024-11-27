@@ -1,17 +1,16 @@
 # Stage 1: Build the React application
 FROM node:20 AS build
 
-# Definindo o diretório de trabalho no container
 WORKDIR /app
 
-# Copiar package.json e package-lock.json para o container
-COPY package.json package-lock.json ./
+# Copiar o package.json e package-lock.json
+COPY package*.json ./
 
 # Limpar o cache do npm e instalar dependências
 RUN npm cache clean --force
 RUN npm install
 
-# Copiar o restante do código do projeto para o container
+# Copiar o restante do código do projeto
 COPY . ./
 
 # Construir o aplicativo React
@@ -20,7 +19,7 @@ RUN npm run build
 # Stage 2: Servir o aplicativo com Nginx
 FROM nginx:alpine
 
-# Copiar o diretório de build para o diretório de HTML do Nginx
+# Copiar o build para o diretório de HTML do Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Copiar a configuração do Nginx
