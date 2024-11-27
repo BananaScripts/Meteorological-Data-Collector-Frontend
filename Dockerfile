@@ -1,9 +1,9 @@
 # Stage 1: Build the React application
-FROM node:14 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
-# Copiar o package.json e package-lock.json
+# Copiar package.json e package-lock.json para o container primeiro
 COPY package*.json ./
 
 # Limpar o cache do npm e instalar dependências
