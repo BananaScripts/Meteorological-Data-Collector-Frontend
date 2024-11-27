@@ -93,6 +93,11 @@ jobs:
 
     - name: Fazer login no Google Container Registry
       run: gcloud auth configure-docker --quiet
+    
+    - name: Build e Push da Imagem Docker
+      run: |
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth .
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth
 
     - name: Deploy no Cloud Run
       run: |
