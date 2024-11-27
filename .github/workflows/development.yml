@@ -94,17 +94,22 @@ jobs:
 
     - name: Build e Push da Imagem Docker para o Artifact Registry
       run: |
+        # Definir variáveis do caminho completo da imagem
         REGION=southamerica-east1
-        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
+        PROJECT_ID=${{ secrets.GCP_PROJECT_ID }}
+        REPOSITORY=meteorological-data-collector
+        IMAGE_NAME=meteorological-data-collector
+        FULL_IMAGE_PATH=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME
 
         # Configurar o Docker para autenticar com o Artifact Registry
         gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
 
         # Buildar a imagem Docker
-        docker build -t $IMAGE_PATH:latest .
+        docker build -t $FULL_IMAGE_PATH:latest .
 
         # Push da imagem para o Artifact Registry
-        docker push $IMAGE_PATH:latest
+        docker push $FULL_IMAGE_PATH:latest
+
 
     - name: Verificar a Imagem Docker no Artifact Registry
       run: |
