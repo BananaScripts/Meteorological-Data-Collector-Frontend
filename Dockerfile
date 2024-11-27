@@ -29,4 +29,4 @@ COPY default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8080
 
 # Iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["nginx", "-g", "daemon off;"]
