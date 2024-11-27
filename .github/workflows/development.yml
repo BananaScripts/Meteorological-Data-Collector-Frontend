@@ -107,7 +107,7 @@ jobs:
     - name: Deploy no Cloud Run
       run: |
         gcloud run deploy seth \
-          --image gcr.io/meteorological-data-collector/seth \
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/seth:latest \
           --platform managed \
           --region southamerica-east1 \
           --allow-unauthenticated
