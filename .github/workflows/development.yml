@@ -113,7 +113,7 @@ jobs:
 
     - name: Verificar a Imagem Docker no Artifact Registry
       run: |
-        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector
 
         echo "Verificando se a imagem Docker foi empurrada corretamente para o Artifact Registry"
         gcloud artifacts docker images list $IMAGE_PATH --filter="tags:latest" --limit=5
@@ -122,7 +122,7 @@ jobs:
     - name: Deploy no Cloud Run
       run: |
         REGION=southamerica-east1
-        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector
+        IMAGE_PATH=southamerica-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meteorological-data-collector/meteorological-data-collector
 
         gcloud run deploy metereological-data-collector \
           --image $IMAGE_PATH:latest \
