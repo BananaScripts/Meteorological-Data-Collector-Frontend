@@ -14,6 +14,9 @@ export default function CreateAlarme() {
     const [condicao, setCondicao] = useState('');
     const [codParametro, setCodParametro] = useState(0);
 
+    const noerro = (alarmes && id)
+    console.log(noerro)
+
     useEffect(() => {
 
         axios.get('http://localhost:30105/api/alarmes')

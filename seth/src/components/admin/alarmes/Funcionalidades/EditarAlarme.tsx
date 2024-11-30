@@ -17,6 +17,9 @@ export default function EditAlarme() {
 
     const[encontrado, setEncontrado] = useState(true)
 
+    const noerro = (alarme && id)
+    console.log(noerro)
+
     // Carrega os tipos de parâmetros ao montar o componente
     useEffect(() => {
 

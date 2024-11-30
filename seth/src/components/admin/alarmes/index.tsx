@@ -14,6 +14,9 @@ export default function INTERFACE_CONTROLE_ALARMES() {
     const [parametros, setParametros] = useState<Array<Parametro>>([]);
     const [actionType, setActionType] = useState<number | null>(null);
 
+    const noerro = (tipoParametro && alarmesFormatados && parametros && actionType !== null)
+    console.log(noerro)
+
     const atualizarAlarmes = () => {
         axios.get('http://localhost:30105/api/alarmes')
             .then((response) => {
