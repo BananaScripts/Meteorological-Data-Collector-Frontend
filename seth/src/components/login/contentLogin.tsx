@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import imgLogin from './icons/login.png'
 import imgLogout from './icons/logout.png'
+import { useAuth } from './AuthContext';
 
 interface ContentLoginProps {
     onCloseOtherComponents: () => void;
 }
 
 const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) => {
+    const {login, logout, user} = useAuth()
     const [cpf, setCpf] = useState('');
     const [password, setPassword] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,8 +30,12 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
         try {
             const response = await axios.post('http://localhost:30105/api/login', { cpf, senha: password });
             if (response.status === 202) {
-                localStorage.setItem("token", response.data.token);
-                alert('Login bem-sucedido');
+                const userData = {
+                     ...response.data.usuario,
+                     token:response.data.token}
+                login(userData)
+                alert(`Login para ${userData.nome} efetuado com sucesso, nível de conta: ${userData.role}`);
+                setIsModalOpen(false)
             } else {
                 alert("Erro ao efetuar o login");
             }
@@ -73,15 +79,6 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
-    };
-
-    const logout = () => {
-        try {
-            localStorage.removeItem("token");
-            alert("Usuário deslogado.");
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     const styles = {
@@ -179,18 +176,31 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
 
     return (
         <>
-            <img 
+            {user ?
+            (<></>)
+            :
+            (
+                <img 
                 src={imgLogin}
                 alt="Login" 
                 style={styles.loginButtonImage} 
                 onClick={openModal} 
-            />
-            <img 
+                />
+            )}
+            {user ?
+            (
+                <img 
                 src={imgLogout}
                 alt="Logout" 
                 style={styles.logoutButtonImage} 
                 onClick={logout} 
-            />
+                />
+            )
+            :
+            (
+                <></>
+            )
+            }
             {isModalOpen && (
                 <div style={styles.overlay}>
                     <div id="Box_Login" style={styles.boxLogin}>
