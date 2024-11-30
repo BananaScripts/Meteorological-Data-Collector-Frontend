@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotificationAlert from './components/notifications/functions/alarmActive';
+import { AuthProvider } from './components/login/AuthContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <NotificationAlert />
-    <App />
+    <AuthProvider>
+      <NotificationAlert />
+      <App />
+    </AuthProvider>
   </React.StrictMode>
 );
 
