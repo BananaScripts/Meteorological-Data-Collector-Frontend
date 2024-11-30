@@ -35,11 +35,10 @@
 
 #NotificationBar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     flex-direction: row;
 
-    margin-top: -2vh;
+    margin-top: -1.5vh;
 
 }
 
@@ -109,6 +108,7 @@
 #ConfigAlarms {
     display: flex;
     flex-direction: row;
+    margin-top: -1.25vh;
 
     #StatusConfig {
         margin-top: 20px;
@@ -129,6 +129,8 @@
 #MonitorAlarms {
     display: flex;
     flex-direction: row;
+    margin-top: -1.25vh;
+
 
     #StatusMonitor {
         margin-top: 20px;
@@ -149,6 +151,7 @@
 #ExpiredAlarms {
     display: flex;
     flex-direction: row;
+    margin-top: -1.25vh;
 
     #StatusExpired {
         margin-top:20px;
@@ -236,7 +239,8 @@
         }
 
         h3 {
-            margin-top: 4vh;
+            margin-top: 2.5vh;
+            font-size: 8px;
         }
 
         #SeeMore {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import "./index.css"
 
+import "../main.css";
 import { Estacao } from "../../../types/estacao"
 import Funcionalidades from "./Funcionalidades";
 
@@ -75,7 +75,6 @@ export default function INTERFACE_CONTROLE_ESTACOES() {
 
                                 <tr>
 
-                                    <th>Id</th>
                                     <th>Nome</th>
                                     <th>Mac Address</th>
                                     <th>Número</th>
@@ -91,7 +90,6 @@ export default function INTERFACE_CONTROLE_ESTACOES() {
 
                                 {estacoes.map((estacao) => (
                                     <tr key={estacao.cod_estacao}>
-                                        <td>{estacao.cod_estacao}</td>
                                         <td>{estacao.nome}</td>
                                         <td>{estacao.macAdress}</td>
                                         <td>{estacao.numero}</td>

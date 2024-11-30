@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
+import { Usuario } from "../../../../types/usuario"
+import "../../main.css";
 
 export default function DeleteUsuario() {
 
     const [id, setId] = useState('')
+    const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
 
     function deletar() {
         if (id !== '') {
@@ -21,6 +24,16 @@ export default function DeleteUsuario() {
         }
     }
 
+    useEffect(() => {
+        axios.get('http://localhost:30105/api/usuarios')
+        .then((response) => {
+            setUsuarios(response.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+    }, [])
+
     return (
         <>
         <div id="DeleteUsuario">
@@ -36,8 +49,15 @@ export default function DeleteUsuario() {
             <div id="Inputs_Camp">
 
                 <p>
-                    ID (Somente Número(s) ): 
-                    <input type="number" value={id} onChange={(event) => setId(event.target.value)} /> 
+                    Selecione o Usuário a ser deletado:
+
+                    <select value={id} onChange={(event) => setId(event.target.value)}>
+                        <option value="">Selecione um Usuário</option>
+                        {usuarios.map((usuario) => (
+                            <option key={usuario.cod_usuario} value={usuario.cod_usuario}>{usuario.nome}</option>
+                        ))}    
+                    </select>
+                    
                 </p>
 
             </div>

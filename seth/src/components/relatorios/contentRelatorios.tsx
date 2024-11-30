@@ -340,6 +340,7 @@ const DataByCodParametro: React.FC = () => {
               })}
           </div>
         ))}
+        <div className='fundinho'>.</div>
     </div>
   );
 };

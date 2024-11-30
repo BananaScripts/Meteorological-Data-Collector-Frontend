@@ -1,6 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
-import "./index.css"
+import "../../main.css";
+
 
 export default function CreateEstacao() {
 
@@ -8,7 +9,7 @@ export default function CreateEstacao() {
     const[macAdress, setMacAdress] = useState('')
     const[cidade, setCidade] = useState('')
     const[estado, setEstado] = useState('')
-    const[numero, setNumero] = useState('')
+    const[numero, setNumero] = useState(0)
     const[cep, setCep] = useState('')
 
     function cadastrar(){
@@ -16,17 +17,18 @@ export default function CreateEstacao() {
 
         let cidadeDefault = cidade !== '' ? cidade : 'Não informado'
         let estadoDefault = estado !== '' ? estado : 'Não informado'
-        let numeroDefault = numero !== '' ? numero : 'Não informado'
+        let numeroDefault = numero == 0 ? numero : 0
+
 
 
         if(nome !== '' && macAdress !== '' && cep !== ''){
-            axios.post('http://localhost:30105/api/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep})
+            axios.post('http://localhost:30105/api/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep: cep.toString() })
             .then(()=>{
                 setNome('')
                 setMacAdress('')
                 setCidade('')
                 setEstado('')
-                setNumero('')
+                setNumero(0)
                 setCep('')
                 alert("Estação Cadastrada com Sucesso!")
             })
@@ -79,8 +81,8 @@ export default function CreateEstacao() {
                 </p>
 
                 <p>
-                    Número:
-                    <input type="text" value={numero} onChange={(event)=>setNumero(event.target.value)} />
+                    Número (Apenas Números):
+                    <input type="number" value={numero} onChange={(event)=>setNumero(parseInt(event.target.value))} />
                 </p>
 
                 <p>

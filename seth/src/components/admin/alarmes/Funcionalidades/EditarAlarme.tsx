@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./index.css";
 import { Alarme } from "../../../../types/alarme";
 import { Parametro } from "../../../../types/parametro";
+import "../../main.css";
 
 export default function EditAlarme() {
-    const [id, setId] = useState('');
-    const [codTipoParametro, setCodTipoParametro] = useState<number | string>('');
-    const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
+    const [id, setId] = useState(0);
+    const [codParametro, setCodParametro] = useState(0);
+    const [parametro, setParametro] = useState<Array<Parametro>>([]);
     
+    const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
     const [alarme, setAlarme] = useState<Alarme | null>(null);
     const [nome, setNome] = useState('');
     const [valor, setValor] = useState('');
@@ -18,66 +19,69 @@ export default function EditAlarme() {
 
     // Carrega os tipos de parâmetros ao montar o componente
     useEffect(() => {
-        axios.get('http://localhost:30105/api/tiposParametros')
+
+        axios.get('http://localhost:30105/api/alarmes')
+        .then(response => {
+            setAlarmes(response.data);
+            
+        })
+        .catch(error => {
+            console.error("Erro ao buscar alarmes:", error);
+        });
+
+        axios.get('http://localhost:30105/api/parametros')
             .then(response => {
-                setTiposParametro(response.data);
+                setParametro(response.data);
             })
             .catch(error => {
                 console.error("Erro ao buscar tipos de parâmetro:", error);
             });
-    }, []);
 
-    // Efeito para buscar um alarme específico
-    useEffect(() => {
-        if (id.trim()) {
-            axios.get(`http://localhost:30105/api/alarme/${id}`)
+
+
+            if (id) {
+                
+                setEncontrado(false)
+
+                axios.get(`http://localhost:30105/api/alarme/buscar/${id}`)
                 .then(response => {
-                    console.log("Resposta da API:", response.data);
-                    const alarmeData = response.data; 
-                    if (alarmeData) {
-
-                        setEncontrado(true)
-
-                        const { nome, cod_tipoParametro, valor, condicao } = alarmeData; 
-                        setAlarme(alarmeData);
-                        setNome(nome);
-                        setCodTipoParametro(cod_tipoParametro); // Certifique-se de que o servidor está enviando 'cod_tipoParametro'
-                        setValor(valor);
-                        setCondicao(condicao);
-                    } else {
-                        alert("Alarme não encontrado.");
-                        resetForm();
-                    }
+                    setAlarme(response.data);
+                    setNome(response.data.nome);
+                    setCodParametro(response.data.cod_tipoParametro);
+                    setValor(response.data.valor);
+                    setCondicao(response.data.condicao);
+                    setEncontrado(false);
                 })
                 .catch(error => {
-                    console.error("Erro na requisição:", error);
-                    setEncontrado(false);
-                    resetForm();
-                });
-        } else {
-            resetForm();
-            setEncontrado(true);
-        }
+                    console.error("Erro ao buscar alarme:", error);
+                })
+            }
+            
+
+
     }, [id]);
 
     function resetForm() {
-        setAlarme(null);
         setNome('');
-        setCodTipoParametro('');
+        setCodParametro(0);
         setValor('');
         setCondicao('');
     }
 
     function editar() {
-        if (nome && codTipoParametro && valor && condicao) { 
+        if (codParametro !== 0 ) { 
             axios.put(`http://localhost:30105/api/alarme/atualizar/${id}`, {
                 nome,
                 valor,
                 condicao,
-                cod_tipoParametro: codTipoParametro // Este deve ser o nome correto
+                cod_tipoParametro: codParametro 
+
+                
             })
             .then(() => {
                 alert("Alarme editado com sucesso!");
+
+                resetForm();
             })
             .catch(error => {
                 console.error("Erro ao editar o alarme:", error.response); // Verifique a resposta de erro
@@ -86,8 +90,11 @@ export default function EditAlarme() {
         } else {
             alert("Preencha os campos obrigatórios!");
         }
-    }
+
+
+        
     
+}
 
     return (
         <div id="EditAlarme">
@@ -98,17 +105,22 @@ export default function EditAlarme() {
             </div>
             <div id="Inputs_Camp">
                 <p>
-                    ID do Alarme:
-                    <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
+                    Selecione o Alarme que deve ser editado:
+                    <select value={id} onChange={(e) => setId(Number(e.target.value))}>
+                        <option value="">Selecione um alarme</option>
+                        {alarmes.map((alarme) => (
+                            <option key={alarme.cod_alarme} value={alarme.cod_alarme}>
+                                {alarme.nome}
+                            </option>
+                        ))}
+                    </select>
+                    
                 </p>
 
-                
-                {!encontrado && (
-                    <p>*Parâmetro não encontrado</p>
-                )}
+    
 
                 <hr />
-                {alarme && (
+                {!encontrado && (
                     <>
                         <p>
                             Nome:
@@ -116,20 +128,20 @@ export default function EditAlarme() {
                                 type="text"
                                 value={nome}
                                 onChange={(e) => setNome(e.target.value)}
-                                placeholder="(*Obrigatório)"
+                                
                             />
                         </p>
 
                         <p>
                             Parâmetro:
                             <select
-                                value={codTipoParametro}
-                                onChange={(e) => setCodTipoParametro(e.target.value)}
+                                value={codParametro}
+                                onChange={(e) => setCodParametro(Number(e.target.value))}
                             >
                                 <option value="">Selecione um tipo</option>
-                                {tiposParametro.map((parametro) => (
+                                {parametro.map((parametro) => (
                                     <option key={parametro.cod_tipoParametro} value={parametro.cod_tipoParametro}>
-                                        {parametro.nome}
+                                        {parametro.cod_tipoParametro}
                                     </option>
                                 ))}
                             </select>
@@ -141,24 +153,23 @@ export default function EditAlarme() {
                                 type="number"
                                 value={valor}
                                 onChange={(e) => setValor(e.target.value)}
-                                placeholder="(*Obrigatório)"
+                                
                             />
                         </p>
 
                         <p>
                             Condição:
                             <select value={condicao} onChange={(e) => setCondicao(e.target.value)}>
-                                <option value="igual a">Igual a</option>
-                                <option value="menor que">Menor que</option>
-                                <option value="maior que">Maior que</option>
-                                <option value="diferente">Diferente</option>
+                                <option value="Igual a">Igual a</option>
+                                <option value="Menor que">Menor que</option>
+                                <option value="Maior que">Maior que</option>
                             </select>
                         </p>
                     </>
                 )}
             </div>
             <div id="Action">
-                <button onClick={editar} disabled={!alarme}>
+                <button onClick={editar} disabled={encontrado}>
                     Editar
                 </button>
             </div>

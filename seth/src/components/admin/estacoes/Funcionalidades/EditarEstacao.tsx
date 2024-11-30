@@ -1,33 +1,58 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./index.css"
+
 import { Estacao } from "../../../../types/estacao"
+import { Parametro } from "../../../../types/parametro"
+import "../../main.css";
 
 export default function EditEstacao() {
 
 
-    const [id, setId] = useState('')
+    const [id, setId] = useState(0)
     const [estacao, setEstacao] = useState<Estacao | null>(null)
+    const [estacoes, setEstacoes] = useState<Array<Estacao>>([])
+    const [parametros, setParametros] = useState<Array<Parametro>>([])
     const [nome, setNome] = useState('')
     const [macAdress, setMacAdress] = useState('')
     const [cidade, setCidade] = useState('')
     const [estado, setEstado] = useState('')
-    const [numero, setNumero] = useState('')
+    const [numero, setNumero] = useState(0)
     const [cep, setCep] = useState('')
 
     const[encontrado, setEncontrado] = useState(true)
 
 
     useEffect(() => {
+
+        axios.get('http://localhost:30105/api/estacoes')
+        .then((response) => {
+            setEstacoes(response.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+        axios.get('http://localhost:30105/api/parametros')
+        .then((response) => {
+            setParametros(response.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+
+
+
         if (id) {
+
             
-            axios.get(`http://localhost:30105/api/estacao/${id}`)
-                .then(response => {
+                    const estacaoData = estacoes.find(estacao => estacao.cod_estacao === id)
                     
-                    const estacaoData = response.data[0]
+
+
                     if (estacaoData) {
 
-                        setEncontrado(true)
+                        setEncontrado(false)
 
                         const { nome, macAdress, cidade, estado, numero, cep } = estacaoData
                         setEstacao(estacaoData)
@@ -38,34 +63,20 @@ export default function EditEstacao() {
                         setNumero(numero)
                         setCep(cep)
                     }
-                })
-                .catch(error => {
-                    console.error("Erro ao buscar a estação:", error)
-                    setEncontrado(false)
-                    resetForm()
-                })
-        } else {
-            resetForm()
-            setEncontrado(true)
-        }
-    }, [id])
 
-    function resetForm() {
-        setEstacao(null)
-        setNome('')
-        setMacAdress('')
-        setCidade('')
-        setEstado('')
-        setNumero('')
-        setCep('')
-    }
+            
+            }
+        }, [id])
+
 
     function editar() {
         console.clear()
 
+
+
         let cidadeDefault = cidade !== '' ? cidade : 'Não informado'
         let estadoDefault = estado !== '' ? estado : 'Não informado'
-        let numeroDefault = numero !== '' ? numero : 'Não informado'
+        let numeroDefault = numero == 0 ? numero : 0
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
             axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
@@ -99,28 +110,28 @@ export default function EditEstacao() {
 
                 <div id="Inputs_Camp">
                     <p>
-                        ID da Estação:
-                        <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
+                        <select value={id} onChange={(event) => setId(parseInt(event.target.value))}>
+                            <option value="">Selecione um Usuário</option>
+                                {estacoes.map((estacao) => (
+                                    <option key={estacao.cod_estacao} value={estacao.cod_estacao}>{estacao.cod_estacao}</option>
+                                ))}    
+                        </select>
                     </p>
 
                     
-                    {!encontrado && (
-                        <p>*Estação não encontrada</p>
-                    )}
-
                     <hr />
 
-                    {estacao && (
+                    {!encontrado && (
                         <>
                             
                             <p>
                                 Nome:
-                                <input type="text" value={nome} onChange={(event) => setNome(event.target.value)} placeholder="(*Obrigatório)" />
+                                <input type="text" value={nome} onChange={(event) => setNome(event.target.value)} />
                             </p>
 
                             <p>
                                 MacAdress:
-                                <input type="text" value={macAdress} onChange={(event) => setMacAdress(event.target.value)} placeholder="(*Obrigatório)" />
+                                <input type="text" value={macAdress} onChange={(event) => setMacAdress(event.target.value)}  />
                             </p>
 
                             <br />
@@ -137,20 +148,20 @@ export default function EditEstacao() {
                             </p>
 
                             <p>
-                                Número:
-                                <input type="text" value={numero} onChange={(event) => setNumero(event.target.value)} />
+                                Número (Apenas Números):
+                                <input type="number" value={numero} onChange={(event) => setNumero(parseInt(event.target.value))} />
                             </p>
 
                             <p>
                                 CEP (Apenas Números):
-                                <input type="number" maxLength={12} value={cep} onChange={(event) => setCep(event.target.value)} placeholder="(*Obrigatório)" />
+                                <input type="number" maxLength={12} value={cep} onChange={(event) => setCep(event.target.value)} />
                             </p>
                         </>
                     )}
                 </div>
 
                 <div id="Action">
-                    <button onClick={editar} disabled={!estacao}>
+                    <button onClick={editar} disabled={encontrado}>
                         Editar
                     </button>
                 </div>

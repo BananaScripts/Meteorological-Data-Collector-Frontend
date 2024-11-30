@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import "./index.css"
 
+import "../main.css";
 import Funcionalidades from "./Funcionalidades";
 import { Alarme } from "../../../types/alarme";
+import { Parametro } from "../../../types/parametro";
+import { tipoParametro } from "../../../types/tipoParametro";
 
 export default function INTERFACE_CONTROLE_ALARMES() {
     const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
+    const [tipoParametro, setTipoParametro] = useState<Array<tipoParametro>>([]);
+    const [alarmesFormatados, setAlarmesFormatados] = useState<Array<Alarme & { tipoParametroNome?: string }>>([]);
+    const [parametros, setParametros] = useState<Array<Parametro>>([]);
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarAlarmes = () => {
@@ -17,11 +22,36 @@ export default function INTERFACE_CONTROLE_ALARMES() {
             .catch((error) => {
                 console.error(error);
             });
+            axios.get('http://localhost:30105/api/tiposParametros')
+            .then((response) => {
+                setTipoParametro(response.data); 
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+            axios.get('http://localhost:30105/api/parametros')
+            .then((response) => {
+                setParametros(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+
+
+            setAlarmesFormatados(alarmes)
+
     };
 
     useEffect(() => {
         atualizarAlarmes(); 
+
     }, []);
+
+
+
+
+
 
     const handleAction = (type: number | null) => {
         setActionType(type);
@@ -34,12 +64,18 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                 <div id="Title_Box">
                     <h2> Controle de Alarmes </h2>                   
 
+                    
+                    {actionType === null && (
+                        <button onClick={() => handleAction(2)}>Editar</button>
+                    )}
+
                     {actionType === null && (    
                         <button onClick={() => handleAction(3)}>Deletar</button>
                     )}            
 
+
                     {actionType === null && (
-                        <button onClick={() => handleAction(1)}>Configurar Alarme</button>
+                        <button onClick={() => handleAction(4)}>Cadastrar</button>
                     )}
 
                     {actionType !== null && (
@@ -53,9 +89,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Nome</th>
-                                    <th>Código do Tipo de Parâmetro</th>
                                     <th>Valor</th>
                                     <th>Condição</th>
                                 </tr>
@@ -63,9 +97,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                             <tbody>
                                 {Array.isArray(alarmes) && alarmes.map((alarme) => (
                                     <tr key={alarme.cod_alarme}>
-                                        <td>{alarme.cod_alarme}</td>
                                         <td>{alarme.nome}</td>
-                                        <td>{alarme.cod_tipoParametro}</td>
                                         <td>{alarme.valor}</td>
                                         <td>{alarme.condicao}</td>
                                     </tr>
@@ -75,8 +107,10 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                     </div>
                 )}
 
-                {actionType === 1 && <Funcionalidades.ConfigAlarme />}
+
+                {actionType === 2 && <Funcionalidades.EditAlarme />}
                 {actionType === 3 && <Funcionalidades.DeleteAlarme />}
+                {actionType === 4 && <Funcionalidades.CreateAlarme />}
             </div>
         </>
     );

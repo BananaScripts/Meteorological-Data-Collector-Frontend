@@ -15,6 +15,8 @@ import axios from "axios";
             console.error('Erro ao buscar dados dos alarmes:', error);
             throw error;
         }
+
+        
     };
 
     export default atualizarAlarmes

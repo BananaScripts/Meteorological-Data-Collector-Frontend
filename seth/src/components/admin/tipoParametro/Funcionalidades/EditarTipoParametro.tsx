@@ -1,72 +1,83 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./index.css"
 
-import { Parametro, UnidadeMedida } from "../../../../types/parametro"
+import { tipoParametro, UnidadeMedida } from "../../../../types/tipoParametro"
+import e from "cors"
+import "../../main.css";
 
 export default function EditParametro() {
-    const [id, setId] = useState('')
-    const [parametro, setParametro] = useState<Parametro | null>(null)
+    const [id, setId] = useState(0)
+    const [tipoParametro, setTipoParametro] = useState<Array<tipoParametro>>([])
     const [nome, setNome] = useState('')
     const [fator, setFator] = useState('')
-    const [offset, setOffset] = useState<number>(0)
+    const [offset, setOffset] = useState("")
     const [unidadeMedida, setUnidadeMedida] = useState('')
+    const [json, setJson] = useState('')
 
     const[encontrado, setEncontrado] = useState(true)
 
     useEffect(() => {
+
+        axios.get('http://localhost:30105/api/tiposParametros')
+            .then(response => {
+                setTipoParametro(response.data);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar tipos de parâmetro:", error);
+            });
+
+
         if (id) {
-            axios.get(`http://localhost:30105/api/tipoParametro/${id}`)
-                .then(response => {
-                    const parametroData = response.data[0]
-                    setEncontrado(true)
+            setEncontrado(false)
+            const parametroData = tipoParametro.find(parametro => parametro.cod_tipoParametro === id)
 
-                    if (parametroData) {
-                        const { nome, fator, offset, unidadeMedida } = parametroData
-                        setParametro(parametroData)
-                        setNome(nome)
-                        setOffset(offset)
-                        setFator(fator)
-                        setUnidadeMedida(unidadeMedida)
-                    }
-                })
-                .catch(error => {
-                    setEncontrado(false)
-                    resetForm()
-                })
-        } else {
-            setEncontrado(true)    
-            resetForm()
 
+
+            if (parametroData) {
+
+
+                const { nome, fator, offset, unidadeMedida, json } = parametroData
+                setNome(nome)
+                setOffset(offset);
+                setFator(fator)
+                setUnidadeMedida(unidadeMedida)
+                setJson(json)
+            } else {
+
+                setEncontrado(true)
+                resetForm();
+            }
         }
     }, [id])
 
     function resetForm() {
-        setParametro(null)
         setNome('')
         setFator('')
-        setOffset(0)
+        setOffset('')
         setUnidadeMedida('')
+        setJson('')
     }
 
     function editar() {
 
-        let offsetDefault = offset < 0 ? Math.abs(offset) : offset;
+        let offsetDefault = offset !== '' ? offset : '0';
 
 
-        if (nome !== '' && fator !== '' && unidadeMedida !== '') {
-            axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
+        if (nome !== '' && fator !== '' && unidadeMedida !== '' && json !== '') {
+            axios.put(`http://localhost:30105/api/tipoParametro/atualizar/${id}`, {
                 nome,
                 fator,
                 offset: offsetDefault,
-                unidadeMedida
+                unidadeMedida,
+                json
             })
                 .then(() => {
                     alert("Parâmetro editado com sucesso!")
                 })
-                .catch(() => {
+                .catch((error => {
+                    console.error(error)
                     alert("Erro ao editar o parâmetro.")
-                })
+                }));
         } else {
             alert("Preencha os campos obrigatórios!")
         }
@@ -83,22 +94,21 @@ export default function EditParametro() {
 
             <div id="Inputs_Camp">
                 <p>
-                    ID do Parâmetro:
-                    <input
-                        type="text"
-                        value={id}
-                        onChange={(event) => setId(event.target.value)}
-                        placeholder="Digite o ID"
-                    />
+                    Selecione o Parametro a ser editado:
+
+                        <select onChange={(e) => setId(parseInt(e.target.value))}>
+                            <option value=''>Selecione um Parametro</option>
+                                {tipoParametro.map((tipoParametro) => (
+                            <option key={tipoParametro.cod_tipoParametro} value={tipoParametro.cod_tipoParametro}>{tipoParametro.nome}</option>
+                            ))}
+                        </select>
+                    
                 </p>
 
-                {!encontrado && (
-                    <p>*Parâmetro não encontrado</p>
-                )}
-
                 <hr />
+                {!encontrado && (
 
-                {parametro && (
+
                     <>
                         <p>
                             Nome:
@@ -113,7 +123,7 @@ export default function EditParametro() {
                         <p>
                             Fator:
                             <input
-                                type="text"
+                                type="number"
                                 value={fator}
                                 onChange={(event) => setFator(event.target.value)}
                                 placeholder="(*Obrigatório)"
@@ -140,7 +150,16 @@ export default function EditParametro() {
                             <input
                                 type="number"
                                 value={offset}
-                                onChange={(event) => setOffset(event.target.valueAsNumber)}
+                                onChange={(event) => setOffset(event.target.value)}
+                            />
+                        </p>
+
+                        <p>
+                            Sigla (Para Tratamento de Dados):
+                            <input
+                                type="text"
+                                value={json}
+                                onChange={(event) => setJson(event.target.value)}
                             />
                         </p>
                     </>
@@ -148,7 +167,7 @@ export default function EditParametro() {
             </div>
 
             <div id="Action">
-                <button onClick={editar} disabled={!parametro}>
+                <button onClick={editar} disabled={encontrado}>
                     Editar
                 </button>
             </div>

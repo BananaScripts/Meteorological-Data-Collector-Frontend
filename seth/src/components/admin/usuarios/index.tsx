@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import "./index.css"
+
 import { Usuario } from "../../../types/usuario"
 import axios from "axios"
 import Funcionalidades from "./Funcionalidades"
+import "../main.css";
 
 export default function INTERFACE_CONTROLE_USUARIOS() {
 
@@ -73,24 +74,24 @@ export default function INTERFACE_CONTROLE_USUARIOS() {
               <thead>
 
                 <tr>
-                  <th>Id</th>
                   <th>Nome</th>
                   <th>Email</th>
                   <th>Cpf</th>
                   <th>Senha</th>
                   <th>Data de Nascimento</th>
+                  <th>Privilégio</th>
                 </tr>
 
               </thead>
               <tbody>
                     {usuarios.map((usuario)=>(
                                 <tr key={usuario.cod_usuario}>
-                                    <td>{usuario.cod_usuario}</td>
                                     <td>{usuario.nome}</td>
                                     <td>{usuario.email}</td>
                                     <td>{usuario.cpf}</td>
                                     <td>{usuario.senha}</td>
                                     <td>{new Date(usuario.dataNascimento).toLocaleDateString()}</td>
+                                    <td>{usuario.role}</td>
   
                                 </tr>
                             ))}
