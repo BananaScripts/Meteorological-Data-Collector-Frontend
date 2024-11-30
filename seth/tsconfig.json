@@ -26,7 +26,7 @@
   },
   "include": [
     "src",
-   "jest.config.ts"  ]
+   "jest.config.ts", "styleMock.js", "__mocks__"  ]
 
 
 }
