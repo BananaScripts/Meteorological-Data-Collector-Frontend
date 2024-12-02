@@ -43,17 +43,17 @@ jobs:
 
         echo "Nome da branch: $BRANCH_NAME"
   
-        # Rodando testes de integração para PRs entre 'development' e 'main'
-        if [[ "$GITHUB_BASE_REF" == "main" && "$GITHUB_HEAD_REF" == "development" ]]; then
-          echo "Rodando testes de integração da branch development para main"
+         # Rodando testes unitários para a branch 'development' (mas não deve rodar em PR)
+        if [[ "$BRANCH_NAME" == "development" ]]; then
+          echo "Rodando testes unitários para branch development"
           cd seth
-          npm test -- seth/src/__tests__/integration
+          npm test -- seth/src/_tests_/unit
 
-        # Rodando testes para a branch 'development' (mas não deve rodar em PR)
-        elif [[ "$BRANCH_NAME" == "development" ]]; then
-          echo "Rodando testes para branch development"
+        # Rodando testes de integração para PRs entre 'development' e 'main'
+        elif [[ "$GITHUB_BASE_REF" == "main" && "$GITHUB_HEAD_REF" == "development" ]]; then
+          echo "Rodando testes de integração para PR de development para main"
           cd seth
-          npm test -- seth/src/__tests__/unit
+          npm test -- seth/src/_tests_/integration
 
         # Rodando testes para branches 'Fix/*' ou 'Feat/*'
         elif [[ "$BRANCH_NAME" == Feat/* ]] || [[ "$BRANCH_NAME" == Fix/* ]] || [[ "$BRANCH_NAME" == feat/* ]] || [[ "$BRANCH_NAME" == fix/* ]]; then
