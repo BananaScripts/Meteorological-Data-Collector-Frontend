@@ -75,7 +75,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
 
     useEffect(() => {
         formatar()
-    }, [parametros, estacoes, tipoParametro, formatar])
+    })
     
 
 
