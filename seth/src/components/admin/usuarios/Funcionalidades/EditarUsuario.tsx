@@ -49,7 +49,7 @@ export default function EditUsuario() {
                 resetForm();
             }
         }
-    })
+    }, [id, usuarios])
 
     function resetForm() {
         setUsuario(null)

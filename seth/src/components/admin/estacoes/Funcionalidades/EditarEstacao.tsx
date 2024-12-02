@@ -69,7 +69,7 @@ export default function EditEstacao() {
 
             
             }
-        })
+        }, [id, estacoes])
 
 
     function editar() {
