@@ -64,10 +64,10 @@ const DataByCodParametro: React.FC = () => {
     const fetchData = async () => {
       try {
         const [dadosResponse, tiposResponse, estacoesResponse, parametrosResponse] = await Promise.all([
-          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
-          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
-          axios.get<Estacao[]>('http://localhost:30105/api/estacoes'),
-          axios.get<Parametro[]>('http://localhost:30105/api/parametros'),
+          axios.get<DadosItem[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/dados'),
+          axios.get<TipoParametro[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposparametros'),
+          axios.get<Estacao[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes'),
+          axios.get<Parametro[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros'),
         ]);
 
         setDados(dadosResponse.data);
@@ -340,6 +340,7 @@ const DataByCodParametro: React.FC = () => {
               })}
           </div>
         ))}
+        <div className='fundinho'>.</div>
     </div>
   );
 };

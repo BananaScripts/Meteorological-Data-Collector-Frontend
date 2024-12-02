@@ -4,7 +4,7 @@ export type Estacao = {
     macAdress: string
     cidade: string
     estado: string
-    numero: string
-    cep: number
+    numero: number
+    cep: string
     
 }

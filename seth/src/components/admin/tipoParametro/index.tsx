@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react"
-import "./index.css"
 import axios from "axios"
 
+import "../main.css";
 import Funcionalidades from "./Funcionalidades"
-import { Parametro } from "../../../types/parametro"
+import { tipoParametro } from "../../../types/tipoParametro"
 
 export default function INTERFACE_CONTROLE_PARAMETROS() {
 
-    const[parametros, setParametros] = useState<Array<Parametro>>([])
+    const[tiposParametros, setTiposParametros] = useState<Array<tipoParametro>>([])
     const [actionType, setActionType] = useState<number | null>(null);
 
 
     const atualizarParametros = () => {
-      axios.get('http://localhost:30105/api/tiposParametros')
+      axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
           .then((response) => {
-              setParametros(response.data); 
+              setTiposParametros(response.data); 
           })
           .catch((error) => {
               console.error(error);
           });
+
+        
   };
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
 
           <div id="Title_Box">
 
-            <h2> Controle de Parâmetros </h2>
+            <h2> Controle dos Parâmetros </h2>
 
               {actionType === null && (
                 <button onClick={() => handleAction(2)}>Editar</button>
@@ -75,7 +77,6 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
               <thead>
 
                 <tr>
-                  <th>Id</th>
                   <th>Nome</th>
                   <th>Fator</th>
                   <th>Offset</th>
@@ -85,13 +86,12 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
               </thead>
               
               <tbody>
-                {parametros.map((parametro)=>(
-                    <tr key={parametro.cod_tipoParametro}>
-                      <td>{parametro.cod_tipoParametro}</td>
-                      <td>{parametro.nome}</td>
-                      <td>{parametro.fator}</td>
-                      <td>- {parametro.offset}</td>
-                      <td>{parametro.unidadeMedida}</td>
+                {tiposParametros.map((tipoParametro)=>(
+                    <tr key={tipoParametro.cod_tipoParametro}>
+                      <td>{tipoParametro.nome}</td>
+                      <td>{tipoParametro.fator}</td>
+                      <td>- {tipoParametro.offset}</td>
+                      <td>{tipoParametro.unidadeMedida}</td>
 
                     </tr>
                   ))}

@@ -1,11 +1,11 @@
-import ConfigAlarme from "./ConfigurarAlarme";
+import CreateAlarme from "./CadastrarAlarme";
 import DeleteAlarme from "./DeletarAlarme";
 import EditAlarme from "./EditarAlarme";
 
 const AlarmeModule = {
-    ConfigAlarme,
     EditAlarme,
-    DeleteAlarme
+    DeleteAlarme,
+    CreateAlarme
 };
 
 export default AlarmeModule;

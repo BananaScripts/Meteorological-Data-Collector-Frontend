@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import "./index.css"
+import "../../main.css";
 
 export default function CreateUsuario() {
 
@@ -9,18 +9,20 @@ export default function CreateUsuario() {
     const [cpf, setCpf] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [role, setRole] = useState('')
 
     function cadastrar() {
         console.clear()
 
-        if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '') {
-            axios.post('http://localhost:30105/api/usuario/cadastrar', { nome, dataNascimento, cpf, email, senha })
+        if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '' && role !== '') {
+            axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/cadastrar', { nome, dataNascimento, cpf, email, senha, role })
             .then(() => {
                 setNome('')
                 setDataNascimento('')
                 setCpf('')
                 setEmail('')
                 setSenha('')
+                setRole('')
                 alert("Usuário Cadastrado com Sucesso!")
             })
             .catch((error) => {
@@ -71,6 +73,14 @@ export default function CreateUsuario() {
                 <p>
                     Senha:
                     <input type="password" value={senha} onChange={(event) => setSenha(event.target.value)} placeholder="(*Obrigatório)" />
+                </p>
+
+                <p>
+                    Privilégio:
+                    <select value={role} onChange={(event) => setRole(event.target.value)}>
+                        <option value="admin">Administrador</option>
+                        <option value="user">Usuário</option>
+                    </select>
                 </p>
 
             </div>

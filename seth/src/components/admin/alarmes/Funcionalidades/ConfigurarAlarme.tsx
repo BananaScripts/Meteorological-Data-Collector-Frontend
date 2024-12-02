@@ -1,55 +1,38 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Parametro } from "../../../../types/parametro";
+import { Alarme } from "../../../../types/alarme";
+import "../../main.css";
 
-export default function ConfigAlarme() {
-    const [nome, setNome] = useState('');
-    const [codTipoParametro, setCodTipoParametro] = useState<number | string>('');
-    const [valorAlvo, setValorAlvo] = useState<number | string>('');
-    const [condicao, setCondicao] = useState<string>('igual a');
+export default function INTERFACE_CONFIGURAR_ALARMES() {
+    const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
+    const [id, setId] = useState(0);
     const [tempo, setTempo] = useState(1);
     const [tipoTempo, setTipoTempo] = useState<string>('Minuto')
 
-    const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
-
     useEffect(() => {
-        axios.get('http://localhost:30105/api/tiposparametros')
+
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
             .then(response => {
-                setTiposParametro(response.data);
+                setAlarmes(response.data);
             })
             .catch(error => {
-                console.error("Erro ao buscar tipos de parâmetro:", error);
+                console.error("Erro ao buscar alarmes:", error);
             });
     }, []);
 
     const monitorar = () => {
-        if (!nome || !codTipoParametro || !valorAlvo) {
-            alert("Por favor, preencha os campos obrigatórios!");
-            return;
-        }
 
-        const codTipoParametroNum = Number(codTipoParametro);
-        const valorNum = Number(valorAlvo);
+        axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/monitorar', {
+            cod_alarme: id,
+            tempo: tempo,
+            tipoTempo
 
-        if (isNaN(codTipoParametroNum) || isNaN(valorNum)) {
-            alert("Código do Tipo de Parâmetro ou Valor inválido!");
-            return;
-        }
-
-        axios.post('http://localhost:30105/api/alarme/monitorar', {
-            nome,
-            valorAlvo: valorNum, 
-            condicao,
-            cod_tipoParametro: codTipoParametroNum,
-            tempo,
-            tipoTempo  
         })
         .then(() => {
-            setNome('');
-            setCodTipoParametro('');
-            setValorAlvo('');
-            setCondicao('igual a');
-            alert("Alarme cadastrado com sucesso!");
+            setId(0);
+            setTempo(1);
+            setTipoTempo('Minuto');
+            alert("Alarme configurado com sucesso!");
         })
         .catch(error => {
             console.error("Erro ao cadastrar alarme:", error);
@@ -58,57 +41,25 @@ export default function ConfigAlarme() {
 
     return (
         <div id="CreateAlarme">
-            <hr />
 
             <div id="Title_Section">
-                <h3>Configurar criação de Alarme</h3>
+                <h3>Inciar Monitoramento de Alarme</h3>
                 <p>*Preencha os campos obrigatórios</p>
             </div>
 
             <div id="Inputs_Camp">
-                <p>
-                    Nome:
-                    <input
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                        placeholder="(*Obrigatório)"
-                    />
-                </p>
 
                 <p>
-                    Tipo de Parâmetro:
-                    <select
-                        value={codTipoParametro}
-                        onChange={(e) => setCodTipoParametro(e.target.value)}
-                    >
-                        <option value="">Selecione um tipo</option>
-                        {tiposParametro.map((parametro) => (
-                            <option key={parametro.cod_tipoParametro} value={parametro.cod_tipoParametro}>
-                                {parametro.nome}
+                    Alarme a ser monitorado:
+                    <select value={id} onChange={(e)=> setId(Number(e.target.value))}>
+                        {alarmes.map((alarme) => (
+                            <option key={alarme.cod_alarme} value={alarme.cod_alarme}>
+                                {alarme.nome}
                             </option>
                         ))}
                     </select>
                 </p>
-
-                <p>
-                    Valor:
-                    <input
-                        type="number"
-                        value={valorAlvo}
-                        onChange={(e) => setValorAlvo(e.target.value)}
-                        placeholder="(*Obrigatório)"
-                    />
-                </p>
-
-                <p>
-                    Condição:
-                    <select value={condicao} onChange={(e) => setCondicao(e.target.value)}>
-                        <option value="igual a">Igual a</option>
-                        <option value="menor">Menor que</option>
-                        <option value="maior">Maior que</option>
-                    </select>
-                </p>
+                <br />
 
                 <p>
                     Tipo de intervalo de tempo:
@@ -117,10 +68,12 @@ export default function ConfigAlarme() {
                         <option value="Hora">Hora</option>
                     </select>
                 </p>
+                <br />
                 <p>
                     Intervalo de tempo (horas/minutos):
                     <input type="number" value={tempo} onChange={(e)=>setTempo(Number(e.target.value))}></input>
                 </p>
+                <br />
             </div>
 
             <div id="Action">

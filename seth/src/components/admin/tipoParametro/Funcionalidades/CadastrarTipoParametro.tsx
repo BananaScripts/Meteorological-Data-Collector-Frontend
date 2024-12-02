@@ -1,44 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import "./index.css";
-import { UnidadeMedida } from "../../../../types/parametro";
-import { Estacao } from "../../../../types/estacao";
+
+import { UnidadeMedida } from "../../../../types/tipoParametro";
+import "../../main.css";
 
 export default function CreateParametro() {
-    const [cod_estacao, setCodEstacao] = useState<number | string>("");
     const [nome, setNome] = useState("");
     const [fator, setFator] = useState("");
-    const [offset, setOffset] = useState(0);
-    const [estacoes, setEstacoes] = useState<Array<Estacao>>([]);
+    const [offset, setOffset] = useState("");
     const [unidadeMedida, setUnidadeMedida] = useState("");
-
-    useEffect(() => {
-        axios.get("http://localhost:30105/api/estacoes")
-            .then((response) => {
-                setEstacoes(response.data);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar estações:", error);
-            });
-    }, []);
+    const [json, setJson] = useState("");
 
     function cadastrar() {
         console.clear();
 
-        if (nome !== "" && fator !== "" && unidadeMedida !== "" && offset !== 0 && cod_estacao !== "") {
-            axios.post("http://localhost:30105/api/parametro/cadastrar", { 
-                estacao: cod_estacao,  
+        if (nome !== "" && fator !== "" && unidadeMedida !== "" && offset !== "" && json !== "") {
+            axios.post("https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tipoParametro/cadastrar", {  
                 nome, 
                 fator, 
+                offset,
                 unidadeMedida, 
-                offset 
+                json
             })
             .then(() => {
                 setNome("");
                 setFator("");
-                setOffset(0);
+                setOffset("");
                 setUnidadeMedida("");
-                setCodEstacao("");
+                setJson("");
                 alert("Parâmetro Cadastrado com Sucesso!");
             })
             .catch((error) => {
@@ -65,7 +54,7 @@ export default function CreateParametro() {
                     </p>
                     <p>
                         Fator:
-                        <input type="text" value={fator} onChange={(event) => setFator(event.target.value)} placeholder="(*Obrigatório)" />
+                        <input type="number" value={fator} onChange={(event) => setFator(event.target.value)} placeholder="(*Obrigatório)" />
                     </p>
                     <p>
                         Unidade de Medida:
@@ -80,19 +69,13 @@ export default function CreateParametro() {
                     </p>
                     <p>
                         Offset (Coloque um número Positivo):
-                        <input type="number" value={offset} onChange={(event) => setOffset(event.target.valueAsNumber)} />
+                        <input type="number" value={offset} onChange={(event) => setOffset(event.target.value)} />
                     </p>
                     <p>
-                        Estação:
-                        <select value={cod_estacao} onChange={(event) => setCodEstacao(event.target.value)}>
-                            <option value="">Selecione uma estação</option>
-                            {estacoes.map((estacao) => (
-                                <option key={estacao.cod_estacao} value={estacao.cod_estacao}>
-                                    {estacao.nome}
-                                </option>
-                            ))}
-                        </select>
+                        Sigla (Para tratamento de dados):
+                        <input type="text" value={json} onChange={(event) => setJson(event.target.value)} />
                     </p>
+                    
                 </div>
                 <div id="Action">
                     <button onClick={cadastrar}>Cadastrar</button>

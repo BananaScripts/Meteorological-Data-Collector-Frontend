@@ -5,11 +5,12 @@ import "./main.css"
 import INTERFACE_CONTROLE_ALARMES from "./alarmes"; 
 import INTERFACE_CONTROLE_ESTACOES from "./estacoes";
 import INTERFACE_CONTROLE_USUARIOS from "./usuarios";
-import INTERFACE_CONTROLE_PARAMETROS from "./parametros";
+import INTERFACE_CONTROLE_PARAMETROS from "./tipoParametro";
+import INTERFACE_CONFIGURAR_ALARMES from "./alarmes/Funcionalidades/ConfigurarAlarme";
 /* import INTERFACE_DADOS_ESTACOES from "./dados"; */
 
-import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
+import INTERFACE_CONTROLE_PARAMETROSRELACIONADO from "./parametro";
 
 
 
@@ -31,10 +32,7 @@ export default function AdminComponent() {
 
               <div id="Image_Box" className="caixacinzaclaro">
 
-                <h5>  Alarmes que foram Acionados Recentemente <br /> (EM DESENVOLVIMENTO)</h5>
-                
-
-                <img src={imagemAlarme} alt="Alarmes Acionados" />
+                <INTERFACE_CONFIGURAR_ALARMES />
 
               </div>
 
@@ -42,11 +40,12 @@ export default function AdminComponent() {
           </div>
 
           <div className="caixacinza">
-          <div id="Usuarios_Box" className="caixacinzaclaro">
+          
+            <div id="Usuarios_Box" className="caixacinzaclaro">
 
-            <INTERFACE_CONTROLE_USUARIOS />
+              <INTERFACE_CONTROLE_USUARIOS />
 
-          </div>
+            </div>
           </div>
           
 
@@ -54,7 +53,7 @@ export default function AdminComponent() {
 
             <div id="Parametros_Box" className="caixacinzaclaro">
 
-              <INTERFACE_CONTROLE_PARAMETROS />
+              <INTERFACE_CONTROLE_PARAMETROSRELACIONADO />
 
             </div>
 
@@ -70,20 +69,22 @@ export default function AdminComponent() {
           </div>
 
           <div className="caixacinza">
+            <div id="Usuarios_Box" className="caixacinzaclaro">
+
+              <INTERFACE_CONTROLE_PARAMETROS />
+
+            </div>
+          </div>
+
+          <br /><br />
+
+          <div className="caixacinza">
           <div id="Estacoes_Box" className="caixacinzaclaro">
 
             <INTERFACE_CONTROLE_ESTACOES />
 
           </div><br />
           </div>
-
-        {/*
-        <div id="Dados_Box" className="Box">
-
-            <INTERFACE_DADOS_ESTACOES />
-
-          </div><br />
-          */}
           
         
       </div>

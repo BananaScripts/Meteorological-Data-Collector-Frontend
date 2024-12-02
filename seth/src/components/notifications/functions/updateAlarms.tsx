@@ -4,8 +4,8 @@ import axios from "axios";
     const atualizarAlarmes = async () => {
         try {
             const [histResponse, alarmesResponse] = await Promise.all([
-                axios.get('http://localhost:30105/api/histAlarmes'),
-                axios.get('http://localhost:30105/api/alarmes'),
+                axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/histAlarmes'),
+                axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes'),
             ]);
             return {
                 histAlarmes: histResponse.data,
@@ -15,6 +15,8 @@ import axios from "axios";
             console.error('Erro ao buscar dados dos alarmes:', error);
             throw error;
         }
+
+        
     };
 
     export default atualizarAlarmes

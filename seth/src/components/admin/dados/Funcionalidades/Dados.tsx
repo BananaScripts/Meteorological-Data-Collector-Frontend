@@ -27,8 +27,8 @@ const DataDisplay = () => {
     const fetchData = async () => {
       try {
         const [dadosResponse, tiposResponse] = await Promise.all([
-          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
-          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
+          axios.get<DadosItem[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/dados'),
+          axios.get<TipoParametro[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposparametros'),
         ]);
 
         setDados(dadosResponse.data);
