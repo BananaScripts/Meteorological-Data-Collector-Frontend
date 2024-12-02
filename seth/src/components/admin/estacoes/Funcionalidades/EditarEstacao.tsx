@@ -21,7 +21,7 @@ export default function EditEstacao() {
     useEffect(() => {
         if (id) {
             
-            axios.get(`http://localhost:30105/api/estacao/${id}`)
+            axios.get(`http://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/${id}`)
                 .then(response => {
                     
                     const estacaoData = response.data[0]
@@ -68,7 +68,7 @@ export default function EditEstacao() {
         let numeroDefault = numero !== '' ? numero : 'Não informado'
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
-            axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
+            axios.put(`http://seth-frontend-652283507250.southamerica-east1.run.app/api/estacao/atualizar/${id}`, {
                 nome,
                 macAdress,
                 cidade: cidadeDefault,

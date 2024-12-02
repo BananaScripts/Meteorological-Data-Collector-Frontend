@@ -19,7 +19,7 @@ const NotificationsBar: React.FC = () => {
   
     // Função para buscar alarmes do backend
     const atualizarAlarmes = () => {
-      axios.get('http://localhost:30105/api/alarmes')
+      axios.get('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
         .then((response) => {
           setAlarmes(response.data); 
         })
@@ -32,7 +32,7 @@ const NotificationsBar: React.FC = () => {
   
     // Função para buscar quantidade de ativos monitorados
     const atualizarAtivosMonitorados = () => {
-      axios.get('http://localhost:30105/api/ativosMonitorados')
+      axios.get('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/ativosMonitorados')
         .then((response) => {
           setAtivosMonitorados(response.data.quantidade); 
         })

@@ -7,7 +7,7 @@ export default function DeleteEstacao() {
     const[id, setId] = useState('')
 
     function deletar() {
-        axios.delete(`http://localhost:30105/api/estacao/deletar/${id}`)
+        axios.delete(`http://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/deletar/${id}`)
         .then(() =>{
             alert("Estação deletada com sucesso!")
             

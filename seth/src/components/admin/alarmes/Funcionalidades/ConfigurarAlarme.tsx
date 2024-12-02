@@ -13,7 +13,7 @@ export default function ConfigAlarme() {
     const [tiposParametro, setTiposParametro] = useState<Array<Parametro>>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:30105/api/tiposparametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposparametros')
             .then(response => {
                 setTiposParametro(response.data);
             })
@@ -36,7 +36,7 @@ export default function ConfigAlarme() {
             return;
         }
 
-        axios.post('http://localhost:30105/api/alarme/monitorar', {
+        axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/monitorar', {
             nome,
             valorAlvo: valorNum, 
             condicao,

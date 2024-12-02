@@ -5,7 +5,7 @@ export default function DeleteAlarme() {
     const [id, setId] = useState('')
 
     function deletar() {
-        axios.delete(`http://localhost:30105/api/alarme/deletar/${id}`)
+        axios.delete(`http://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/deletar/${id}`)
             .then(() => {
                 alert("Alarme deletado com sucesso!")
             })

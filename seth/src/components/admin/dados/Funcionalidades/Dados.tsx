@@ -3,10 +3,11 @@ import axios from 'axios';
 
 const DataDisplay = () => {
   interface DadosItem {
-    cod_dados: number;
-    cod_parametro: number;
-    Valor: number;
-    unixtime: number;
+    _id: string;
+    uid: string;
+    unx: number;
+    temp: number;
+    umi: number;
   }
 
   interface TipoParametro {
@@ -27,8 +28,8 @@ const DataDisplay = () => {
     const fetchData = async () => {
       try {
         const [dadosResponse, tiposResponse] = await Promise.all([
-          axios.get<DadosItem[]>('http://localhost:30105/api/dados'),
-          axios.get<TipoParametro[]>('http://localhost:30105/api/tiposparametros'),
+          axios.get<DadosItem[]>('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/dados'),
+          axios.get<TipoParametro[]>('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposparametros'),
         ]);
 
         setDados(dadosResponse.data);
@@ -71,15 +72,16 @@ const DataDisplay = () => {
           <tbody>
             {dados.map((item) => {
               // Encontre o nome do parâmetro correspondente
-              const parametro = tiposParametros.find(param => param.cod_tipoParametro === item.cod_parametro);
+              const parametro = tiposParametros.find(param => param.cod_tipoParametro === item._id);
               const parametroNome = parametro ? parametro.nome : 'Desconhecido';
 
               return (
-                <tr key={item.cod_dados}>
-                  <td>{item.cod_dados}</td>
-                  <td>{parametroNome}</td>
-                  <td>{item.Valor}</td>
-                  <td>{item.unixtime}</td>
+                <tr key={item._id}>
+                <td>{item._id}</td>
+                <td>{item.uid}</td>
+                <td>{item.unx}</td>
+                <td>{item.temp}</td>
+                <td>{item.umi}</td>
                 </tr>
               );
             })}

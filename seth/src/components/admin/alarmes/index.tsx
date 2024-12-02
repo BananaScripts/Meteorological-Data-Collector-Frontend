@@ -10,7 +10,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarAlarmes = () => {
-        axios.get('http://localhost:30105/api/alarmes')
+        axios.get('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
             .then((response) => {
                 setAlarmes(response.data); 
             })

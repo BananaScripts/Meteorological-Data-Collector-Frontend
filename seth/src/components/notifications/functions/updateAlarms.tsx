@@ -4,8 +4,8 @@ import axios from "axios";
     const atualizarAlarmes = async () => {
         try {
             const [histResponse, alarmesResponse] = await Promise.all([
-                axios.get('http://localhost:30105/api/histAlarmes'),
-                axios.get('http://localhost:30105/api/alarmes'),
+                axios.get('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/histAlarmes'),
+                axios.get('http://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes'),
             ]);
             return {
                 histAlarmes: histResponse.data,

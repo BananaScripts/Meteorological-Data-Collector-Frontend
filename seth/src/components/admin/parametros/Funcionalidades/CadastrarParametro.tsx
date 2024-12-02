@@ -13,7 +13,7 @@ export default function CreateParametro() {
     const [unidadeMedida, setUnidadeMedida] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:30105/api/estacoes")
+        axios.get("http://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes")
             .then((response) => {
                 setEstacoes(response.data);
             })
@@ -26,7 +26,7 @@ export default function CreateParametro() {
         console.clear();
 
         if (nome !== "" && fator !== "" && unidadeMedida !== "" && offset !== 0 && cod_estacao !== "") {
-            axios.post("http://localhost:30105/api/parametro/cadastrar", { 
+            axios.post("http://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/cadastrar", { 
                 estacao: cod_estacao,  
                 nome, 
                 fator, 

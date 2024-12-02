@@ -16,7 +16,7 @@ export default function EditUsuario() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:30105/api/usuario/${id}`)
+            axios.get(`http://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/${id}`)
                 .then(response => {
                     const usuarioData = response.data[0]
                     if (usuarioData) {
@@ -58,7 +58,7 @@ export default function EditUsuario() {
 
     function editar() {
         if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '') {
-            axios.put(`http://localhost:30105/api/usuario/atualizar/${id}`, {
+            axios.put(`http://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/atualizar/${id}`, {
                 nome,
                 dataNascimento,
                 cpf,
