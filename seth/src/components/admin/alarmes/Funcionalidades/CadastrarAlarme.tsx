@@ -19,7 +19,7 @@ export default function CreateAlarme() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:30105/api/alarmes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
             .then(response => {
                 setAlarmes(response.data);
             })
@@ -27,7 +27,7 @@ export default function CreateAlarme() {
                 console.error("Erro ao buscar alarmes:", error);
             });
 
-        axios.get('http://localhost:30105/api/parametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app//api/parametros')
             .then(response => {
                 setParametros(response.data);
             })
@@ -45,7 +45,7 @@ export default function CreateAlarme() {
             return;
         }
 
-        axios.post('http://localhost:30105/api/alarme/cadastrar', {
+        axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/cadastrar', {
             nome,
             valor,
             condicao,

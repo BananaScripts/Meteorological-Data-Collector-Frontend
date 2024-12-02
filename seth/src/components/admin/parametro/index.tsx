@@ -18,7 +18,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarEstacoes = () => {
-        axios.get('http://localhost:30105/api/parametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
             .then((response) => {
                 setParametros(response.data);
             })
@@ -26,7 +26,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
                 console.error(error);
             });
 
-        axios.get('http://localhost:30105/api/tiposParametros') 
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros') 
             .then((response) => {
                 setTipoParametro(response.data);
             })
@@ -34,7 +34,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
                 console.error(error);
             });
 
-        axios.get('http://localhost:30105/api/estacoes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
             .then((response) => {
                 setEstacoes(response.data);
             })

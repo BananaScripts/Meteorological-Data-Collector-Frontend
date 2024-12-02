@@ -27,7 +27,7 @@ export default function DeleteEstacao() {
                 
             } else {
 
-                axios.delete(`http://localhost:30105/api/estacao/deletar/${id}`)
+                axios.delete(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/deletar/${id}`)
                 .then(() =>{
                     alert("Estação deletada com sucesso!")
                     
@@ -45,7 +45,7 @@ export default function DeleteEstacao() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:30105/api/estacoes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
         .then((response) => {
             setEstacoes(response.data)
         })
@@ -53,7 +53,7 @@ export default function DeleteEstacao() {
             console.error(error)
         })
 
-        axios.get(`http://localhost:30105/api/parametros`)
+        axios.get(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros`)
         .then((response) => {
             setParametros(response.data)
         })

@@ -20,7 +20,7 @@ export default function CreateParametroRelacionado() {
     useEffect(() => {
 
 
-        axios.get('http://localhost:30105/api/tiposParametros') 
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros') 
         .then((response) => {
             setTipoParametro(response.data)
         })
@@ -28,7 +28,7 @@ export default function CreateParametroRelacionado() {
             console.error(error)
         })
 
-        axios.get('http://localhost:30105/api/estacoes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
         .then((response) => {
             setEstacoes(response.data)
         })
@@ -38,7 +38,7 @@ export default function CreateParametroRelacionado() {
     }, [])
 
     function cadastrarParametro () {
-        axios.post('http://localhost:30105/api/parametro/cadastrar', {cod_tipoParametro: idTipoParametro, cod_estacao: idEstacao})
+        axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/cadastrar', {cod_tipoParametro: idTipoParametro, cod_estacao: idEstacao})
         .then((response) => {
             
             alert("Parâmetro cadastrado com sucesso!")

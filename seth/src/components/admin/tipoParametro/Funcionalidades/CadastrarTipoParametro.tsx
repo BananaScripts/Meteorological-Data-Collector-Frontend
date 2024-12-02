@@ -15,7 +15,7 @@ export default function CreateParametro() {
         console.clear();
 
         if (nome !== "" && fator !== "" && unidadeMedida !== "" && offset !== "" && json !== "") {
-            axios.post("http://localhost:30105/api/tipoParametro/cadastrar", {  
+            axios.post("https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tipoParametro/cadastrar", {  
                 nome, 
                 fator, 
                 offset,

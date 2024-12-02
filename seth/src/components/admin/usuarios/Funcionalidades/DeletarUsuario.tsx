@@ -10,7 +10,7 @@ export default function DeleteUsuario() {
 
     function deletar() {
         if (id !== '') {
-            axios.delete(`http://localhost:30105/api/usuario/deletar/${id}`)
+            axios.delete(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/deletar/${id}`)
             .then(() => {
                 alert("Usuário deletado com sucesso!")
                 setId('') 
@@ -25,7 +25,7 @@ export default function DeleteUsuario() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:30105/api/usuarios')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuarios')
         .then((response) => {
             setUsuarios(response.data)
         })

@@ -11,7 +11,7 @@ export default function INTERFACE_CONFIGURAR_ALARMES() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:30105/api/alarmes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
             .then(response => {
                 setAlarmes(response.data);
             })
@@ -22,7 +22,7 @@ export default function INTERFACE_CONFIGURAR_ALARMES() {
 
     const monitorar = () => {
 
-        axios.post('http://localhost:30105/api/alarme/monitorar', {
+        axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/monitorar', {
             cod_alarme: id,
             tempo: tempo,
             tipoTempo

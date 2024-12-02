@@ -14,7 +14,7 @@ export default function DeleteParametroRelacionado() {
 
     function deletar() {
 
-       axios.delete(`http://localhost:30105/api/parametro/${id}`)
+       axios.delete(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/${id}`)
        .then((response) => {
            console.log(response.data)
            alert("Parâmetro deletado com sucesso!")
@@ -40,7 +40,7 @@ export default function DeleteParametroRelacionado() {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:30105/api/parametros`)
+        axios.get(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros`)
         .then((response) => {
             setParametros(response.data)
         })
@@ -48,7 +48,7 @@ export default function DeleteParametroRelacionado() {
             console.error(error)
         })
 
-        axios.get(`http://localhost:30105/api/tiposParametros`)
+        axios.get(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros`)
         .then((response) => {
             setTipoParametro(response.data)
         })

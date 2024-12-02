@@ -23,7 +23,7 @@ export default function EditAlarme() {
     // Carrega os tipos de parâmetros ao montar o componente
     useEffect(() => {
 
-        axios.get('http://localhost:30105/api/alarmes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
         .then(response => {
             setAlarmes(response.data);
             
@@ -32,7 +32,7 @@ export default function EditAlarme() {
             console.error("Erro ao buscar alarmes:", error);
         });
 
-        axios.get('http://localhost:30105/api/parametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
             .then(response => {
                 setParametro(response.data);
             })
@@ -46,7 +46,7 @@ export default function EditAlarme() {
                 
                 setEncontrado(false)
 
-                axios.get(`http://localhost:30105/api/alarme/buscar/${id}`)
+                axios.get(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/buscar/${id}`)
                 .then(response => {
                     setAlarme(response.data);
                     setNome(response.data.nome);
@@ -73,7 +73,7 @@ export default function EditAlarme() {
 
     function editar() {
         if (codParametro !== 0 ) { 
-            axios.put(`http://localhost:30105/api/alarme/atualizar/${id}`, {
+            axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/atualizar/${id}`, {
                 nome,
                 valor,
                 condicao,

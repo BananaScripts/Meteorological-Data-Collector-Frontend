@@ -18,14 +18,14 @@ export default function INTERFACE_CONTROLE_ALARMES() {
     console.log(noerro)
 
     const atualizarAlarmes = () => {
-        axios.get('http://localhost:30105/api/alarmes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
             .then((response) => {
                 setAlarmes(response.data); 
             })
             .catch((error) => {
                 console.error(error);
             });
-            axios.get('http://localhost:30105/api/tiposParametros')
+            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
             .then((response) => {
                 setTipoParametro(response.data); 
             })
@@ -33,7 +33,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
                 console.error(error);
             });
 
-            axios.get('http://localhost:30105/api/parametros')
+            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
             .then((response) => {
                 setParametros(response.data);
             })

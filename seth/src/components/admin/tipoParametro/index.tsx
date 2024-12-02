@@ -12,7 +12,7 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
 
 
     const atualizarParametros = () => {
-      axios.get('http://localhost:30105/api/tiposParametros')
+      axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
           .then((response) => {
               setTiposParametros(response.data); 
           })

@@ -28,7 +28,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:30105/api/login', { cpf, senha: password });
+            const response = await axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/login', { cpf, senha: password });
             if (response.status === 202) {
                 const userData = {
                      ...response.data.usuario,
@@ -47,7 +47,7 @@ const ContentLogin: React.FC<ContentLoginProps> = ({ onCloseOtherComponents }) =
     const handleRegister = async () => {
         try {
             if (registerUsername && registerBirthDate && registerCpf && registerEmail && registerPassword) {
-                axios.post('http://localhost:30105/api/usuario/cadastrar', { registerUsername, registerBirthDate, registerCpf, registerEmail, registerPassword })
+                axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/cadastrar', { registerUsername, registerBirthDate, registerCpf, registerEmail, registerPassword })
                     .then(() => {
                         setRegisterUsername('');
                         setRegisterEmail('');

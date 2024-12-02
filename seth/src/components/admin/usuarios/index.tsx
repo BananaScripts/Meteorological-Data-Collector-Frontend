@@ -11,7 +11,7 @@ export default function INTERFACE_CONTROLE_USUARIOS() {
     const [actionType, setActionType] = useState<number | null>(null);
 
     const atualizarUsuarios = () => {
-      axios.get('http://localhost:30105/api/usuarios')
+      axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuarios')
           .then((response) => {
               setUsuarios(response.data); 
           })

@@ -27,7 +27,7 @@ export default function EditarParametroRelacionado() {
 
 
     function buscar() {
-        axios.get('http://localhost:30105/api/parametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
         .then((response) => {
             setParametros(response.data)
         })
@@ -35,7 +35,7 @@ export default function EditarParametroRelacionado() {
             console.error(error)
         })
 
-        axios.get('http://localhost:30105/api/tiposParametros') 
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros') 
         .then((response) => {
             setTipoParametro(response.data)
         })
@@ -43,7 +43,7 @@ export default function EditarParametroRelacionado() {
             console.error(error)
         })
 
-        axios.get('http://localhost:30105/api/estacoes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
         .then((response) => {
             setEstacoes(response.data)
         })
@@ -67,7 +67,7 @@ export default function EditarParametroRelacionado() {
         formatar()
 
         if (id){
-            axios.get(`http://localhost:30105/api/parametro/${id}`)
+            axios.get(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/${id}`)
             .then((response) => {
                 setIdParametro(response.data.cod_tipoParametro)
                 setIdEstacaoParametro(response.data.cod_estacao)
@@ -81,7 +81,7 @@ export default function EditarParametroRelacionado() {
 
 
     function editarParametro () {
-        axios.put(`http://localhost:30105/api/parametro/atualizar/${id}`, {cod_tipoParametro: idParametro, cod_estacao: idEstacaoParametro})
+        axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/atualizar/${id}`, {cod_tipoParametro: idParametro, cod_estacao: idEstacaoParametro})
         .then((response) => {
             
             alert("Parâmetro editado com sucesso!")

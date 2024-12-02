@@ -18,7 +18,7 @@ export default function EditParametro() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:30105/api/tiposParametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
             .then(response => {
                 setTipoParametro(response.data);
             })
@@ -64,7 +64,7 @@ export default function EditParametro() {
 
 
         if (nome !== '' && fator !== '' && unidadeMedida !== '' && json !== '') {
-            axios.put(`http://localhost:30105/api/tipoParametro/atualizar/${id}`, {
+            axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tipoParametro/atualizar/${id}`, {
                 nome,
                 fator,
                 offset: offsetDefault,

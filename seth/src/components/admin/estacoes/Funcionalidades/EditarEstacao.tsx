@@ -24,7 +24,7 @@ export default function EditEstacao() {
 
     useEffect(() => {
 
-        axios.get('http://localhost:30105/api/estacoes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
         .then((response) => {
             setEstacoes(response.data)
         })
@@ -32,7 +32,7 @@ export default function EditEstacao() {
             console.error(error)
         })
 
-        axios.get('http://localhost:30105/api/parametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
         .then((response) => {
             setParametros(response.data)
         })
@@ -79,7 +79,7 @@ export default function EditEstacao() {
         let numeroDefault = numero == 0 ? numero : 0
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
-            axios.put(`http://localhost:30105/api/estacao/atualizar/${id}`, {
+            axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/atualizar/${id}`, {
                 nome,
                 macAdress,
                 cidade: cidadeDefault,

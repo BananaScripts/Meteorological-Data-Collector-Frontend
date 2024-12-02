@@ -10,7 +10,7 @@ export default function DeleteParametro() {
     const [tiposParametros, setTiposParametros] = useState<Array<tipoParametro>>([])
 
     function deletar() {
-        axios.delete(`http://localhost:30105/api/tipoParametro/deletar/${id}`)
+        axios.delete(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tipoParametro/deletar/${id}`)
 
         
 
@@ -28,7 +28,7 @@ export default function DeleteParametro() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:30105/api/tiposParametros')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
         .then((response) => {
             setTiposParametros(response.data);
             

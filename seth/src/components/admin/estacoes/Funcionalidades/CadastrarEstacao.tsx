@@ -22,7 +22,7 @@ export default function CreateEstacao() {
 
 
         if(nome !== '' && macAdress !== '' && cep !== ''){
-            axios.post('http://localhost:30105/api/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep: cep.toString() })
+            axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/cadastrar', {nome, macAdress , cidade:cidadeDefault, estado:estadoDefault, numero:numeroDefault, cep: cep.toString() })
             .then(()=>{
                 setNome('')
                 setMacAdress('')

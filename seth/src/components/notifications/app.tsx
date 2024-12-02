@@ -19,7 +19,7 @@ const NotificationsBar: React.FC = () => {
   
     // Função para buscar alarmes do backend
     const atualizarAlarmes = () => {
-      axios.get('http://localhost:30105/api/alarmes')
+      axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
         .then((response) => {
           setAlarmes(response.data); 
         })
@@ -27,7 +27,7 @@ const NotificationsBar: React.FC = () => {
           console.error("Erro ao buscar dados dos alarmes:", error);
         });
 
-        axios.get('http://localhost:30105/api/histAlarmes')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/histAlarmes')
         .then((response) => {
           setAcionados(response.data); 
         })

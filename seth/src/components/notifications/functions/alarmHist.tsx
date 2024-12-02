@@ -29,7 +29,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
   // Função para buscar os tipos de parâmetros
   const fetchTiposParametros = async () => {
     try {
-      const response = await axios.get('http://localhost:30105/api/tiposParametros');
+      const response = await axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros');
       setTiposParametros(response.data);
     } catch (error) {
       console.error('Erro ao buscar tipos de parâmetros:', error);

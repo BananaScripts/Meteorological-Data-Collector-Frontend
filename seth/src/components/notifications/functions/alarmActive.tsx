@@ -15,8 +15,8 @@ const NotificationAlert: React.FC = () => {
     try {
       // Busca alarmes e histórico de alarmes
       const [alarmesResponse, histAlarmesResponse] = await Promise.all([
-        axios.get('http://localhost:30105/api/alarmes'),
-        axios.get('http://localhost:30105/api/histAlarmes'),
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes'),
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/histAlarmes'),
       ]);
 
       const currentAlarmes = alarmesResponse.data;
