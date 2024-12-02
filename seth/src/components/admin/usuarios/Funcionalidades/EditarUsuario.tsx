@@ -1,51 +1,55 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./index.css"
+import "../../main.css";
+
+import { Usuario } from "../../../../types/usuario"
 
 export default function EditUsuario() {
 
-    const [id, setId] = useState('')
+    const [id, setId] = useState(0)
+    const [editando, setEditando] = useState(false)
+
     const [usuario, setUsuario] = useState(null)
+    const [usuarios, setUsuarios] = useState<Array<Usuario>>([])
     const [nome, setNome] = useState('')
     const [dataNascimento, setDataNascimento] = useState('')
     const [cpf, setCpf] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [role, setRole] = useState('')
 
-    const[encontrado, setEncontrado] = useState(true)
+    console.log(usuario)
 
     useEffect(() => {
-        if (id) {
-            axios.get(`http://localhost:30105/api/usuario/${id}`)
-                .then(response => {
-                    const usuarioData = response.data[0]
-                    if (usuarioData) {
-                        setEncontrado(true)
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuarios')
+        .then((response) => {
+            setUsuarios(response.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
 
-                        const { nome, dataNascimento, cpf, email, senha } = usuarioData
 
-                        const dataNascimentoFormatada = new Date(dataNascimento).toISOString().split('T')[0];
+        if (id !== 0) {
+            const foundUser = usuarios.find(u => u.cod_usuario === id);
+            
+            if (foundUser) {
+                setEditando(true)
+                const dataformatada = new Date(foundUser.dataNascimento).toISOString().split('T')[0];
+                setNome(foundUser.nome);
+                setDataNascimento(dataformatada);
+                setCpf(foundUser.cpf);
+                setEmail(foundUser.email);
+                setSenha(foundUser.senha);
+                setRole(foundUser.role);
 
-                        setUsuario(usuarioData)
-                        setNome(nome)
-                        setDataNascimento(dataNascimentoFormatada)
-                        setCpf(cpf)
-                        setEmail(email)
-                        setSenha(senha)
-                    }
-                })
-                .catch(error => {
-                    setEncontrado(false)
+            } else {
 
-                    console.error("Erro ao buscar o usuário:", error)
-                    
-                    resetForm()
-                })
-        } else {
-            setEncontrado(true)
-            resetForm()
+                setEditando(false)
+                resetForm();
+            }
         }
-    }, [id])
+    }, [id, usuarios])
 
     function resetForm() {
         setUsuario(null)
@@ -54,16 +58,19 @@ export default function EditUsuario() {
         setCpf('')
         setEmail('')
         setSenha('')
+        setRole('')
     }
 
     function editar() {
-        if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '') {
-            axios.put(`http://localhost:30105/api/usuario/atualizar/${id}`, {
+        if (nome !== '' && dataNascimento !== '' && cpf !== '' && email !== '' && senha !== '' && role !== '') {
+
+            axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuario/atualizar/${id}`, {
                 nome,
                 dataNascimento,
                 cpf,
                 email,
-                senha
+                senha,
+                role
             })
             .then(() => {
                 alert("Usuário Editado com Sucesso!")
@@ -89,18 +96,18 @@ export default function EditUsuario() {
 
             <div id="Inputs_Camp">
                 <p>
-                    ID do Usuário:
-                    <input type="text" value={id} onChange={(event) => setId(event.target.value)} placeholder="Digite o ID" />
-                </p>
 
-                
-                {!encontrado && (
-                    <p>*Usuário não encontrado</p>
-                )}
+                    <select value={id} onChange={(event) => setId(parseInt(event.target.value))}>
+                        <option value="">Selecione um Usuário</option>
+                            {usuarios.map((usuario) => (
+                                <option key={usuario.cod_usuario} value={usuario.cod_usuario}>{usuario.nome}</option>
+                            ))}    
+                    </select>
+                </p>
 
                 <hr />
 
-                {usuario && (
+                {editando && (
                     <>
                         <p>
                             Nome:
@@ -126,12 +133,21 @@ export default function EditUsuario() {
                             Senha:
                             <input type="password" value={senha} onChange={(event) => setSenha(event.target.value)} placeholder="(*Obrigatório)" />
                         </p>
+
+                        <p>
+                            Privilégio:
+                            <select value={role} onChange={(event) => setRole(event.target.value)}>
+                                <option value="admin">Administrador</option>
+                                <option value="user">Usuário</option>
+                            </select>
+
+                        </p>
                     </>
                 )}
             </div>
 
             <div id="Action">
-                <button onClick={editar} disabled={!usuario}>
+                <button onClick={editar} disabled={!editando}>
                     Editar
                 </button>
             </div>

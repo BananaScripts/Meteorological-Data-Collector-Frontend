@@ -3,12 +3,12 @@ import "./app.css"
 import { Alarme } from '../../types/alarme';
 import axios from 'axios';
 import NotificationHist from './functions/alarmHist';
+import { HistAlarme } from '../../types/histAlarme';
 
 
 const NotificationsBar: React.FC = () => {
     const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
-    const [acionados] = useState<Alarme[]>([]);
-    const [ativosMonitorados, setAtivosMonitorados] = useState(0);
+    const [acionados, setAcionados] = useState<Array<HistAlarme>>([]);
     const [seeMore, setSeeMore] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -19,7 +19,7 @@ const NotificationsBar: React.FC = () => {
   
     // Função para buscar alarmes do backend
     const atualizarAlarmes = () => {
-      axios.get('http://localhost:30105/api/alarmes')
+      axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
         .then((response) => {
           setAlarmes(response.data); 
         })
@@ -27,29 +27,24 @@ const NotificationsBar: React.FC = () => {
           console.error("Erro ao buscar dados dos alarmes:", error);
         });
 
-
-    };
-  
-    // Função para buscar quantidade de ativos monitorados
-    const atualizarAtivosMonitorados = () => {
-      axios.get('http://localhost:30105/api/ativosMonitorados')
+        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/histAlarmes')
         .then((response) => {
-          setAtivosMonitorados(response.data.quantidade); 
+          setAcionados(response.data); 
         })
         .catch((error) => {
           console.error("Erro ao buscar dados dos ativos monitorados:", error);
         });
+
+
     };
   
     // useEffect para buscar alarmes e ativos monitorados ao montar o componente
     useEffect(() => {
       atualizarAlarmes();
-      atualizarAtivosMonitorados();
-    }, []); // Executa apenas uma vez, ao montar o componente
+    }); // Executa apenas uma vez, ao montar o componente
   
     
   console.log (alarmes)
-  console.log(ativosMonitorados)
 
   return (
     <>

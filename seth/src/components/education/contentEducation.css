@@ -155,3 +155,13 @@ h1{
 .aulas{
     font-size: large;
 }
+
+
+@media screen and (max-width: 525px) {
+
+    .fundinho {
+      height: 150px
+  
+    }
+    
+  }

@@ -6,5 +6,5 @@ export type Usuario = {
     cpf: string
     email: string
     senha: string
-
+    role: string
 }

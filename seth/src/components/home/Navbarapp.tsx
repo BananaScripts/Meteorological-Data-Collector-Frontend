@@ -48,6 +48,8 @@ const Navbar: React.FC<NavbarProps> = ({ sections, toggleSection }) => {
     fontFamily: 'Montserrat, sans-serif',
     padding: '12px',
     cursor: 'pointer',
+    marginLeft: '25vh',
+    marginRight: '25vh',
     borderRadius: '6px',
     transition: 'all 0.3s ease',
     border: 'none',

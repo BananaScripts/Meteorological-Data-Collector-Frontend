@@ -9,3 +9,6 @@ export default {
 };
 
 console.log('jest.config.ts loaded');
+
+
+errorOnDeprecated: process.env.CI === 'false'
