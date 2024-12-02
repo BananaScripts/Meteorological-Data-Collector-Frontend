@@ -73,10 +73,12 @@ const DataDisplay = () => {
             {dados.map((item) => {
               // Encontre o nome do parâmetro correspondente
               const parametro = tiposParametros.find(param => param.cod_tipoParametro === Number(item._id));
+              const parametroNome = parametro ? parametro.nome : 'Desconhecido';
 
               return (
                 <tr key={item._id}>
                 <td>{item._id}</td>
+                <td>{parametroNome}</td>
                 <td>{item.uid}</td>
                 <td>{item.unx}</td>
                 <td>{item.temp}</td>
