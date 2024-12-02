@@ -72,7 +72,7 @@ const DataDisplay = () => {
           <tbody>
             {dados.map((item) => {
               // Encontre o nome do parâmetro correspondente
-              const parametro = tiposParametros.find(param => param.cod_tipoParametro === item._id);
+              const parametro = tiposParametros.find(param => param.cod_tipoParametro === Number(item._id));
               const parametroNome = parametro ? parametro.nome : 'Desconhecido';
 
               return (
