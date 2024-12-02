@@ -13,7 +13,7 @@ export default function DeleteEstacao() {
 
     function deletar() {
 
-        if (estacoes.find((estacao) => estacao.cod_estacao === id) != undefined) {
+        if (estacoes.find((estacao) => estacao.cod_estacao === id) !== undefined) {
 
             const estacao = estacoes.find((estacao) => estacao.cod_estacao === id)
 

@@ -9,7 +9,6 @@ import INTERFACE_CONTROLE_PARAMETROS from "./tipoParametro";
 import INTERFACE_CONFIGURAR_ALARMES from "./alarmes/Funcionalidades/ConfigurarAlarme";
 /* import INTERFACE_DADOS_ESTACOES from "./dados"; */
 
-import imagemAlarme from "../../assets/imgs/climate-change.png"
 import imagemEstacao from "../../assets/imgs/climate-change(1).png"
 import INTERFACE_CONTROLE_PARAMETROSRELACIONADO from "./parametro";
 

@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react"
 
-import { Usuario } from "../../../../types/usuario"
 import axios from "axios"
 import "../../main.css";
 import { Estacao } from "../../../../types/estacao";
-import { Parametro } from "../../../../types/parametro";
 import { tipoParametro } from "../../../../types/tipoParametro";
 
 export default function CreateParametroRelacionado() {

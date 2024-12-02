@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 import { tipoParametro, UnidadeMedida } from "../../../../types/tipoParametro"
-import e from "cors"
 import "../../main.css";
 
 export default function EditParametro() {
@@ -48,7 +47,7 @@ export default function EditParametro() {
                 resetForm();
             }
         }
-    }, [id])
+    })
 
     function resetForm() {
         setNome('')

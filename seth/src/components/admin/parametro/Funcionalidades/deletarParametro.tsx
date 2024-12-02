@@ -58,7 +58,7 @@ export default function DeleteParametroRelacionado() {
 
         formatar()
 
-    }, [])
+    })
 
     return(
         <>

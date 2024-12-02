@@ -49,7 +49,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
         atualizarEstacoes(); 
 
 
-    }, []);
+    });
 
 
 

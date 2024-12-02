@@ -18,6 +18,7 @@ export default function EditUsuario() {
     const [senha, setSenha] = useState('')
     const [role, setRole] = useState('')
 
+    console.log(usuario)
 
     useEffect(() => {
         axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/usuarios')
@@ -48,7 +49,7 @@ export default function EditUsuario() {
                 resetForm();
             }
         }
-    }, [id])
+    })
 
     function resetForm() {
         setUsuario(null)

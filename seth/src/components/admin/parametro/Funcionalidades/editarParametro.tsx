@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 
-import { Usuario } from "../../../../types/usuario"
 import axios from "axios"
 import "../../main.css";
 import { Estacao } from "../../../../types/estacao";
@@ -24,6 +23,8 @@ export default function EditarParametroRelacionado() {
     const [parametrosFormatados, setParametrosFormatados] = useState<Array<Parametro & {parametroNome: string}>>([])
 
     const [encontrado, setEncontrado] = useState(true)
+
+    console.log(setEncontrado)
 
 
     function buscar() {
@@ -76,7 +77,7 @@ export default function EditarParametroRelacionado() {
                 console.error(error)
             })
         }
-    }, [])
+    })
 
 
 

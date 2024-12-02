@@ -21,6 +21,9 @@ export default function EditEstacao() {
 
     const[encontrado, setEncontrado] = useState(true)
 
+    const noerror = estacao && parametros;
+    console.log(noerror)
+
 
     useEffect(() => {
 
@@ -66,7 +69,7 @@ export default function EditEstacao() {
 
             
             }
-        }, [id])
+        })
 
 
     function editar() {
@@ -76,7 +79,7 @@ export default function EditEstacao() {
 
         let cidadeDefault = cidade !== '' ? cidade : 'Não informado'
         let estadoDefault = estado !== '' ? estado : 'Não informado'
-        let numeroDefault = numero == 0 ? numero : 0
+        let numeroDefault = numero === 0 ? numero : 0
 
         if (nome !== '' && macAdress !== '' && cep !== '' ) {
             axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacao/atualizar/${id}`, {

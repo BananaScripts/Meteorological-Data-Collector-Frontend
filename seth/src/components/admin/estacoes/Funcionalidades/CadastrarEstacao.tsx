@@ -17,7 +17,7 @@ export default function CreateEstacao() {
 
         let cidadeDefault = cidade !== '' ? cidade : 'Não informado'
         let estadoDefault = estado !== '' ? estado : 'Não informado'
-        let numeroDefault = numero == 0 ? numero : 0
+        let numeroDefault = numero === 0 ? numero : 0
 
 
 
