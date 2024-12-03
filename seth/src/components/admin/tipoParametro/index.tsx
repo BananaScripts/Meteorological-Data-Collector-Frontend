@@ -81,6 +81,7 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
                   <th>Fator</th>
                   <th>Offset</th>
                   <th>Unidade de Medida</th>
+                  <th>Sigla</th>
                 </tr>
 
               </thead>
@@ -92,6 +93,7 @@ export default function INTERFACE_CONTROLE_PARAMETROS() {
                       <td>{tipoParametro.fator}</td>
                       <td>- {tipoParametro.offset}</td>
                       <td>{tipoParametro.unidadeMedida}</td>
+                      <td>{tipoParametro.json}</td>
 
                     </tr>
                   ))}

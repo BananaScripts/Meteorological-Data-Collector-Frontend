@@ -39,7 +39,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
   // useEffect para buscar os tipos de parâmetros ao montar o componente
   useEffect(() => {
     fetchTiposParametros();
-  });
+  }, []);
 
   // useEffect para inicializar o gráfico
   useEffect(() => {
@@ -74,7 +74,7 @@ const NotificationHist: React.FC<NotificationHistProps> = ({ alarmes, acionados 
         chartRef.current.destroy();
       }
     };
-  }); // Executa apenas uma vez ao montar o componente
+  }, [alarmes.length, acionados.length]); // Executa apenas uma vez ao montar o componente
 
   // Atualiza os dados do gráfico
   useEffect(() => {

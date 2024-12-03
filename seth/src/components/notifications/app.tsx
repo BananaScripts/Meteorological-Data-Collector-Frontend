@@ -41,10 +41,9 @@ const NotificationsBar: React.FC = () => {
     // useEffect para buscar alarmes e ativos monitorados ao montar o componente
     useEffect(() => {
       atualizarAlarmes();
-    }); // Executa apenas uma vez, ao montar o componente
+    }, [alarmes, acionados]); // Executa apenas uma vez, ao montar o componente
   
     
-  console.log (alarmes)
 
   return (
     <>

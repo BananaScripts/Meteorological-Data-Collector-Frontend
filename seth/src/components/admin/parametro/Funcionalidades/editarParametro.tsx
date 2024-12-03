@@ -72,17 +72,22 @@ export default function EditarParametroRelacionado() {
             .then((response) => {
                 setIdParametro(response.data.cod_tipoParametro)
                 setIdEstacaoParametro(response.data.cod_estacao)
+                setEncontrado(true)
             })
             .catch((error) => {
                 console.error(error)
             })
         }
-    })
+    },  [id])
 
 
 
     function editarParametro () {
-        axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/atualizar/${id}`, {cod_tipoParametro: idParametro, cod_estacao: idEstacaoParametro})
+        axios.put(`https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametro/atualizar/${id}`, 
+            {
+                cod_tipoParametro: idParametro, 
+                cod_estacao: idEstacaoParametro
+            })
         .then((response) => {
             
             alert("Parâmetro editado com sucesso!")
@@ -119,7 +124,7 @@ export default function EditarParametroRelacionado() {
                     
                     <hr />
 
-                {encontrado && (
+                {!encontrado && (
                 <>
                         
 

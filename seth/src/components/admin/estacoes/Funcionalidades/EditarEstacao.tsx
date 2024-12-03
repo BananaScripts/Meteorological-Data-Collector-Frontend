@@ -69,7 +69,7 @@ export default function EditEstacao() {
 
             
             }
-        }, [id, estacoes])
+        }, [id])
 
 
     function editar() {
@@ -116,7 +116,7 @@ export default function EditEstacao() {
                         <select value={id} onChange={(event) => setId(parseInt(event.target.value))}>
                             <option value="">Selecione um Usuário</option>
                                 {estacoes.map((estacao) => (
-                                    <option key={estacao.cod_estacao} value={estacao.cod_estacao}>{estacao.cod_estacao}</option>
+                                    <option key={estacao.cod_estacao} value={estacao.cod_estacao}>{estacao.nome}</option>
                                 ))}    
                         </select>
                     </p>

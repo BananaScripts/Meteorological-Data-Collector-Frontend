@@ -137,6 +137,7 @@ export default function EditUsuario() {
                         <p>
                             Privilégio:
                             <select value={role} onChange={(event) => setRole(event.target.value)}>
+                                <option value="">Selecione um Privilégio</option>
                                 <option value="admin">Administrador</option>
                                 <option value="user">Usuário</option>
                             </select>

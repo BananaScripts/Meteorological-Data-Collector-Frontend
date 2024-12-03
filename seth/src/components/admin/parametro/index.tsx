@@ -17,30 +17,30 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
     const [estacoes, setEstacoes] = useState<Array<Estacao>>([]);
     const [actionType, setActionType] = useState<number | null>(null);
 
-    const atualizarEstacoes = () => {
-        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
-            .then((response) => {
-                setParametros(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const atualizarEstacoes = () => {
+            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
+                .then((response) => {
+                    setParametros(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
 
-        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros') 
-            .then((response) => {
-                setTipoParametro(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros') 
+                .then((response) => {
+                    setTipoParametro(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
 
-        axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
-            .then((response) => {
-                setEstacoes(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/estacoes')
+                .then((response) => {
+                    setEstacoes(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
 
 
     };
@@ -49,7 +49,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
         atualizarEstacoes(); 
 
 
-    });
+    }, []);
 
 
 
@@ -75,7 +75,7 @@ export default function INTERFACE_CONTROLE_PARAMETROSRELACIONADO() {
 
     useEffect(() => {
         formatar()
-    })
+    }, [parametros, estacoes, tipoParametro])
     
 
 

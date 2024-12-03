@@ -11,7 +11,12 @@ const NotificationAlert: React.FC = () => {
   const [newAlarme, setNewAlarme] = useState<Alarme | null>(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  console.log(alarmes, histAlarmes);
+
+  const noerro = ( histAlarmes && alarmes)
+  if (!noerro) {
+    console.log(noerro)
+  }
+
 
   const fetchData = async () => {
     try {
@@ -64,7 +69,7 @@ const NotificationAlert: React.FC = () => {
 
     // Limpa o intervalo quando o componente for desmontado
     return () => clearInterval(interval);
-  }); // Dependência para verificar mudanças no comprimento do histórico
+  }, [prevHistLength]); // Dependência para verificar mudanças no comprimento do histórico
 
   return (
     <div>

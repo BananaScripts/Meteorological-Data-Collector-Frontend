@@ -9,13 +9,13 @@ import { tipoParametro } from "../../../types/tipoParametro";
 
 export default function INTERFACE_CONTROLE_ALARMES() {
     const [alarmes, setAlarmes] = useState<Array<Alarme>>([]);
-    const [tipoParametro, setTipoParametro] = useState<Array<tipoParametro>>([]);
     const [alarmesFormatados, setAlarmesFormatados] = useState<Array<Alarme & { tipoParametroNome?: string }>>([]);
-    const [parametros, setParametros] = useState<Array<Parametro>>([]);
     const [actionType, setActionType] = useState<number | null>(null);
 
-    const noerro = (tipoParametro && alarmesFormatados && parametros && actionType !== null)
-    console.log(noerro)
+    const noerro = (alarmesFormatados && actionType !== null)
+     if (noerro) {
+        console.log(noerro) 
+    }                                                                                                                                           
 
     const atualizarAlarmes = () => {
         axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarmes')
@@ -25,21 +25,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
             .catch((error) => {
                 console.error(error);
             });
-            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/tiposParametros')
-            .then((response) => {
-                setTipoParametro(response.data); 
-            })
-            .catch((error) => {
-                console.error(error);
-            });
 
-            axios.get('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/parametros')
-            .then((response) => {
-                setParametros(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
 
 
             setAlarmesFormatados(alarmes)
@@ -49,7 +35,7 @@ export default function INTERFACE_CONTROLE_ALARMES() {
     useEffect(() => {
         atualizarAlarmes(); 
 
-    });
+    }, []);
 
 
 

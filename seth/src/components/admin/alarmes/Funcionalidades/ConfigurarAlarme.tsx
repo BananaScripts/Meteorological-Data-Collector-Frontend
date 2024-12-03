@@ -21,11 +21,15 @@ export default function INTERFACE_CONFIGURAR_ALARMES() {
     }, []);
 
     const monitorar = () => {
+        if (id === 0) {
+            alert("Selecione um alarme para monitorar!");
+            return;
+        }
 
         axios.post('https://seth-backend-app-652283507250.southamerica-east1.run.app/api/alarme/monitorar', {
             cod_alarme: id,
             tempo: tempo,
-            tipoTempo
+            tipoTempo: tipoTempo
 
         })
         .then(() => {
@@ -51,10 +55,11 @@ export default function INTERFACE_CONFIGURAR_ALARMES() {
 
                 <p>
                     Alarme a ser monitorado:
-                    <select value={id} onChange={(e)=> setId(Number(e.target.value))}>
+                    <select value={id} onChange={(e) => setId(Number(e.target.value))}>
+                        <option value="0">Selecione um alarme</option>
                         {alarmes.map((alarme) => (
                             <option key={alarme.cod_alarme} value={alarme.cod_alarme}>
-                                {alarme.nome}
+                                {alarme.cod_alarme} - {alarme.nome}
                             </option>
                         ))}
                     </select>

@@ -12,6 +12,7 @@ export enum UnidadeMedida {
 }
 
 export type tipoParametro = {
+    parametroID: number;
     cod_tipoParametro: number;
     nome: string;
     fator: string;

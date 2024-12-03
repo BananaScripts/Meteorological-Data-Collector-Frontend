@@ -59,8 +59,6 @@ export default function AdminComponent() {
 
             <div id="Image_Box" className="caixacinzaclaro">
 
-              <h5>  Ultimos Uploads de Dados nas Ultimas Horas <br /> (EM DESENVOLVIMENTO)</h5>
-
               <img src={imagemEstacao} alt="Ultimos Uploads de Dados" />
 
             </div>
