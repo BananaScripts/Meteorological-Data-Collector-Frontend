@@ -47,7 +47,7 @@ export default function EditParametro() {
                 resetForm();
             }
         }
-    }, [id, tipoParametro])
+    }, [id])
 
     function resetForm() {
         setNome('')

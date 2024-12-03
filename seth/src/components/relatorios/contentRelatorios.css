@@ -45,6 +45,8 @@
     margin-right: 2%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     border: 2px solid gray
+
+
 }
 
 #endUnixTime {
@@ -126,4 +128,34 @@
 
   }
   
+}
+
+.relatorios-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.relatorios-list button {
+  margin: 1%;
+  padding: 1%;
+  width: 85vh;
+  height: 10vh;
+
+  border-radius: 20px;
+  background-color: #323949;
+  border-style: solid;
+  border-width: 0px;
+
+  color: aliceblue;
+  font-size: large;
+}
+
+.relatorios-list button :hover {    
+  background-color: aliceblue;
+  color: black;
+
+  cursor: pointer;
 }
